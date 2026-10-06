@@ -14,10 +14,10 @@ export const siteConfig = {
   headerTagline: "KCET 2027 Counselling",
 
   /** Production URL (used for canonical, OG, sitemap) */
-  websiteUrl: "https://kcetcouncelling.physicspeptalks.in",
+  websiteUrl: "https://kcetcouncelling.physicspeptalk.com",
 
   /** Parent brand website */
-  parentWebsite: "https://physicspeptalks.in",
+  parentWebsite: "https://physicspeptalk.com",
 
   /**
    * WhatsApp number in international format WITHOUT + or spaces.
@@ -44,7 +44,7 @@ export const siteConfig = {
     title: "KCET 2027 Counselling Guidance | College Selection & Option Entry",
     description:
       "Get personalized KCET 2027 counselling guidance for college selection, branch selection and option entry. Get support throughout the counselling process.",
-    ogImage: "https://kcetcouncelling.physicspeptalks.in/images/og-image.png",
+    ogImage: "https://kcetcouncelling.physicspeptalk.com/images/og-image.png",
     keywords: [
       "KCET 2027 Counselling",
       "KCET counselling 2027",
@@ -64,11 +64,11 @@ export const siteConfig = {
   /** Nav links */
   navLinks: [
     { label: "Home", href: "#home" },
+    { label: "Contact", href: "#contact" },
     { label: "Services", href: "#services" },
     { label: "How It Works", href: "#how-it-works" },
     { label: "Testimonials", href: "#testimonials" },
     { label: "FAQs", href: "#faq" },
-    { label: "Contact", href: "#contact" },
   ],
 };
 

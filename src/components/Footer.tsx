@@ -95,7 +95,7 @@ export default function Footer() {
             <ul className="flex flex-col gap-2.5" role="list">
               <li>
                 <a
-                  href="https://physicspeptalks.in/privacy-policy"
+                  href="https://physicspeptalk.com/privacy-policy"
                   className="text-sm text-gray-500 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded"
                 >
                   Privacy Policy
@@ -103,7 +103,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://physicspeptalks.in/terms"
+                  href="https://physicspeptalk.com/terms"
                   className="text-sm text-gray-500 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded"
                 >
                   Terms &amp; Disclaimer

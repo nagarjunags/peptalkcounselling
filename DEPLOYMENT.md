@@ -5,7 +5,7 @@ This project supports deployment to both GitHub Pages repository URLs and custom
 ## Current Configuration
 
 - **GitHub Pages**: https://nagarjunags.github.io/peptalkcounselling/
-- **Future Custom Domain**: kcetcouncelling.physicspeptalks.in
+- **Future Custom Domain**: kcetcouncelling.physicspeptalk.com
 
 ## How It Works
 
@@ -48,7 +48,7 @@ When ready to use the custom domain:
 
 3. **Update GitHub Pages settings:**
    - Go to repository Settings → Pages
-   - Set custom domain: `kcetcouncelling.physicspeptalks.in`
+   - Set custom domain: `kcetcouncelling.physicspeptalk.com`
    - Enable "Enforce HTTPS"
 
 4. **Remove base path from workflow** (optional optimization):

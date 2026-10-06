@@ -52,6 +52,7 @@ export default function App() {
         {/* Main content */}
         <main id="main-content">
           <Hero />
+          <Contact />
           <Services />
           <HowItWorks />
           <OptionEntry />
@@ -60,7 +61,6 @@ export default function App() {
           <RoundSupport />
           <Testimonials />
           <FAQ />
-          <Contact />
           <FinalCTA />
         </main>
 
