@@ -6,7 +6,7 @@ import { useSheetConfig } from "../context/SheetConfigContext";
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { testimonials, loading } = useSheetConfig();
+  const { testimonials, loading, counsellingBatchUrl } = useSheetConfig();
 
   // Hide the Testimonials nav link until we know there are videos
   const hasTestimonials = !loading && testimonials.length > 0;
@@ -71,9 +71,8 @@ export default function Header() {
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
             <a
-              href={buildWhatsAppUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={counsellingBatchUrl || "#contact"}
+              {...(counsellingBatchUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               className="inline-flex items-center gap-2 bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
             >
               Get Counselling
