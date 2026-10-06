@@ -39,7 +39,7 @@ export const siteConfig = {
   email: " Physicspeptalk@gmail.com",
 
   /** Google Analytics 4 Measurement ID — leave empty until configured */
-  ga4MeasurementId: "",
+  ga4MeasurementId: "G-LSBBH9XZ5X",
 
   /** Default WhatsApp message pre-filled when user clicks WhatsApp buttons */
   whatsappDefaultMessage:
