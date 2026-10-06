@@ -56,15 +56,12 @@ jobs:
           echo "--- Script tags in dist/index.html ---"
           grep -E '<script' dist/index.html || echo "(no script tags found)"
           echo ""
-          echo "--- Link tags in dist/index.html ---"
-          grep -E '<link' dist/index.html | grep -E '\.(css|js)' || echo "(no asset link tags)"
-          echo ""
-          echo "--- Checking for /assets/*.js reference ---"
-          if grep -qE 'src="/assets/[^"]+\.js"' dist/index.html; then
+          echo "--- Checking for /peptalkcounselling/assets/*.js reference ---"
+          if grep -qE 'src="/peptalkcounselling/assets/[^"]+\.js"' dist/index.html; then
             echo "✅ Production JS bundle found:"
-            grep -oE 'src="/assets/[^"]+\.js"' dist/index.html
+            grep -oE 'src="/peptalkcounselling/assets/[^"]+\.js"' dist/index.html
           else
-            echo "❌ No production JS bundle found in dist/index.html"
+            echo "❌ No /peptalkcounselling/assets/*.js found in dist/index.html"
             exit 1
           fi
 

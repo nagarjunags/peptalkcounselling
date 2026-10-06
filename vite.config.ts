@@ -3,12 +3,16 @@ import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 
 // https://vite.dev/config/
-// base is always "/" because the site is served from the root of a custom
-// domain (kcetcouncelling.physicspeptalks.in). Never set this to a
-// subdirectory path — doing so breaks all asset references when a CNAME is active.
+//
+// base MUST match the GitHub Pages subdirectory path.
+// The site is served from: https://nagarjunags.github.io/peptalkcounselling/
+// so base = "/peptalkcounselling/"
+//
+// If a custom domain is added later (e.g. kcetcouncelling.physicspeptalks.in),
+// change base back to "/" because the custom domain serves from the root.
 export default defineConfig({
   plugins: [react()],
-  base: "/",
+  base: "/peptalkcounselling/",
   build: {
     outDir: "dist",
     sourcemap: false,
