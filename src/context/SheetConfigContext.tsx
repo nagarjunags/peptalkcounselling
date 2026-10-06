@@ -18,28 +18,28 @@ import {
 import { fetchSheetConfig, type SheetConfig } from "../utils/sheetConfig";
 
 // ─── Default / fallback values ────────────────────────────────────────────────
-// These are used while the sheet is loading OR if the fetch fails.
-// Keep them in sync with siteConfig.ts.
 const DEFAULTS: SheetConfig = {
   year: "2027",
+  counsellingbatchurl: "",
+  counsellingbatchthumbnail: "",
 };
 
 // ─── Context shape ─────────────────────────────────────────────────────────────
 
 interface SheetConfigState {
-  /** All raw key→value pairs from the sheet (merged with defaults) */
   config: SheetConfig;
-  /** Convenience shortcut: the KCET year string */
   year: string;
-  /** True while the initial fetch is in-flight */
+  counsellingBatchUrl: string;
+  counsellingBatchThumbnail: string;
   loading: boolean;
-  /** Non-null if the fetch failed (app still works via defaults) */
   error: Error | null;
 }
 
 const SheetConfigContext = createContext<SheetConfigState>({
   config: DEFAULTS,
   year: DEFAULTS.year,
+  counsellingBatchUrl: "",
+  counsellingBatchThumbnail: "",
   loading: false,
   error: null,
 });
@@ -80,6 +80,8 @@ export function SheetConfigProvider({ children }: { children: ReactNode }) {
   const value: SheetConfigState = {
     config,
     year: config.year ?? DEFAULTS.year,
+    counsellingBatchUrl: config.counsellingbatchurl ?? "",
+    counsellingBatchThumbnail: config.counsellingbatchthumbnail ?? "",
     loading,
     error,
   };
