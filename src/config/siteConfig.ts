@@ -66,6 +66,7 @@ export const siteConfig = {
     { label: "Home", href: "#home" },
     { label: "Services", href: "#services" },
     { label: "How It Works", href: "#how-it-works" },
+    { label: "Testimonials", href: "#testimonials" },
     { label: "FAQs", href: "#faq" },
     { label: "Contact", href: "#contact" },
   ],

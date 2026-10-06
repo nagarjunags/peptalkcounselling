@@ -16,6 +16,7 @@ import {
   type ReactNode,
 } from "react";
 import { fetchSheetConfig, type SheetConfig } from "../utils/sheetConfig";
+import { fetchTestimonials, type Testimonial } from "../utils/testimonialsConfig";
 
 // ─── Default / fallback values ────────────────────────────────────────────────
 const DEFAULTS: SheetConfig = {
@@ -31,6 +32,8 @@ interface SheetConfigState {
   year: string;
   counsellingBatchUrl: string;
   counsellingBatchThumbnail: string;
+  /** Testimonial videos from the testimonials sheet tab */
+  testimonials: Testimonial[];
   loading: boolean;
   error: Error | null;
 }
@@ -40,6 +43,7 @@ const SheetConfigContext = createContext<SheetConfigState>({
   year: DEFAULTS.year,
   counsellingBatchUrl: "",
   counsellingBatchThumbnail: "",
+  testimonials: [],
   loading: false,
   error: null,
 });
@@ -48,6 +52,7 @@ const SheetConfigContext = createContext<SheetConfigState>({
 
 export function SheetConfigProvider({ children }: { children: ReactNode }) {
   const [config, setConfig] = useState<SheetConfig>(DEFAULTS);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -56,15 +61,18 @@ export function SheetConfigProvider({ children }: { children: ReactNode }) {
 
     async function load() {
       try {
-        const remote = await fetchSheetConfig();
+        // Fetch config and testimonials in parallel
+        const [remote, testimonialsData] = await Promise.all([
+          fetchSheetConfig(),
+          fetchTestimonials(),
+        ]);
         if (!cancelled) {
-          // Merge: remote values override defaults, but missing keys keep defaults
           setConfig({ ...DEFAULTS, ...remote });
+          setTestimonials(testimonialsData);
         }
       } catch (err) {
         if (!cancelled) {
           setError(err instanceof Error ? err : new Error(String(err)));
-          // Keep defaults on error — already set in useState
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -82,6 +90,7 @@ export function SheetConfigProvider({ children }: { children: ReactNode }) {
     year: config.year ?? DEFAULTS.year,
     counsellingBatchUrl: config.counsellingbatchurl ?? "",
     counsellingBatchThumbnail: config.counsellingbatchthumbnail ?? "",
+    testimonials,
     loading,
     error,
   };

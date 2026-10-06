@@ -11,6 +11,7 @@ import Contact from "./components/Contact";
 import FinalCTA from "./components/FinalCTA";
 import Footer from "./components/Footer";
 import MobileCTA from "./components/MobileCTA";
+import Testimonials from "./components/Testimonials";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import { SheetConfigProvider } from "./context/SheetConfigContext";
@@ -57,6 +58,7 @@ export default function App() {
           <WhatYouGet />
           <TrustSection />
           <RoundSupport />
+          <Testimonials />
           <FAQ />
           <Contact />
           <FinalCTA />

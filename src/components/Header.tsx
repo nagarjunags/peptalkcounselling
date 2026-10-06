@@ -1,10 +1,18 @@
 import { useState, useEffect } from "react";
 import { siteConfig, buildWhatsAppUrl } from "../config/siteConfig";
 import peptalkLogo from "../assets/peptalklogo.png";
+import { useSheetConfig } from "../context/SheetConfigContext";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { testimonials, loading } = useSheetConfig();
+
+  // Hide the Testimonials nav link until we know there are videos
+  const hasTestimonials = !loading && testimonials.length > 0;
+  const navLinks = siteConfig.navLinks.filter(
+    (link) => link.href !== "#testimonials" || hasTestimonials
+  );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -49,7 +57,7 @@ export default function Header() {
             className="hidden md:flex items-center gap-6"
             aria-label="Main navigation"
           >
-            {siteConfig.navLinks.map((link) => (
+            {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -104,7 +112,7 @@ export default function Header() {
             className="flex flex-col px-4 py-3 gap-1"
             aria-label="Mobile navigation"
           >
-            {siteConfig.navLinks.map((link) => (
+            {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
