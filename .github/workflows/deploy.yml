@@ -43,6 +43,35 @@ jobs:
           # This ensures assets are served from /peptalkcounselling/assets/...
           VITE_BASE_PATH: /peptalkcounselling/
 
+      - name: Verify GitHub Pages base path
+        run: |
+          echo "===== GENERATED dist/index.html HEAD ====="
+          head -20 dist/index.html
+          echo ""
+          echo "===== GENERATED ASSET REFERENCES ====="
+          echo "Script tags:"
+          grep -o 'src="[^"]*\.js"' dist/index.html || echo "No JS found"
+          echo "CSS links:"  
+          grep -o 'href="[^"]*\.css"' dist/index.html || echo "No CSS found"
+          echo "Favicon:"
+          grep -o 'href="[^"]*favicon[^"]*"' dist/index.html || echo "No favicon found"
+          echo ""
+          echo "===== VERIFYING GITHUB PAGES BASE PATH ====="
+          if grep -q '/peptalkcounselling/assets/' dist/index.html; then
+            echo "✅ SUCCESS: GitHub Pages base path is correct"
+            echo "Found JS: $(grep -o '/peptalkcounselling/assets/[^"]*\.js' dist/index.html | head -1)"
+            echo "Found CSS: $(grep -o '/peptalkcounselling/assets/[^"]*\.css' dist/index.html | head -1)"
+          else
+            echo "❌ ERROR: GitHub Pages base path is incorrect"
+            echo "Expected /peptalkcounselling/assets/ in dist/index.html but found:"
+            grep -o 'src="[^"]*"' dist/index.html | head -5
+            echo "Full file paths in dist:"
+            ls -la dist/ || echo "No dist directory"
+            echo "Environment variables during build:"
+            echo "VITE_BASE_PATH: ${VITE_BASE_PATH:-'(not set)'}"
+            exit 1
+          fi
+
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
