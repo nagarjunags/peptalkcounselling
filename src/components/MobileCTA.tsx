@@ -1,4 +1,5 @@
 import { buildWhatsAppUrl, buildPhoneUrl, siteConfig } from "../config/siteConfig";
+import { trackWhatsAppClick, trackCallClick } from "../utils/analytics";
 
 export default function MobileCTA() {
   const phoneUrl = buildPhoneUrl();
@@ -15,6 +16,7 @@ export default function MobileCTA() {
           href={buildWhatsAppUrl()}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackWhatsAppClick("mobile_cta_bar")}
           className="flex-1 flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-inset"
         >
           <svg
@@ -34,6 +36,7 @@ export default function MobileCTA() {
         {phoneUrl !== "#" ? (
           <a
             href={phoneUrl}
+            onClick={() => trackCallClick("mobile_cta_bar")}
             className="flex-1 flex items-center justify-center gap-2 bg-brand-700 hover:bg-brand-800 text-white font-semibold text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-inset"
           >
             <svg

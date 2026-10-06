@@ -36,7 +36,7 @@ export const siteConfig = {
   phoneNumber: "9986555819",
 
   /** Contact email */
-  email: " Physicspeptalk@gmail.com",
+  email: "Physicspeptalk@gmail.com",
 
   /** Google Analytics 4 Measurement ID — leave empty until configured */
   ga4MeasurementId: "G-LSBBH9XZ5X",

@@ -7,14 +7,14 @@
     <!-- ================================================
          Primary SEO
          ================================================ -->
-    <title>KCET 2027 Counselling Guidance | College Selection &amp; Option Entry</title>
+    <title>KCET 2027 Counselling Guidance | College Selection &amp; Option Entry — Physics Pep Talk</title>
     <meta
       name="description"
-      content="Get personalized KCET 2027 counselling guidance for college selection, branch selection and option entry. Get support throughout the counselling process."
+      content="Get personalized KCET 2027 counselling guidance from Physics Pep Talk. Rank-based college selection, branch selection, option entry strategy and round-by-round support throughout the Karnataka engineering counselling process."
     />
     <meta
       name="keywords"
-      content="KCET 2027 Counselling, KCET counselling 2027, KCET 2027 counselling guidance, KCET college counselling, KCET option entry, KCET option entry guidance, KCET college selection, KCET counselling help, KCET engineering counselling, KCET counselling Karnataka, KCET engineering college selection, KCET counselling service"
+      content="KCET 2027 counselling, KCET counselling guidance, KCET college selection, KCET option entry, KCET counselling Karnataka, KCET engineering counselling, KCET 2027 college selection, KCET branch selection, KCET seat allotment guidance, KCET choice filling"
     />
     <meta name="author" content="Physics Pep Talk" />
     <meta name="robots" content="index, follow" />
@@ -26,14 +26,14 @@
          Open Graph (Facebook / LinkedIn / WhatsApp preview)
          ================================================ -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Physics Pep Talk — KCET 2027 Counselling" />
+    <meta property="og:site_name" content="Physics Pep Talk" />
     <meta
       property="og:title"
       content="KCET 2027 Counselling Guidance | College Selection &amp; Option Entry"
     />
     <meta
       property="og:description"
-      content="Get personalized KCET 2027 counselling guidance for college selection, branch selection and option entry. Get support throughout the counselling process."
+      content="Personalized KCET 2027 counselling guidance from Physics Pep Talk. Rank-based college selection, branch selection, option entry strategy and round-by-round support."
     />
     <meta property="og:url" content="https://kcetcounselling.physicspeptalk.com/" />
     <meta
@@ -42,10 +42,11 @@
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Physics Pep Talk — KCET 2027 Counselling Guidance" />
     <meta property="og:locale" content="en_IN" />
 
     <!-- ================================================
-         Twitter Card
+         Twitter / X Card
          ================================================ -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
@@ -54,22 +55,29 @@
     />
     <meta
       name="twitter:description"
-      content="Get personalized KCET 2027 counselling guidance for college selection, branch selection and option entry."
+      content="Personalized KCET 2027 counselling guidance from Physics Pep Talk. Rank-based college selection, branch selection, option entry strategy and round-by-round support."
     />
     <meta
       name="twitter:image"
       content="https://kcetcounselling.physicspeptalk.com/images/og-image.png"
     />
+    <meta name="twitter:image:alt" content="Physics Pep Talk — KCET 2027 Counselling Guidance" />
 
     <!-- ================================================
          Favicon
          ================================================ -->
-    <link rel="icon" type="image/png" href="./src/assets/peptalklogo.png" />
-    <link rel="shortcut icon" type="image/png" href="./src/assets/peptalklogo.png" />
-    <link rel="apple-touch-icon" href="./src/assets/peptalklogo.png" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
 
     <!-- ================================================
-         Fonts — Inter via Google Fonts (preconnect for speed)
+         Preload logo for LCP improvement
+         ================================================ -->
+    <link rel="preload" as="image" href="/favicon.png" />
+
+    <!-- ================================================
+         Fonts — Inter via Google Fonts
+         font-display=swap prevents render-blocking
          ================================================ -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -89,11 +97,18 @@
           "@type": "Organization",
           "@id": "https://kcetcounselling.physicspeptalk.com/#organization",
           "name": "Physics Pep Talk",
-          "url": "https://kcetcounselling.physicspeptalk.com/",
+          "url": "https://physicspeptalk.com",
           "sameAs": ["https://physicspeptalk.com"],
           "logo": {
             "@type": "ImageObject",
-            "url": "https://kcetcounselling.physicspeptalk.com/favicon.svg"
+            "url": "https://kcetcounselling.physicspeptalk.com/favicon.png",
+            "width": 512,
+            "height": 512
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "availableLanguage": ["English", "Kannada"]
           }
         },
         {
@@ -105,13 +120,21 @@
           "publisher": {
             "@id": "https://kcetcounselling.physicspeptalk.com/#organization"
           },
-          "inLanguage": "en-IN"
+          "inLanguage": "en-IN",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://kcetcounselling.physicspeptalk.com/#faq"
+            },
+            "query-input": "required name=search_term_string"
+          }
         },
         {
           "@type": "Service",
           "@id": "https://kcetcounselling.physicspeptalk.com/#service",
           "name": "KCET 2027 Counselling Guidance",
-          "description": "Personalized guidance for KCET 2027 students covering college selection, branch selection, option entry strategy and counselling-round support. This service provides analysis and guidance only and does not guarantee admission to any specific college or branch.",
+          "description": "Personalized guidance for KCET 2027 students covering rank-based college selection, branch selection, option entry strategy and counselling-round support. This service provides analysis and guidance only and does not guarantee admission to any specific college or branch.",
           "provider": {
             "@id": "https://kcetcounselling.physicspeptalk.com/#organization"
           },
@@ -123,17 +146,20 @@
           },
           "audience": {
             "@type": "Audience",
-            "audienceType": "KCET 2027 students and parents"
+            "audienceType": "KCET 2027 students and parents in Karnataka"
           }
         },
         {
           "@type": "WebPage",
           "@id": "https://kcetcounselling.physicspeptalk.com/#webpage",
           "url": "https://kcetcounselling.physicspeptalk.com/",
-          "name": "KCET 2027 Counselling Guidance | College Selection & Option Entry",
-          "description": "Get personalized KCET 2027 counselling guidance for college selection, branch selection and option entry.",
+          "name": "KCET 2027 Counselling Guidance | College Selection & Option Entry — Physics Pep Talk",
+          "description": "Get personalized KCET 2027 counselling guidance for college selection, branch selection and option entry. Rank-based analysis and round-by-round support.",
           "isPartOf": {
             "@id": "https://kcetcounselling.physicspeptalk.com/#website"
+          },
+          "about": {
+            "@id": "https://kcetcounselling.physicspeptalk.com/#service"
           },
           "inLanguage": "en-IN",
           "breadcrumb": {
@@ -147,6 +173,84 @@
               }
             ]
           }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://kcetcounselling.physicspeptalk.com/#faqpage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Is this service free?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. This is a paid KCET counselling guidance service. Contact us for current package details and pricing."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you guarantee a specific college or branch?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. We do not guarantee admission to any specific college or branch. Final allotments are determined by the Karnataka Examinations Authority (KEA) based on rank, category, seat availability, cutoffs and other factors outside our control. No counselling service can honestly make this guarantee."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can you help with option entry?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. We provide guidance for preparing, organizing and reviewing your KCET option-entry strategy. We help you understand how to prioritize your choices based on your rank, category and preferences."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you support multiple counselling rounds?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, according to the counselling package purchased. Support for each round is subject to the package you select. Contact us for details on what is included."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can you tell me exactly which college I will get?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. We can analyze previous-year trends and your specific circumstances to help identify realistic possibilities, but future allotments depend on current-year cutoffs, seat availability and many other factors that cannot be predicted with certainty."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you consider branch preferences?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Branch preferences are an important part of the counselling discussion. We help you weigh college vs branch priorities based on your individual situation and goals."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can parents participate in the counselling sessions?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Parents are welcome to participate in all counselling discussions. We encourage family involvement in major college and branch decisions."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "When should I reach out — before or after getting my rank?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You can reach out at any time. However, the most practical counselling can begin once your KCET rank is available, as the analysis is specific to your rank and category."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is this only for Karnataka students?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "KCET counselling is specifically for students eligible for Karnataka Engineering entrance (KEA). If you are eligible for KCET counselling and need guidance, reach out to us."
+              }
+            }
+          ]
         }
       ]
     }
@@ -154,10 +258,6 @@
 
     <!-- ================================================
          Google Analytics 4
-         Replace G-XXXXXXXXXX with your actual Measurement ID.
-         Leave the script tags here but do NOT hardcode real IDs
-         in the repository. Use a build-time replacement or env
-         variable when you add GA4.
          ================================================ -->
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSBBH9XZ5X"></script>

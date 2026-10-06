@@ -1,4 +1,5 @@
 import { buildWhatsAppUrl, buildPhoneUrl, siteConfig } from "../config/siteConfig";
+import { trackWhatsAppClick, trackCallClick, trackCTAClick } from "../utils/analytics";
 
 export default function FinalCTA() {
   const phoneUrl = buildPhoneUrl();
@@ -28,6 +29,7 @@ export default function FinalCTA() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
           <a
             href="#contact"
+            onClick={() => trackCTAClick("final_cta_get_guidance")}
             className="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-base transition-colors shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900 w-full sm:w-auto justify-center"
           >
             Get Counselling Guidance
@@ -40,6 +42,7 @@ export default function FinalCTA() {
             href={buildWhatsAppUrl()}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackWhatsAppClick("final_cta")}
             className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-4 rounded-xl text-base transition-colors shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900 w-full sm:w-auto justify-center"
           >
             <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
@@ -51,6 +54,7 @@ export default function FinalCTA() {
           {phoneUrl !== "#" && (
             <a
               href={phoneUrl}
+              onClick={() => trackCallClick("final_cta")}
               className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold px-8 py-4 rounded-xl text-base transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900 w-full sm:w-auto justify-center"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

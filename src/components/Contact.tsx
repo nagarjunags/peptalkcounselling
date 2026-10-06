@@ -1,4 +1,5 @@
 import { buildWhatsAppUrl, buildPhoneUrl, siteConfig } from "../config/siteConfig";
+import { trackWhatsAppClick, trackCallClick, trackCTAClick } from "../utils/analytics";
 import { useSheetConfig } from "../context/SheetConfigContext";
 
 export default function Contact() {
@@ -38,8 +39,11 @@ export default function Contact() {
                 <>
                   <img
                     src={counsellingBatchThumbnail}
-                    alt={`KCET ${year} Counselling Batch`}
+                    alt={`KCET ${year} Counselling Batch — Physics Pep Talk`}
                     className="w-full h-full object-cover"
+                    loading="lazy"
+                    width="640"
+                    height="360"
                     onError={(e) => {
                       const img = e.currentTarget as HTMLImageElement;
                       console.error(
@@ -80,6 +84,7 @@ export default function Contact() {
                 href={counsellingBatchUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackCTAClick("enrol_counselling_batch")}
                 className="w-full flex items-center justify-center gap-2.5 bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2"
               >
                 <svg
@@ -144,6 +149,7 @@ export default function Contact() {
                 href={buildWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick("contact_section")}
                 className="flex items-center gap-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 shadow-sm hover:border-green-200 dark:hover:border-green-700 hover:shadow-md transition-all group"
               >
                 <span className="w-11 h-11 rounded-full bg-green-100 dark:bg-green-900/40 flex items-center justify-center text-green-600 dark:text-green-400 flex-shrink-0 group-hover:bg-green-200 dark:group-hover:bg-green-900/60 transition-colors">
@@ -185,6 +191,7 @@ export default function Contact() {
               {siteConfig.phoneNumber && (
                 <a
                   href={buildPhoneUrl()}
+                  onClick={() => trackCallClick("contact_section")}
                   className="flex items-center gap-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 shadow-sm hover:border-brand-200 dark:hover:border-brand-600 hover:shadow-md transition-all group"
                 >
                   <span className="w-11 h-11 rounded-full bg-brand-100 dark:bg-brand-900/40 flex items-center justify-center text-brand-700 dark:text-brand-400 flex-shrink-0 group-hover:bg-brand-200 dark:group-hover:bg-brand-900/60 transition-colors">

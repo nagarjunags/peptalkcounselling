@@ -1,4 +1,5 @@
 import { buildWhatsAppUrl } from "../config/siteConfig";
+import { trackWhatsAppClick, trackCTAClick } from "../utils/analytics";
 import { useSheetConfig } from "../context/SheetConfigContext";
 
 export default function Hero() {
@@ -63,6 +64,7 @@ export default function Hero() {
             <a
               href={counsellingBatchUrl || "#contact"}
               {...(counsellingBatchUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              onClick={() => trackCTAClick("hero_get_guidance")}
               className="inline-flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-bold px-7 py-3.5 rounded-xl text-base transition-colors shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900"
             >
               Get Counselling Guidance
@@ -74,6 +76,7 @@ export default function Hero() {
               href={buildWhatsAppUrl()}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick("hero")}
               className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold px-7 py-3.5 rounded-xl text-base transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900"
             >
               {/* WhatsApp icon */}
