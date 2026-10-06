@@ -60,18 +60,18 @@ function FAQItem({
   onToggle: () => void;
 }) {
   return (
-    <div className="border border-gray-100 rounded-2xl overflow-hidden">
+    <div className="border border-gray-100 dark:border-gray-700 rounded-2xl overflow-hidden">
       <button
         type="button"
-        className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left bg-white hover:bg-gray-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-inset"
+        className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-inset"
         onClick={onToggle}
         aria-expanded={isOpen}
       >
-        <span className="text-gray-900 font-medium text-sm md:text-base pr-2">
+        <span className="text-gray-900 dark:text-white font-medium text-sm md:text-base pr-2">
           {question}
         </span>
         <span
-          className={`flex-shrink-0 w-6 h-6 text-brand-600 transition-transform duration-200 ${
+          className={`flex-shrink-0 w-6 h-6 text-brand-600 dark:text-brand-400 transition-transform duration-200 ${
             isOpen ? "rotate-45" : ""
           }`}
           aria-hidden="true"
@@ -83,8 +83,8 @@ function FAQItem({
       </button>
 
       {isOpen && (
-        <div className="px-6 pb-5 bg-white">
-          <p className="text-gray-500 text-sm leading-relaxed">{answer}</p>
+        <div className="px-6 pb-5 bg-white dark:bg-gray-800">
+          <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{answer}</p>
         </div>
       )}
     </div>
@@ -97,19 +97,19 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="py-20 md:py-28 bg-white"
+      className="py-20 md:py-28 bg-white dark:bg-gray-900"
       aria-label="Frequently asked questions"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="text-center mb-14">
-          <span className="inline-block text-brand-600 font-semibold text-sm uppercase tracking-widest mb-3">
+          <span className="inline-block text-brand-600 dark:text-brand-400 font-semibold text-sm uppercase tracking-widest mb-3">
             FAQs
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-gray-500 text-lg max-w-xl mx-auto">
+          <p className="text-gray-500 dark:text-gray-400 text-lg max-w-xl mx-auto">
             Honest answers to common questions about our KCET counselling
             guidance service.
           </p>
@@ -131,12 +131,12 @@ export default function FAQ() {
 
         {/* Still have questions */}
         <div className="text-center mt-12">
-          <p className="text-gray-500 text-sm mb-4">
+          <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">
             Have a question not answered above?
           </p>
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 border-2 border-brand-700 text-brand-700 hover:bg-brand-700 hover:text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+            className="inline-flex items-center gap-2 border-2 border-brand-700 dark:border-brand-500 text-brand-700 dark:text-brand-400 hover:bg-brand-700 dark:hover:bg-brand-600 hover:text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
           >
             Ask Us Directly
           </a>

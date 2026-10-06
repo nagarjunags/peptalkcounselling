@@ -45,19 +45,19 @@ export default function TrustSection() {
   return (
     <section
       id="our-approach"
-      className="py-20 md:py-28 bg-white"
+      className="py-20 md:py-28 bg-white dark:bg-gray-900"
       aria-label="Our honest approach"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-14">
-          <span className="inline-block text-brand-600 font-semibold text-sm uppercase tracking-widest mb-3">
+          <span className="inline-block text-brand-600 dark:text-brand-400 font-semibold text-sm uppercase tracking-widest mb-3">
             Our Approach
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-5">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-5">
             No False Promises. Only Practical Guidance.
           </h2>
-          <p className="text-gray-600 text-lg leading-relaxed">
+          <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
             KCET cutoffs, seat availability and counselling outcomes can change
             every year. No counsellor can honestly guarantee a particular
             college or branch before counselling is completed.
@@ -65,13 +65,13 @@ export default function TrustSection() {
         </div>
 
         {/* Main honest statement */}
-        <div className="bg-brand-50 border-l-4 border-brand-600 rounded-r-2xl px-8 py-6 max-w-3xl mx-auto mb-14">
-          <p className="text-brand-800 text-base md:text-lg leading-relaxed font-medium">
+        <div className="bg-brand-50 dark:bg-brand-950/60 border-l-4 border-brand-600 rounded-r-2xl px-8 py-6 max-w-3xl mx-auto mb-14">
+          <p className="text-brand-800 dark:text-brand-200 text-base md:text-lg leading-relaxed font-medium">
             Our role is to help you understand your realistic choices, build a
             sensible counselling strategy and make informed decisions based on
             the information available.
           </p>
-          <p className="text-brand-600 text-sm mt-3">
+          <p className="text-brand-600 dark:text-brand-400 text-sm mt-3">
             Our goal is to help you identify and pursue the best realistic option
             available for your rank, category, preferences and counselling
             conditions.
@@ -83,16 +83,16 @@ export default function TrustSection() {
           {honestPoints.map((point) => (
             <div
               key={point.heading}
-              className="flex gap-4 bg-gray-50 rounded-2xl border border-gray-100 p-6"
+              className="flex gap-4 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6"
             >
-              <span className="flex-shrink-0 w-10 h-10 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center mt-0.5">
+              <span className="flex-shrink-0 w-10 h-10 rounded-full bg-brand-100 dark:bg-brand-900/50 text-brand-700 dark:text-brand-400 flex items-center justify-center mt-0.5">
                 {point.icon}
               </span>
               <div>
-                <h3 className="text-gray-900 font-semibold text-sm mb-1.5">
+                <h3 className="text-gray-900 dark:text-white font-semibold text-sm mb-1.5">
                   {point.heading}
                 </h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
+                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                   {point.body}
                 </p>
               </div>
@@ -102,7 +102,7 @@ export default function TrustSection() {
 
         {/* Bottom KEA disclaimer */}
         <div className="mt-12 text-center">
-          <p className="text-xs text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xs text-gray-400 dark:text-gray-500 max-w-2xl mx-auto leading-relaxed">
             Final allotments are determined by the Karnataka Examinations
             Authority (KEA) based on rank, category, seat availability,
             cutoffs and other factors. This counselling service does not

@@ -23,6 +23,11 @@
     line-height: 1.6;
   }
 
+  /* Dark mode body */
+  .dark body {
+    @apply text-gray-100 bg-gray-900;
+  }
+
   /* Improve focus visibility globally */
   :focus-visible {
     outline: 2px solid theme("colors.brand.600");

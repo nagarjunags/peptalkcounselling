@@ -45,7 +45,7 @@ export default function WhatYouGet() {
   return (
     <section
       id="what-you-get"
-      className="py-20 md:py-28 bg-brand-950 text-white"
+      className="py-20 md:py-28 bg-brand-950 dark:bg-gray-950 text-white"
       aria-label="What you get"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">

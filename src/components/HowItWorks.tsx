@@ -53,19 +53,19 @@ export default function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="py-20 md:py-28 bg-gray-50"
+      className="py-20 md:py-28 bg-gray-50 dark:bg-gray-950"
       aria-label="How the counselling process works"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section header */}
         <div className="text-center mb-14">
-          <span className="inline-block text-brand-600 font-semibold text-sm uppercase tracking-widest mb-3">
+          <span className="inline-block text-brand-600 dark:text-brand-400 font-semibold text-sm uppercase tracking-widest mb-3">
             How It Works
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             A Clear, Step-by-Step Process
           </h2>
-          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-500 dark:text-gray-400 text-lg max-w-2xl mx-auto">
             Our counselling process is structured to help you move from
             confusion to clarity at each stage.
           </p>
@@ -78,7 +78,7 @@ export default function HowItWorks() {
               {/* Connector line (hidden on last item) */}
               {index < steps.length - 1 && (
                 <div
-                  className="hidden lg:block absolute top-6 left-full w-full h-0.5 bg-brand-100 z-0"
+                  className="hidden lg:block absolute top-6 left-full w-full h-0.5 bg-brand-100 dark:bg-brand-900 z-0"
                   aria-hidden="true"
                   style={{ width: "calc(100% - 48px)", left: "48px" }}
                 />
@@ -89,15 +89,15 @@ export default function HowItWorks() {
                 <div className="flex-shrink-0 w-12 h-12 rounded-full bg-brand-700 text-white flex items-center justify-center shadow-sm">
                   {step.icon}
                 </div>
-                <span className="text-3xl font-bold text-brand-100 select-none" aria-hidden="true">
+                <span className="text-3xl font-bold text-brand-100 dark:text-brand-900 select-none" aria-hidden="true">
                   {step.number}
                 </span>
               </div>
 
-              <h3 className="text-gray-900 font-semibold text-base">
+              <h3 className="text-gray-900 dark:text-white font-semibold text-base">
                 {step.title}
               </h3>
-              <p className="text-gray-500 text-sm leading-relaxed">
+              <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                 {step.description}
               </p>
             </div>
@@ -107,7 +107,7 @@ export default function HowItWorks() {
         <div className="text-center mt-14">
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 bg-brand-700 hover:bg-brand-800 text-white font-semibold px-7 py-3.5 rounded-xl text-base transition-colors shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-2 bg-brand-700 hover:bg-brand-800 text-white font-semibold px-7 py-3.5 rounded-xl text-base transition-colors shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950"
           >
             Start Your Counselling Journey
           </a>

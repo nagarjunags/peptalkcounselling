@@ -8,19 +8,19 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="py-20 md:py-28 bg-gray-50"
+      className="py-20 md:py-28 bg-gray-50 dark:bg-gray-950"
       aria-label="Enrol in counselling batch"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section header */}
         <div className="text-center mb-12">
-          <span className="inline-block text-brand-600 font-semibold text-sm uppercase tracking-widest mb-3">
+          <span className="inline-block text-brand-600 dark:text-brand-400 font-semibold text-sm uppercase tracking-widest mb-3">
             Enrol Now
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Join the KCET {year} Counselling Batch
           </h2>
-          <p className="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto">
             Get personalized guidance for college selection, branch selection,
             and option entry — from enrolment to final allotment.
           </p>
@@ -30,7 +30,7 @@ export default function Contact() {
           {/* Left: batch thumbnail + enrol CTA */}
           <div className="flex flex-col items-center lg:items-start gap-6">
             {/* Thumbnail */}
-            <div className="w-full rounded-2xl overflow-hidden shadow-lg border border-gray-100 bg-gray-100 aspect-video flex items-center justify-center">
+            <div className="w-full rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 aspect-video flex items-center justify-center">
               {loading ? (
                 /* Skeleton while sheet loads */
                 <div className="w-full h-full animate-pulse bg-gray-200" />
@@ -100,7 +100,7 @@ export default function Contact() {
               </a>
             ) : (
               /* Batch link not set yet — show coming soon */
-              <div className="w-full flex items-center justify-center gap-2 bg-gray-200 text-gray-500 font-semibold px-8 py-4 rounded-xl text-base cursor-not-allowed select-none">
+              <div className="w-full flex items-center justify-center gap-2 bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 font-semibold px-8 py-4 rounded-xl text-base cursor-not-allowed select-none">
                 <svg
                   className="w-5 h-5"
                   fill="none"
@@ -119,7 +119,7 @@ export default function Contact() {
               </div>
             )}
 
-            <p className="text-xs text-gray-400 text-center lg:text-left leading-relaxed">
+            <p className="text-xs text-gray-400 dark:text-gray-500 text-center lg:text-left leading-relaxed">
               This is a paid counselling guidance service. Enrolment link opens
               the official batch registration page. No specific college or
               branch is guaranteed.
@@ -129,10 +129,10 @@ export default function Contact() {
           {/* Right: contact options */}
           <div className="flex flex-col gap-6">
             <div>
-              <h3 className="text-gray-900 font-bold text-xl mb-2">
+              <h3 className="text-gray-900 dark:text-white font-bold text-xl mb-2">
                 Have a question before enrolling?
               </h3>
-              <p className="text-gray-500 text-sm leading-relaxed">
+              <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                 Reach out on WhatsApp or call us directly. We'll help you
                 decide if this batch is the right fit for your rank and goals.
               </p>
@@ -144,9 +144,9 @@ export default function Contact() {
                 href={buildWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:border-green-200 hover:shadow-md transition-all group"
+                className="flex items-center gap-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 shadow-sm hover:border-green-200 dark:hover:border-green-700 hover:shadow-md transition-all group"
               >
-                <span className="w-11 h-11 rounded-full bg-green-100 flex items-center justify-center text-green-600 flex-shrink-0 group-hover:bg-green-200 transition-colors">
+                <span className="w-11 h-11 rounded-full bg-green-100 dark:bg-green-900/40 flex items-center justify-center text-green-600 dark:text-green-400 flex-shrink-0 group-hover:bg-green-200 dark:group-hover:bg-green-900/60 transition-colors">
                   <svg
                     className="w-5 h-5 fill-current"
                     viewBox="0 0 24 24"
@@ -156,17 +156,17 @@ export default function Contact() {
                   </svg>
                 </span>
                 <div>
-                  <p className="text-gray-900 font-semibold text-sm">
+                  <p className="text-gray-900 dark:text-white font-semibold text-sm">
                     WhatsApp Us
                   </p>
-                  <p className="text-gray-500 text-xs">
+                  <p className="text-gray-500 dark:text-gray-400 text-xs">
                     {siteConfig.whatsappNumber
                       ? `+${siteConfig.whatsappNumber}`
                       : "Message us on WhatsApp"}
                   </p>
                 </div>
                 <svg
-                  className="w-4 h-4 text-gray-300 ml-auto"
+                  className="w-4 h-4 text-gray-300 dark:text-gray-600 ml-auto"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -185,9 +185,9 @@ export default function Contact() {
               {siteConfig.phoneNumber && (
                 <a
                   href={buildPhoneUrl()}
-                  className="flex items-center gap-4 bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:border-brand-200 hover:shadow-md transition-all group"
+                  className="flex items-center gap-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 shadow-sm hover:border-brand-200 dark:hover:border-brand-600 hover:shadow-md transition-all group"
                 >
-                  <span className="w-11 h-11 rounded-full bg-brand-100 flex items-center justify-center text-brand-700 flex-shrink-0 group-hover:bg-brand-200 transition-colors">
+                  <span className="w-11 h-11 rounded-full bg-brand-100 dark:bg-brand-900/40 flex items-center justify-center text-brand-700 dark:text-brand-400 flex-shrink-0 group-hover:bg-brand-200 dark:group-hover:bg-brand-900/60 transition-colors">
                     <svg
                       className="w-5 h-5"
                       fill="none"
@@ -204,15 +204,15 @@ export default function Contact() {
                     </svg>
                   </span>
                   <div>
-                    <p className="text-gray-900 font-semibold text-sm">
+                    <p className="text-gray-900 dark:text-white font-semibold text-sm">
                       Call Us
                     </p>
-                    <p className="text-gray-500 text-xs">
+                    <p className="text-gray-500 dark:text-gray-400 text-xs">
                       {siteConfig.phoneNumber}
                     </p>
                   </div>
                   <svg
-                    className="w-4 h-4 text-gray-300 ml-auto"
+                    className="w-4 h-4 text-gray-300 dark:text-gray-600 ml-auto"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -232,9 +232,9 @@ export default function Contact() {
               {siteConfig.email && (
                 <a
                   href={`mailto:${siteConfig.email}`}
-                  className="flex items-center gap-4 bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:border-brand-200 hover:shadow-md transition-all group"
+                  className="flex items-center gap-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 shadow-sm hover:border-brand-200 dark:hover:border-brand-600 hover:shadow-md transition-all group"
                 >
-                  <span className="w-11 h-11 rounded-full bg-brand-100 flex items-center justify-center text-brand-700 flex-shrink-0 group-hover:bg-brand-200 transition-colors">
+                  <span className="w-11 h-11 rounded-full bg-brand-100 dark:bg-brand-900/40 flex items-center justify-center text-brand-700 dark:text-brand-400 flex-shrink-0 group-hover:bg-brand-200 dark:group-hover:bg-brand-900/60 transition-colors">
                     <svg
                       className="w-5 h-5"
                       fill="none"
@@ -251,13 +251,13 @@ export default function Contact() {
                     </svg>
                   </span>
                   <div>
-                    <p className="text-gray-900 font-semibold text-sm">
+                    <p className="text-gray-900 dark:text-white font-semibold text-sm">
                       Email
                     </p>
-                    <p className="text-gray-500 text-xs">{siteConfig.email}</p>
+                    <p className="text-gray-500 dark:text-gray-400 text-xs">{siteConfig.email}</p>
                   </div>
                   <svg
-                    className="w-4 h-4 text-gray-300 ml-auto"
+                    className="w-4 h-4 text-gray-300 dark:text-gray-600 ml-auto"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

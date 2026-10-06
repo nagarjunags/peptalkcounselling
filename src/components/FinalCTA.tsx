@@ -6,7 +6,7 @@ export default function FinalCTA() {
   return (
     <section
       id="final-cta"
-      className="py-20 md:py-28 bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 text-white"
+      className="py-20 md:py-28 bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800 text-white"
       aria-label="Final call to action"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">

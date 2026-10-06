@@ -16,7 +16,7 @@ function VideoCard({ testimonial }: { testimonial: Testimonial }) {
   const [playing, setPlaying] = useState(false);
 
   return (
-    <div className="flex flex-col rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow bg-white">
+    <div className="flex flex-col rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow bg-white dark:bg-gray-800">
       {/* Video area */}
       <div className="relative aspect-video bg-gray-900">
         {playing ? (
@@ -61,7 +61,7 @@ function VideoCard({ testimonial }: { testimonial: Testimonial }) {
 
       {/* Title */}
       <div className="px-4 py-3">
-        <p className="text-sm font-semibold text-gray-800 line-clamp-2 leading-snug">
+        <p className="text-sm font-semibold text-gray-800 dark:text-gray-100 line-clamp-2 leading-snug">
           {testimonial.title}
         </p>
       </div>
@@ -73,10 +73,10 @@ function VideoCard({ testimonial }: { testimonial: Testimonial }) {
 
 function SkeletonCard() {
   return (
-    <div className="rounded-2xl overflow-hidden border border-gray-100 shadow-sm bg-white animate-pulse">
-      <div className="aspect-video bg-gray-200" />
+    <div className="rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm bg-white dark:bg-gray-800 animate-pulse">
+      <div className="aspect-video bg-gray-200 dark:bg-gray-700" />
       <div className="px-4 py-3">
-        <div className="h-4 bg-gray-200 rounded w-3/4" />
+        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4" />
       </div>
     </div>
   );
@@ -93,19 +93,19 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="py-20 md:py-28 bg-white"
+      className="py-20 md:py-28 bg-white dark:bg-gray-900"
       aria-label="Student testimonials"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="text-center mb-12">
-          <span className="inline-block text-brand-600 font-semibold text-sm uppercase tracking-widest mb-3">
+          <span className="inline-block text-brand-600 dark:text-brand-400 font-semibold text-sm uppercase tracking-widest mb-3">
             Testimonials
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Hear From Our Students
           </h2>
-          <p className="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed max-w-2xl mx-auto">
             Real students share their experience with our KCET counselling
             guidance.
           </p>

@@ -5,7 +5,7 @@ export default function MobileCTA() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white border-t border-gray-200 shadow-lg safe-bottom"
+      className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg safe-bottom"
       role="complementary"
       aria-label="Quick contact actions"
     >
@@ -28,7 +28,7 @@ export default function MobileCTA() {
         </a>
 
         {/* Divider */}
-        <div className="w-px bg-gray-200" aria-hidden="true" />
+        <div className="w-px bg-gray-200 dark:bg-gray-700" aria-hidden="true" />
 
         {/* Call / fallback to contact section */}
         {phoneUrl !== "#" ? (
@@ -76,7 +76,7 @@ export default function MobileCTA() {
         )}
       </div>
       {/* Safe-area bottom spacer for iOS notch phones */}
-      <div className="h-safe-bottom bg-white" aria-hidden="true" />
+      <div className="h-safe-bottom bg-white dark:bg-gray-900" aria-hidden="true" />
     </div>
   );
 }

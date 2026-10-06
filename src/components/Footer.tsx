@@ -8,7 +8,7 @@ export default function Footer() {
   const { year } = useSheetConfig();
   return (
     <footer
-      className="bg-gray-950 text-gray-400"
+      className="bg-gray-950 dark:bg-gray-950 text-gray-400"
       role="contentinfo"
       aria-label="Site footer"
     >
@@ -95,7 +95,7 @@ export default function Footer() {
             <ul className="flex flex-col gap-2.5" role="list">
               <li>
                 <a
-                  href="/privacy-policy"
+                  href="https://physicspeptalks.in/privacy-policy"
                   className="text-sm text-gray-500 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded"
                 >
                   Privacy Policy
@@ -103,7 +103,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="/terms"
+                  href="https://physicspeptalks.in/terms"
                   className="text-sm text-gray-500 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded"
                 >
                   Terms &amp; Disclaimer

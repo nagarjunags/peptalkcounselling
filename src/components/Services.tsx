@@ -49,19 +49,19 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="py-20 md:py-28 bg-white"
+      className="py-20 md:py-28 bg-white dark:bg-gray-900"
       aria-label="Our services"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section header */}
         <div className="text-center mb-14">
-          <span className="inline-block text-brand-600 font-semibold text-sm uppercase tracking-widest mb-3">
+          <span className="inline-block text-brand-600 dark:text-brand-400 font-semibold text-sm uppercase tracking-widest mb-3">
             What We Offer
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Guidance Across Every Stage of KCET Counselling
           </h2>
-          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-500 dark:text-gray-400 text-lg max-w-2xl mx-auto">
             From understanding your realistic options to navigating the final
             allotment, we provide structured, practical support.
           </p>
@@ -72,15 +72,15 @@ export default function Services() {
           {services.map((service) => (
             <article
               key={service.title}
-              className="group bg-white border border-gray-100 rounded-2xl p-7 shadow-card hover:shadow-md hover:border-brand-200 transition-all duration-300 flex flex-col gap-4"
+              className="group bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-7 shadow-card hover:shadow-md hover:border-brand-200 dark:hover:border-brand-600 transition-all duration-300 flex flex-col gap-4"
             >
-              <div className="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-100 transition-colors">
+              <div className="w-12 h-12 rounded-xl bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 flex items-center justify-center group-hover:bg-brand-100 dark:group-hover:bg-brand-900/60 transition-colors">
                 {service.icon}
               </div>
-              <h3 className="text-gray-900 font-semibold text-base leading-snug">
+              <h3 className="text-gray-900 dark:text-white font-semibold text-base leading-snug">
                 {service.title}
               </h3>
-              <p className="text-gray-500 text-sm leading-relaxed">
+              <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                 {service.description}
               </p>
             </article>
@@ -88,9 +88,9 @@ export default function Services() {
         </div>
 
         {/* CTA nudge */}
-        <p className="text-center text-sm text-gray-400 mt-10">
+        <p className="text-center text-sm text-gray-400 dark:text-gray-500 mt-10">
           Contact us for current package details and pricing.{" "}
-          <a href="#contact" className="text-brand-600 font-medium hover:underline">
+          <a href="#contact" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">
             Get in touch →
           </a>
         </p>

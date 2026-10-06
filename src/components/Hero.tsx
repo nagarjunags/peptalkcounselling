@@ -7,7 +7,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 text-white pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden"
+      className="relative bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800 text-white pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden"
       aria-label="Hero section"
     >
       {/* Subtle background pattern */}
