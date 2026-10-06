@@ -37,40 +37,23 @@ jobs:
         run: npm ci
 
       - name: Build production bundle
+        # No VITE_BASE_PATH — the site is served from the root of the custom
+        # domain (kcetcouncelling.physicspeptalks.in), so base must be "/".
+        # Setting VITE_BASE_PATH=/peptalkcounselling/ would break asset paths.
         run: npm run build
-        env:
-          # Set the base path for GitHub Pages deployment
-          # This ensures assets are served from /peptalkcounselling/assets/...
-          VITE_BASE_PATH: /peptalkcounselling/
 
-      - name: Verify GitHub Pages base path
+      - name: Verify build output
         run: |
-          echo "===== GENERATED dist/index.html HEAD ====="
-          head -20 dist/index.html
+          echo "===== dist/index.html (first 5 lines) ====="
+          head -5 dist/index.html
           echo ""
-          echo "===== GENERATED ASSET REFERENCES ====="
-          echo "Script tags:"
-          grep -o 'src="[^"]*\.js"' dist/index.html || echo "No JS found"
-          echo "CSS links:"  
-          grep -o 'href="[^"]*\.css"' dist/index.html || echo "No CSS found"
-          echo "Favicon:"
-          grep -o 'href="[^"]*favicon[^"]*"' dist/index.html || echo "No favicon found"
+          echo "===== Asset references in dist/index.html ====="
+          grep -oE 'src="[^"]*\.js[^"]*"' dist/index.html || echo "No JS src found"
+          grep -oE 'href="[^"]*\.css[^"]*"' dist/index.html || echo "No CSS href found"
           echo ""
-          echo "===== VERIFYING GITHUB PAGES BASE PATH ====="
-          if grep -q '/peptalkcounselling/assets/' dist/index.html; then
-            echo "✅ SUCCESS: GitHub Pages base path is correct"
-            echo "Found JS: $(grep -o '/peptalkcounselling/assets/[^"]*\.js' dist/index.html | head -1)"
-            echo "Found CSS: $(grep -o '/peptalkcounselling/assets/[^"]*\.css' dist/index.html | head -1)"
-          else
-            echo "❌ ERROR: GitHub Pages base path is incorrect"
-            echo "Expected /peptalkcounselling/assets/ in dist/index.html but found:"
-            grep -o 'src="[^"]*"' dist/index.html | head -5
-            echo "Full file paths in dist:"
-            ls -la dist/ || echo "No dist directory"
-            echo "Environment variables during build:"
-            echo "VITE_BASE_PATH: ${VITE_BASE_PATH:-'(not set)'}"
-            exit 1
-          fi
+          echo "===== dist/ contents ====="
+          ls -lh dist/
+          ls -lh dist/assets/ || echo "No assets dir"
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
@@ -78,7 +61,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload the dist directory
           path: "./dist"
 
   deploy:

@@ -50,7 +50,11 @@ export async function fetchSheetConfig(
   }
 
   try {
-    const response = await fetch(csvUrl, { cache: "no-cache" });
+    // Append a timestamp to bust Google's server-side publish cache.
+    // Without this, Google can serve a stale CSV for up to 5 minutes
+    // even after you save changes in the sheet.
+    const bustUrl = `${csvUrl}&_cb=${Date.now()}`;
+    const response = await fetch(bustUrl, { cache: "no-cache" });
 
     if (!response.ok) {
       console.warn(
@@ -81,16 +85,17 @@ function parseCsv(csv: string): SheetConfig {
   for (const line of lines) {
     if (!line.trim()) continue;
 
-    // Simple CSV split that handles quoted fields
     const cols = splitCsvLine(line);
     if (cols.length < 2) continue;
 
     const key = cols[0].trim().toLowerCase();
     const value = cols[1].trim();
 
-    // Skip a header row
-    if (key === "variable" || key === "key" || key === "name") continue;
+    // Skip header rows — any row whose key contains a space or matches
+    // common heading words is not a real config entry.
     if (!key) continue;
+    if (key.includes(" ")) continue;   // "variable name", "key name", etc.
+    if (key === "variable" || key === "key" || key === "name") continue;
 
     config[key] = value;
   }

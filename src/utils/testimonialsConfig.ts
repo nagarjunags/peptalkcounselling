@@ -60,7 +60,8 @@ function extractYouTubeId(url: string): string | null {
 export async function fetchTestimonials(): Promise<Testimonial[]> {
   try {
     const url = buildTestimonialsCsvUrl();
-    const response = await fetch(url, { cache: "no-cache" });
+    const bustUrl = `${url}&_cb=${Date.now()}`;
+    const response = await fetch(bustUrl, { cache: "no-cache" });
 
     if (!response.ok) {
       console.warn(`[testimonials] HTTP ${response.status} — skipping.`);
