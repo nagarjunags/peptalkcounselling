@@ -2,7 +2,7 @@ import { buildWhatsAppUrl } from "../config/siteConfig";
 import { useSheetConfig } from "../context/SheetConfigContext";
 
 export default function Hero() {
-  const { year } = useSheetConfig();
+  const { year, counsellingBatchUrl } = useSheetConfig();
 
   return (
     <section
@@ -61,7 +61,8 @@ export default function Hero() {
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
             <a
-              href="#contact"
+              href={counsellingBatchUrl || "#contact"}
+              {...(counsellingBatchUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               className="inline-flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-bold px-7 py-3.5 rounded-xl text-base transition-colors shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900"
             >
               Get Counselling Guidance

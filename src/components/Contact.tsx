@@ -41,8 +41,17 @@ export default function Contact() {
                     alt={`KCET ${year} Counselling Batch`}
                     className="w-full h-full object-cover"
                     onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).style.display = "none";
-                      const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                      const img = e.currentTarget as HTMLImageElement;
+                      console.error(
+                        "[Thumbnail] Image failed to load.",
+                        "\n  src:", img.src,
+                        "\n  naturalWidth:", img.naturalWidth,
+                        "\n  naturalHeight:", img.naturalHeight,
+                        "\n  complete:", img.complete,
+                        "\n  Check Network tab → filter Img → find lh3.googleusercontent.com for status/blocked reason."
+                      );
+                      img.style.display = "none";
+                      const fallback = img.nextElementSibling as HTMLElement;
                       if (fallback) fallback.style.display = "flex";
                     }}
                   />
