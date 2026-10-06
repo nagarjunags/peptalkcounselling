@@ -3,11 +3,16 @@ import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 
 // https://vite.dev/config/
-// Base is "/" because the site is served from a custom domain
-// (kcetcouncelling.physicspeptalks.in), not a subpath.
+// Dynamic base path configuration:
+// - Local dev: "/" (localhost:5173)
+// - GitHub Pages: "/peptalkcounselling/" 
+// - Custom domain: "/" (when CNAME is active)
 export default defineConfig({
   plugins: [react()],
-  base: "/",
+  // Use environment variable to set base path for GitHub Pages deployment
+  // In GitHub Actions, this will be set to "/peptalkcounselling/"
+  // For local development and custom domain, it defaults to "/"
+  base: process.env.VITE_BASE_PATH || "/",
   build: {
     outDir: "dist",
     sourcemap: false,

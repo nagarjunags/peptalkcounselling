@@ -38,6 +38,10 @@ jobs:
 
       - name: Build production bundle
         run: npm run build
+        env:
+          # Set the base path for GitHub Pages deployment
+          # This ensures assets are served from /peptalkcounselling/assets/...
+          VITE_BASE_PATH: /peptalkcounselling/
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
