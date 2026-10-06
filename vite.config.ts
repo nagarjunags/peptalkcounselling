@@ -8,7 +8,7 @@ import { resolve } from "path";
 // The site is served from: https://nagarjunags.github.io/peptalkcounselling/
 // so base = "/peptalkcounselling/"
 //
-// If a custom domain is added later (e.g. kcetcouncelling.physicspeptalk.com),
+// If a custom domain is added later (e.g. kcetcounselling.physicspeptalk.com),
 // change base back to "/" because the custom domain serves from the root.
 export default defineConfig({
   plugins: [react()],

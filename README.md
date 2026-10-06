@@ -2,7 +2,7 @@
 
 A modern, fully static website for the **KCET 2027 Counselling Guidance service** by **Physics Pep Talk**.
 
-**Live site:** https://kcetcouncelling.physicspeptalk.com
+**Live site:** https://kcetcounselling.physicspeptalk.com
 
 **Parent brand:** https://physicspeptalk.com
 
@@ -28,7 +28,7 @@ councelling_landingpage/
 │       └── deploy.yml          # GitHub Actions: build & deploy to Pages
 │
 ├── public/
-│   ├── CNAME                   # Custom domain: kcetcouncelling.physicspeptalk.com
+│   ├── CNAME                   # Custom domain: kcetcounselling.physicspeptalk.com
 │   ├── robots.txt
 │   ├── sitemap.xml
 │   ├── favicon.svg
@@ -173,7 +173,7 @@ The workflow:
 
 In the GitHub repository:
 1. Go to **Settings** → **Pages**
-2. Under **Custom domain**, enter: `kcetcouncelling.physicspeptalk.com`
+2. Under **Custom domain**, enter: `kcetcounselling.physicspeptalk.com`
 3. Click **Save**
 4. Enable **Enforce HTTPS** once the domain is verified
 
@@ -184,12 +184,12 @@ be preserved through every deployment.
 
 ## DNS Configuration
 
-To point `kcetcouncelling.physicspeptalk.com` to GitHub Pages, add a
+To point `kcetcounselling.physicspeptalk.com` to GitHub Pages, add a
 **CNAME DNS record** with your DNS provider:
 
 | Type  | Host                        | Value                      |
 |-------|-----------------------------|----------------------------|
-| CNAME | `kcetcouncelling`           | `YOUR_USERNAME.github.io`  |
+| CNAME | `kcetcounselling`           | `YOUR_USERNAME.github.io`  |
 
 Replace `YOUR_USERNAME` with your actual GitHub username.
 
@@ -206,10 +206,10 @@ https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pag
 ## Google Search Console Setup
 
 1. Go to https://search.google.com/search-console
-2. Add property: `https://kcetcouncelling.physicspeptalk.com/`
+2. Add property: `https://kcetcounselling.physicspeptalk.com/`
 3. Verify ownership (recommended: HTML file method or DNS TXT record)
 4. Once verified, submit the sitemap:
-   `https://kcetcouncelling.physicspeptalk.com/sitemap.xml`
+   `https://kcetcounselling.physicspeptalk.com/sitemap.xml`
 
 The site is ready for Search Console from day one:
 - `robots.txt` allows all crawlers
@@ -262,7 +262,7 @@ serverless function.
 - [x] `npm run build` produces static files in `dist/`
 - [x] No backend, SSR, API routes or server required
 - [x] GitHub Actions workflow deploys on push to `main`
-- [x] `public/CNAME` contains `kcetcouncelling.physicspeptalk.com`
+- [x] `public/CNAME` contains `kcetcounselling.physicspeptalk.com`
 - [ ] DNS CNAME record configured
 - [ ] HTTPS enforced in GitHub Pages settings
 
@@ -270,7 +270,7 @@ serverless function.
 
 - [x] Correct page title
 - [x] Correct meta description
-- [x] Canonical URL: `https://kcetcouncelling.physicspeptalk.com/`
+- [x] Canonical URL: `https://kcetcounselling.physicspeptalk.com/`
 - [x] Open Graph metadata
 - [x] Twitter Card metadata
 - [x] `sitemap.xml` in `public/`
