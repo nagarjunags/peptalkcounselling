@@ -1,9 +1,9 @@
+# Deploy to GitHub Pages — builds with Vite, then deploys dist/
 name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -17,11 +17,9 @@ concurrency:
 
 jobs:
   build:
-    name: Build
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -33,87 +31,24 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build production bundle
-        # base is always "/" — site is served from custom domain root.
-        # Never set VITE_BASE_PATH here.
+      - name: Build
         run: npm run build
 
-      - name: Verify dist/ file tree
-        run: |
-          echo "===== All files in dist/ (max depth 2) ====="
-          find dist -maxdepth 2 -type f -print | sort
-          echo ""
-
-      - name: Print dist/index.html in full
-        run: |
-          echo "===== FULL CONTENT OF dist/index.html ====="
-          cat dist/index.html
-          echo ""
-          echo "===== END OF dist/index.html ====="
-
-      - name: Verify production JS bundle is referenced
-        run: |
-          echo "--- Script tags in dist/index.html ---"
-          grep -E '<script' dist/index.html || echo "(no script tags found)"
-          echo ""
-          echo "--- Checking for /peptalkcounselling/assets/*.js reference ---"
-          if grep -qE 'src="/peptalkcounselling/assets/[^"]+\.js"' dist/index.html; then
-            echo "✅ Production JS bundle found:"
-            grep -oE 'src="/peptalkcounselling/assets/[^"]+\.js"' dist/index.html
-          else
-            echo "❌ No /peptalkcounselling/assets/*.js found in dist/index.html"
-            exit 1
-          fi
-
-      - name: Verify /src/main.tsx is NOT present (hard fail)
-        run: |
-          if grep -q '/src/main.tsx' dist/index.html; then
-            echo "❌ FATAL: dist/index.html still references /src/main.tsx"
-            echo "This means the source index.html was deployed instead of the built output."
-            echo "Full dist/index.html:"
-            cat dist/index.html
-            exit 1
-          else
-            echo "✅ /src/main.tsx is NOT present — dist/index.html is the production build."
-          fi
-
-      - name: Verify dist/assets/ contents
-        run: |
-          echo "--- dist/assets/ ---"
-          ls -lh dist/assets/
-          echo ""
-          JS_COUNT=$(find dist/assets -name "*.js" | wc -l)
-          CSS_COUNT=$(find dist/assets -name "*.css" | wc -l)
-          echo "JS files:  $JS_COUNT"
-          echo "CSS files: $CSS_COUNT"
-          if [ "$JS_COUNT" -lt 1 ]; then
-            echo "❌ No JS files in dist/assets/"
-            exit 1
-          fi
-          if [ "$CSS_COUNT" -lt 1 ]; then
-            echo "❌ No CSS files in dist/assets/"
-            exit 1
-          fi
-          echo "✅ dist/assets/ contains JS and CSS bundles."
-
-      - name: Setup GitHub Pages
+      - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload artifact (dist/ only)
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Explicitly targeting dist/ — NOT . or repository root
           path: "./dist"
 
   deploy:
-    name: Deploy
     needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
