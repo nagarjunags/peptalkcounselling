@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { buildWhatsAppUrl, buildPhoneUrl, siteConfig } from "../config/siteConfig";
+import { useSheetConfig } from "../context/SheetConfigContext";
 
 interface FormData {
   name: string;
@@ -27,6 +28,7 @@ const initialForm: FormData = {
 
 export default function Contact() {
   const [form, setForm] = useState<FormData>(initialForm);
+  const { year } = useSheetConfig();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -39,7 +41,7 @@ export default function Contact() {
   const handleWhatsApp = (e: React.FormEvent) => {
     e.preventDefault();
     const parts: string[] = [
-      `Hi, I am interested in KCET 2027 Counselling Guidance.`,
+      `Hi, I am interested in KCET ${year} Counselling Guidance.`,
       ``,
       `Name: ${form.name || "—"}`,
       `Role: ${form.role}`,

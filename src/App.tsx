@@ -13,6 +13,7 @@ import Footer from "./components/Footer";
 import MobileCTA from "./components/MobileCTA";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
+import { SheetConfigProvider } from "./context/SheetConfigContext";
 
 /**
  * Simple path-based routing without react-router.
@@ -37,31 +38,35 @@ export default function App() {
 
   /**
    * Main landing page — single page layout.
+   * Wrapped in SheetConfigProvider so all children can read remote config
+   * (e.g. the `year` variable from the Google Sheet).
    * Add bottom padding to prevent the fixed mobile CTA bar from overlapping content.
    */
   return (
-    <div className="min-h-screen bg-white pb-14 md:pb-0">
-      {/* Fixed sticky header */}
-      <Header />
+    <SheetConfigProvider>
+      <div className="min-h-screen bg-white pb-14 md:pb-0">
+        {/* Fixed sticky header */}
+        <Header />
 
-      {/* Main content */}
-      <main id="main-content">
-        <Hero />
-        <Services />
-        <HowItWorks />
-        <OptionEntry />
-        <WhatYouGet />
-        <TrustSection />
-        <RoundSupport />
-        <FAQ />
-        <Contact />
-        <FinalCTA />
-      </main>
+        {/* Main content */}
+        <main id="main-content">
+          <Hero />
+          <Services />
+          <HowItWorks />
+          <OptionEntry />
+          <WhatYouGet />
+          <TrustSection />
+          <RoundSupport />
+          <FAQ />
+          <Contact />
+          <FinalCTA />
+        </main>
 
-      <Footer />
+        <Footer />
 
-      {/* Fixed mobile bottom CTA bar (hidden on md+) */}
-      <MobileCTA />
-    </div>
+        {/* Fixed mobile bottom CTA bar (hidden on md+) */}
+        <MobileCTA />
+      </div>
+    </SheetConfigProvider>
   );
 }

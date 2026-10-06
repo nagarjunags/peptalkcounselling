@@ -1,6 +1,9 @@
 import { buildWhatsAppUrl } from "../config/siteConfig";
+import { useSheetConfig } from "../context/SheetConfigContext";
 
 export default function Hero() {
+  const { year } = useSheetConfig();
+
   return (
     <section
       id="home"
@@ -25,13 +28,13 @@ export default function Hero() {
           <div className="inline-flex items-center gap-2 bg-brand-700/60 border border-brand-500/40 rounded-full px-4 py-1.5 mb-6">
             <span className="w-2 h-2 rounded-full bg-accent-400 animate-pulse" aria-hidden="true"></span>
             <span className="text-sm font-medium text-brand-200">
-              KCET 2027 Counselling Guidance
+              KCET {year} Counselling Guidance
             </span>
           </div>
 
           {/* Main heading */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-6">
-            KCET 2027 Counselling Guidance —{" "}
+            KCET {year} Counselling Guidance —{" "}
             <span className="text-accent-400">Make the Most of Your Rank</span>
           </h1>
 
@@ -84,7 +87,7 @@ export default function Hero() {
         {/* Stats strip */}
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl">
           {[
-            { value: "2027", label: "KCET Cycle" },
+            { value: year, label: "KCET Cycle" },
             { value: "Rank-Based", label: "Personalized Analysis" },
             { value: "All Rounds", label: "Counselling Support" },
           ].map((stat) => (

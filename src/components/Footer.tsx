@@ -1,9 +1,11 @@
 import { siteConfig, buildWhatsAppUrl, buildPhoneUrl } from "../config/siteConfig";
 import peptalkLogo from "../assets/peptalklogo.png";
+import { useSheetConfig } from "../context/SheetConfigContext";
 
 const currentYear = new Date().getFullYear();
 
 export default function Footer() {
+  const { year } = useSheetConfig();
   return (
     <footer
       className="bg-gray-950 text-gray-400"
@@ -34,7 +36,7 @@ export default function Footer() {
               </div>
             </a>
             <p className="text-sm leading-relaxed text-gray-500 mb-5">
-              Personalized KCET 2027 counselling guidance for college
+              Personalized KCET {year} counselling guidance for college
               selection, branch selection and option entry.
             </p>
             <div className="flex gap-3">
