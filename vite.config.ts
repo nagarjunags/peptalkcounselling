@@ -12,7 +12,7 @@ import { resolve } from "path";
 // change base back to "/" because the custom domain serves from the root.
 export default defineConfig({
   plugins: [react()],
-  base: "/peptalkcounselling/",
+  base: "/",//"/peptalkcounselling/",
   build: {
     outDir: "dist",
     sourcemap: false,
