@@ -4,16 +4,13 @@ on:
   push:
     branches:
       - main
-  # Allow manual trigger from Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -37,30 +34,78 @@ jobs:
         run: npm ci
 
       - name: Build production bundle
-        # No VITE_BASE_PATH — the site is served from the root of the custom
-        # domain (kcetcouncelling.physicspeptalks.in), so base must be "/".
-        # Setting VITE_BASE_PATH=/peptalkcounselling/ would break asset paths.
+        # base is always "/" — site is served from custom domain root.
+        # Never set VITE_BASE_PATH here.
         run: npm run build
 
-      - name: Verify build output
+      - name: Verify dist/ file tree
         run: |
-          echo "===== dist/index.html (first 5 lines) ====="
-          head -5 dist/index.html
+          echo "===== All files in dist/ (max depth 2) ====="
+          find dist -maxdepth 2 -type f -print | sort
           echo ""
-          echo "===== Asset references in dist/index.html ====="
-          grep -oE 'src="[^"]*\.js[^"]*"' dist/index.html || echo "No JS src found"
-          grep -oE 'href="[^"]*\.css[^"]*"' dist/index.html || echo "No CSS href found"
+
+      - name: Print dist/index.html in full
+        run: |
+          echo "===== FULL CONTENT OF dist/index.html ====="
+          cat dist/index.html
           echo ""
-          echo "===== dist/ contents ====="
-          ls -lh dist/
-          ls -lh dist/assets/ || echo "No assets dir"
+          echo "===== END OF dist/index.html ====="
+
+      - name: Verify production JS bundle is referenced
+        run: |
+          echo "--- Script tags in dist/index.html ---"
+          grep -E '<script' dist/index.html || echo "(no script tags found)"
+          echo ""
+          echo "--- Link tags in dist/index.html ---"
+          grep -E '<link' dist/index.html | grep -E '\.(css|js)' || echo "(no asset link tags)"
+          echo ""
+          echo "--- Checking for /assets/*.js reference ---"
+          if grep -qE 'src="/assets/[^"]+\.js"' dist/index.html; then
+            echo "✅ Production JS bundle found:"
+            grep -oE 'src="/assets/[^"]+\.js"' dist/index.html
+          else
+            echo "❌ No production JS bundle found in dist/index.html"
+            exit 1
+          fi
+
+      - name: Verify /src/main.tsx is NOT present (hard fail)
+        run: |
+          if grep -q '/src/main.tsx' dist/index.html; then
+            echo "❌ FATAL: dist/index.html still references /src/main.tsx"
+            echo "This means the source index.html was deployed instead of the built output."
+            echo "Full dist/index.html:"
+            cat dist/index.html
+            exit 1
+          else
+            echo "✅ /src/main.tsx is NOT present — dist/index.html is the production build."
+          fi
+
+      - name: Verify dist/assets/ contents
+        run: |
+          echo "--- dist/assets/ ---"
+          ls -lh dist/assets/
+          echo ""
+          JS_COUNT=$(find dist/assets -name "*.js" | wc -l)
+          CSS_COUNT=$(find dist/assets -name "*.css" | wc -l)
+          echo "JS files:  $JS_COUNT"
+          echo "CSS files: $CSS_COUNT"
+          if [ "$JS_COUNT" -lt 1 ]; then
+            echo "❌ No JS files in dist/assets/"
+            exit 1
+          fi
+          if [ "$CSS_COUNT" -lt 1 ]; then
+            echo "❌ No CSS files in dist/assets/"
+            exit 1
+          fi
+          echo "✅ dist/assets/ contains JS and CSS bundles."
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload artifact
+      - name: Upload artifact (dist/ only)
         uses: actions/upload-pages-artifact@v3
         with:
+          # Explicitly targeting dist/ — NOT . or repository root
           path: "./dist"
 
   deploy:
