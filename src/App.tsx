@@ -53,13 +53,13 @@ export default function App() {
         <main id="main-content">
           <Hero />
           <Contact />
+          <Testimonials />
           <Services />
           <HowItWorks />
           <OptionEntry />
           <WhatYouGet />
           <TrustSection />
           <RoundSupport />
-          <Testimonials />
           <FAQ />
           <FinalCTA />
         </main>

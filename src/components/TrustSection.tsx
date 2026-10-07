@@ -7,7 +7,7 @@ const honestPoints = [
       </svg>
     ),
     heading: "We don't promise a specific college.",
-    body: "No counsellor can honestly guarantee admission to a particular college or branch before counselling is complete. Final allotments depend on rank, category, seat availability, cutoffs and KEA rules.",
+    body: "Seat allotment is solely done by KEA based on rank, category, seat availability, and cutoffs. No counsellor can honestly guarantee a particular college or branch — and we won't pretend otherwise.",
   },
   {
     icon: (
@@ -16,8 +16,8 @@ const honestPoints = [
           d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
       </svg>
     ),
-    heading: "We provide analysis, not predictions.",
-    body: "KCET cutoffs, seat availability and counselling outcomes change every year. We help you understand trends and possibilities — not predict the future.",
+    heading: "We use data, not guesswork.",
+    body: "Our option entry strategy is built on previous-year seat matrix data — so your list is optimised for the best realistic outcome for your rank, not based on generic advice.",
   },
   {
     icon: (
@@ -27,7 +27,7 @@ const honestPoints = [
       </svg>
     ),
     heading: "Parents are welcome.",
-    body: "We understand that KCET counselling is a family decision. Parents are welcome to participate in all counselling discussions.",
+    body: "KCET counselling is a family decision. Parents are welcome — and encouraged — to participate in every session. The more involved, the better the outcome.",
   },
   {
     icon: (
@@ -36,8 +36,8 @@ const honestPoints = [
           d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-    heading: "Transparent about limitations.",
-    body: "We will always be clear about what our guidance can and cannot tell you, and what remains uncertain until counselling concludes.",
+    heading: "No refunds — so enrol only when you're ready.",
+    body: "This is a limited-seat, high-effort, one-on-one service. Once enrolled, no refunds are provided. We want committed students who are serious about making the most of their KCET rank.",
   },
 ];
 
@@ -67,14 +67,14 @@ export default function TrustSection() {
         {/* Main honest statement */}
         <div className="bg-brand-50 dark:bg-brand-950/60 border-l-4 border-brand-600 rounded-r-2xl px-8 py-6 max-w-3xl mx-auto mb-14">
           <p className="text-brand-800 dark:text-brand-200 text-base md:text-lg leading-relaxed font-medium">
-            Our role is to help you understand your realistic choices, build a
-            sensible counselling strategy and make informed decisions based on
-            the information available.
+            Our job is to help you identify the best realistic college and
+            course for your rank — through one-on-one sessions, real seat matrix
+            data, and follow-up through every round until you're seated.
           </p>
           <p className="text-brand-600 dark:text-brand-400 text-sm mt-3">
-            Our goal is to help you identify and pursue the best realistic option
-            available for your rank, category, preferences and counselling
-            conditions.
+            We guide students to make the smartest possible choice within what
+            KEA's process allows. No shortcuts, no false claims — just honest,
+            data-backed support.
           </p>
         </div>
 

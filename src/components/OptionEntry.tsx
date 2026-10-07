@@ -1,11 +1,11 @@
 const confusionPoints = [
-  "College vs branch — which should you prioritise?",
-  "How do previous-year cutoffs inform realistic expectations?",
-  "How should you balance preferred colleges and preferred branches?",
-  "How many options should you include and in what order?",
-  "What backup options make sense for your rank?",
-  "How do different counselling rounds work?",
-  "When should you consider upgrading after Round 1?",
+  "Which college gives the best outcome for my exact rank and category?",
+  "Should I prioritise the college or the branch?",
+  "How does previous-year seat matrix data tell me what's realistic?",
+  "How many options should I fill — and in what order?",
+  "What backup options are safe vs what's just wasting a slot?",
+  "How do different counselling rounds work and when should I upgrade?",
+  "What happens if I get an allotment I'm not happy with?",
 ];
 
 export default function OptionEntry() {
@@ -26,15 +26,15 @@ export default function OptionEntry() {
               Why Option Entry Matters
             </h2>
             <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-5">
-              KCET counselling involves many decisions. Your rank is important,
-              but knowing how to evaluate and prioritize your available options
-              is equally important.
+              Option entry is the single most important action you take during
+              KCET counselling. The order you fill your choices directly
+              determines which seat you get — and most students do it without
+              proper data.
             </p>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
-              Students often find themselves confused about how to approach
-              option entry — it involves weighing multiple factors
-              simultaneously. Getting clarity on these decisions can help you
-              approach the process with more confidence.
+              We use actual previous-year seat matrix data to build your list —
+              so every choice is backed by numbers, not guesswork. One-on-one,
+              so it's built around your priorities, not a template.
             </p>
 
             <a

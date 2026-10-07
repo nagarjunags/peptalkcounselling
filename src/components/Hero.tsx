@@ -41,21 +41,22 @@ export default function Hero() {
 
           {/* Subheading */}
           <p className="text-lg md:text-xl text-brand-200 leading-relaxed mb-4 max-w-2xl">
-            Personalized guidance for college selection, branch selection,
-            option entry and counselling-round decisions.
+            One-on-one personalised guidance for option entry, college &amp;
+            branch selection — built around your rank, category, and priorities.
+            We follow up with you through every round until you get a good seat.
           </p>
 
           {/* Trust line */}
           <p className="text-brand-300 text-sm md:text-base mb-8 max-w-xl">
-            Rank-based guidance. Practical college selection. Support throughout
-            the counselling process.
+            Option entry based on previous-year seat matrix data. PCM teaching
+            for Boards &amp; KCET included at zero extra cost. Limited seats only.
           </p>
 
           {/* Honest message */}
           <div className="inline-block bg-white/10 border border-white/20 rounded-xl px-5 py-3 mb-10">
             <p className="text-brand-100 text-sm md:text-base font-medium">
-              We help you make informed decisions based on your realistic options
-              — without false promises.
+              Seat allotment is solely by KEA. We guide you to make the smartest
+              possible choice — honestly, without false promises.
             </p>
           </div>
 
@@ -91,9 +92,9 @@ export default function Hero() {
         {/* Stats strip */}
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl">
           {[
-            { value: year, label: "KCET Cycle" },
-            { value: "Rank-Based", label: "Personalized Analysis" },
-            { value: "All Rounds", label: "Counselling Support" },
+            { value: "1-on-1", label: "Personalised Guidance" },
+            { value: "Limited", label: "Seats Available" },
+            { value: "Zero Cost", label: "PCM Boards + KCET teaching" },
           ].map((stat) => (
             <div key={stat.label} className="flex flex-col gap-1">
               <span className="text-2xl font-bold text-white">{stat.value}</span>

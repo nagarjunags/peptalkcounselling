@@ -8,7 +8,7 @@ const services = [
     ),
     title: "Rank-Based College Guidance",
     description:
-      "Analyze your rank, category, preferences and previous-year trends to identify realistic college and branch possibilities tailored to your specific situation.",
+      "We analyse your KCET rank, category, and preferences against previous-year seat matrix data to identify the best realistic colleges and branches for your specific situation — not generic advice.",
   },
   {
     icon: (
@@ -19,7 +19,7 @@ const services = [
     ),
     title: "College & Branch Selection",
     description:
-      "Compare college and branch priorities based on your individual preferences, career goals, location and the realistic options available for your rank and category.",
+      "One-on-one sessions to help you pick the right college and the right course. We weigh your interests, career goals, location, and rank together — because the right fit is different for every student.",
   },
   {
     icon: (
@@ -30,7 +30,7 @@ const services = [
     ),
     title: "Option Entry Guidance",
     description:
-      "Build, organize and review your KCET option-entry strategy. Understand how to prioritize your choices and what factors to consider when ordering your preferences.",
+      "Our option entry strategy is built on actual previous-year seat matrix data — giving you a much higher chance of securing a better college. We set your priorities, build the list, and submit it with you.",
   },
   {
     icon: (
@@ -41,7 +41,7 @@ const services = [
     ),
     title: "Counselling-Round Support",
     description:
-      "Receive guidance as the counselling process progresses through the applicable rounds included in your purchased service, helping you evaluate allotments and decide next steps.",
+      "We don't disappear after option entry. We follow up and guide you through every counselling round until you get a good seat — helping you evaluate allotments and decide your next step each time.",
   },
 ];
 
@@ -62,8 +62,8 @@ export default function Services() {
             Guidance Across Every Stage of KCET Counselling
           </h2>
           <p className="text-gray-500 dark:text-gray-400 text-lg max-w-2xl mx-auto">
-            From understanding your realistic options to navigating the final
-            allotment, we provide structured, practical support.
+            One-on-one support across every stage — from understanding your
+            realistic options to securing the right seat.
           </p>
         </div>
 

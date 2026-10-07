@@ -2,42 +2,42 @@ const deliverables = [
   {
     title: "Rank Analysis",
     description:
-      "A review of your KCET rank and category to understand realistic possibilities in the current year's counselling.",
+      "A deep one-on-one review of your KCET rank and category to identify exactly what's within reach — and what to target — in this year's counselling.",
   },
   {
     title: "College Shortlist",
     description:
-      "A curated shortlist of colleges that are realistically within reach based on previous-year cutoff trends and your preferences.",
+      "A personalised shortlist of colleges realistically within reach, built from previous-year seat matrix data — not generic lists.",
   },
   {
     title: "Branch Guidance",
     description:
-      "Discussion of branch options available at shortlisted colleges, aligned with your career preferences and priorities.",
+      "A focused discussion on which branches suit your interests and career goals at each shortlisted college, so you're choosing a future, not just a seat.",
   },
   {
-    title: "Previous-Year Trend Analysis",
+    title: "Seat Matrix Analysis",
     description:
-      "Review of previous-year closing ranks to understand which colleges and branches are realistic for your rank and category.",
+      "We use actual previous-year seat matrix data to show you closing ranks by college, branch, and category — so your option entry is grounded in real numbers.",
   },
   {
     title: "Option-Entry Strategy",
     description:
-      "Help structuring your option-entry list to reflect your priorities, with guidance on balancing preferred choices and backup options.",
+      "Your priorities, our data. We build your option list together — ordered to maximise your chances of getting the best possible college for your rank.",
   },
   {
     title: "Option-List Review",
     description:
-      "A review of your drafted option-entry list before you finalize and submit, to check for any gaps or ordering concerns.",
+      "Before you hit submit, we review your entire option list one more time to catch any gaps, ordering mistakes, or missed opportunities.",
   },
   {
-    title: "Counselling-Round Guidance",
+    title: "Round-by-Round Follow-up",
     description:
-      "Support during each applicable counselling round to help you understand allotments and evaluate your next steps.",
+      "We stay with you through every counselling round — evaluating each allotment, advising on upgrades, and guiding you until you've confirmed a seat you're happy with.",
   },
   {
-    title: "Allotment Decision Support",
+    title: "PCM Teaching — Zero Extra Cost",
     description:
-      "Guidance on evaluating allotment results — whether to accept, upgrade in the next round, or consider other options.",
+      "Struggling with Physics, Chemistry, or Maths for Boards or KCET? We cover PCM teaching as part of the package — at absolutely zero extra cost.",
   },
 ];
 
@@ -58,8 +58,8 @@ export default function WhatYouGet() {
             Everything You Need to Navigate Counselling
           </h2>
           <p className="text-brand-300 text-lg max-w-2xl mx-auto">
-            Structured support from initial rank analysis to final allotment
-            decisions.
+            Everything included in one package — from rank analysis to final
+            seat confirmation, plus PCM teaching at zero extra cost.
           </p>
         </div>
 
@@ -94,9 +94,9 @@ export default function WhatYouGet() {
         <div className="text-center">
           <div className="inline-block bg-brand-800/60 border border-brand-600/40 rounded-2xl px-8 py-5">
             <p className="text-brand-200 text-sm mb-3">
-              Package details and pricing are available on request.
+              Limited seats available. Contact us for current pricing.
               <br />
-              Services included may vary by package.
+              Note: No refunds once enrolled.
             </p>
             <a
               href="#contact"

@@ -3,7 +3,7 @@ const steps = [
     number: "01",
     title: "Share Your Details",
     description:
-      "Provide your KCET rank, category, branch preferences, college preferences, location priorities and any other requirements relevant to your counselling.",
+      "Tell us your KCET rank, category, branch interests, college preferences, and location priorities. The more we know about you, the more personalised your option entry strategy will be.",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
@@ -15,7 +15,7 @@ const steps = [
     number: "02",
     title: "Analyse Your Options",
     description:
-      "Review realistic college and branch possibilities based on previous-year trends, your rank, category and preferences. Understand what is likely and what is unlikely.",
+      "We dig into previous-year seat matrix data alongside your rank and category to show you exactly what's realistic, what's a stretch, and what's a safe backup — no guesswork, just data.",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
@@ -27,7 +27,7 @@ const steps = [
     number: "03",
     title: "Build Your Option Strategy",
     description:
-      "Organize and review your option-entry list. Decide how to prioritize your preferred colleges and branches to reflect your goals while keeping sensible backup options.",
+      "We build your option-entry list together in a one-on-one session — priorities set by you, order optimised by us using seat matrix data. Reviewed, refined, and submitted before the deadline.",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
@@ -39,7 +39,7 @@ const steps = [
     number: "04",
     title: "Continue Through Counselling",
     description:
-      "Receive guidance as each counselling round progresses. Evaluate allotments, understand your options and make informed decisions throughout the process.",
+      "We follow up and stay with you through every round of counselling — evaluating allotments, guiding upgrade decisions, until you've confirmed a seat you're happy with.",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
@@ -66,8 +66,8 @@ export default function HowItWorks() {
             A Clear, Step-by-Step Process
           </h2>
           <p className="text-gray-500 dark:text-gray-400 text-lg max-w-2xl mx-auto">
-            Our counselling process is structured to help you move from
-            confusion to clarity at each stage.
+            Every student gets one-on-one attention at each stage — from your
+            first call to confirming your final seat.
           </p>
         </div>
 

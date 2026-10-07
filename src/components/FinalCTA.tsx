@@ -20,9 +20,10 @@ export default function FinalCTA() {
 
         {/* Subheading */}
         <p className="text-brand-200 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl mx-auto">
-          Get personalized guidance for college selection, branch selection and
-          option-entry planning. Make informed decisions based on your realistic
-          options — with support throughout the counselling process.
+          Get one-on-one personalised guidance for option entry, college &amp;
+          branch selection — backed by seat matrix data, with follow-up through
+          every round until you confirm a seat. PCM teaching included at zero
+          extra cost. Limited seats only.
         </p>
 
         {/* Buttons */}
@@ -69,10 +70,10 @@ export default function FinalCTA() {
         {/* Disclaimer */}
         <div className="bg-white/10 border border-white/20 rounded-xl px-6 py-4 max-w-2xl mx-auto">
           <p className="text-brand-300 text-xs leading-relaxed">
-            Counselling outcomes depend on rank, category, preferences, seat
-            availability, cutoffs, KEA rules and other factors outside our
-            control. Guidance does not guarantee admission to any specific
-            college or branch.
+            Seat allotment is solely determined by KEA based on rank, category,
+            seat availability, cutoffs and other factors outside our control.
+            We guide you to the best possible choice — we do not guarantee any
+            specific college or branch. No refunds once enrolled. Limited seats.
           </p>
         </div>
       </div>
