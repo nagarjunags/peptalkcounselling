@@ -27,6 +27,15 @@ export const siteConfig = {
   /** Parent brand website */
   parentWebsite: "https://physicspeptalk.com",
 
+  /** YouTube — main Physics Pep Talk channel */
+  youtubeMainUrl: "https://youtube.com/@physicspeptalk",
+
+  /** YouTube — KCET / CET counselling info channel */
+  youtubeKcetUrl: "https://youtube.com/@peptalkinfokcet",
+
+  /** Instagram */
+  instagramUrl: "https://www.instagram.com/physics_pep_talk",
+
   /** Privacy Policy URL (hosted on parent site) */
   privacyPolicyUrl: "https://physicspeptalk.com/privacy-policy",
 
