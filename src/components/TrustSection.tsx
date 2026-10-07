@@ -1,4 +1,6 @@
-const honestPoints = [
+import { useExam } from "../context/ExamContext";
+
+const commonHonestPoints = [
   {
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -7,7 +9,10 @@ const honestPoints = [
       </svg>
     ),
     heading: "We don't promise a specific college.",
-    body: "Seat allotment is solely done by KEA based on rank, category, seat availability, and cutoffs. No counsellor can honestly guarantee a particular college or branch — and we won't pretend otherwise.",
+    kcetBody:
+      "Seat allotment is solely done by KEA based on rank, category, seat availability, and cutoffs. No counsellor can honestly guarantee a particular college or branch — and we won't pretend otherwise.",
+    comdekBody:
+      "Seat allotment is determined by COMEDK authority based on rank, seat availability, and cutoffs. No counsellor can honestly guarantee a specific college or branch — and we won't pretend otherwise.",
   },
   {
     icon: (
@@ -17,7 +22,10 @@ const honestPoints = [
       </svg>
     ),
     heading: "We use data, not guesswork.",
-    body: "Our option entry strategy is built on previous-year seat matrix data — so your list is optimised for the best realistic outcome for your rank, not based on generic advice.",
+    kcetBody:
+      "Our option entry strategy is built on previous-year seat matrix data — so your list is optimised for the best realistic outcome for your rank, not based on generic advice.",
+    comdekBody:
+      "Our choice filling strategy is built on previous-year COMEDK seat data — so your list is optimised for the best realistic outcome for your rank, not based on generic advice.",
   },
   {
     icon: (
@@ -27,7 +35,10 @@ const honestPoints = [
       </svg>
     ),
     heading: "Parents are welcome.",
-    body: "KCET counselling is a family decision. Parents are welcome — and encouraged — to participate in every session. The more involved, the better the outcome.",
+    kcetBody:
+      "KCET counselling is a family decision. Parents are welcome — and encouraged — to participate in every session. The more involved, the better the outcome.",
+    comdekBody:
+      "COMEDK counselling is a family decision. Parents are welcome — and encouraged — to participate in every session. The more involved, the better the outcome.",
   },
   {
     icon: (
@@ -37,11 +48,40 @@ const honestPoints = [
       </svg>
     ),
     heading: "No refunds — so enrol only when you're ready.",
-    body: "This is a limited-seat, high-effort, one-on-one service. Once enrolled, no refunds are provided. We want committed students who are serious about making the most of their KCET rank.",
+    kcetBody:
+      "This is a limited-seat, high-effort, one-on-one service. Once enrolled, no refunds are provided. We want committed students who are serious about making the most of their KCET rank.",
+    comdekBody:
+      "This is a limited-seat, high-effort, one-on-one service. Once enrolled, no refunds are provided. We want committed students who are serious about making the most of their COMEDK rank.",
   },
 ];
 
+const examMeta = {
+  KCET: {
+    introPara:
+      "KCET cutoffs, seat availability and counselling outcomes can change every year. No counsellor can honestly guarantee a particular college or branch before counselling is completed.",
+    mainStatement:
+      "Our job is to help you identify the best realistic college and course for your rank — through one-on-one sessions, real seat matrix data, and follow-up through every round until you're seated.",
+    mainNote:
+      "We guide students to make the smartest possible choice within what KEA's process allows. No shortcuts, no false claims — just honest, data-backed support.",
+    disclaimer:
+      "Final allotments are determined by the Karnataka Examinations Authority (KEA) based on rank, category, seat availability, cutoffs and other factors. This counselling service does not control or influence KEA allotments.",
+  },
+  COMEDK: {
+    introPara:
+      "COMEDK cutoffs, seat availability and counselling outcomes can change every year. No counsellor can honestly guarantee a particular college or branch before counselling is completed.",
+    mainStatement:
+      "Our job is to help you identify the best realistic college and course for your COMEDK rank — through one-on-one sessions, real seat data, and follow-up through every counselling round until you're seated.",
+    mainNote:
+      "We guide students to make the smartest possible choice within what COMEDK's process allows. No shortcuts, no false claims — just honest, data-backed support.",
+    disclaimer:
+      "Final allotments are determined by COMEDK authority based on rank, seat availability, cutoffs and other factors. This counselling service does not control or influence COMEDK allotments.",
+  },
+} as const;
+
 export default function TrustSection() {
+  const { exam } = useExam();
+  const meta = examMeta[exam];
+
   return (
     <section
       id="our-approach"
@@ -58,29 +98,23 @@ export default function TrustSection() {
             No False Promises. Only Practical Guidance.
           </h2>
           <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
-            KCET cutoffs, seat availability and counselling outcomes can change
-            every year. No counsellor can honestly guarantee a particular
-            college or branch before counselling is completed.
+            {meta.introPara}
           </p>
         </div>
 
         {/* Main honest statement */}
         <div className="bg-brand-50 dark:bg-brand-950/60 border-l-4 border-brand-600 rounded-r-2xl px-8 py-6 max-w-3xl mx-auto mb-14">
           <p className="text-brand-800 dark:text-brand-200 text-base md:text-lg leading-relaxed font-medium">
-            Our job is to help you identify the best realistic college and
-            course for your rank — through one-on-one sessions, real seat matrix
-            data, and follow-up through every round until you're seated.
+            {meta.mainStatement}
           </p>
           <p className="text-brand-600 dark:text-brand-400 text-sm mt-3">
-            We guide students to make the smartest possible choice within what
-            KEA's process allows. No shortcuts, no false claims — just honest,
-            data-backed support.
+            {meta.mainNote}
           </p>
         </div>
 
         {/* Points */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {honestPoints.map((point) => (
+          {commonHonestPoints.map((point) => (
             <div
               key={point.heading}
               className="flex gap-4 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6"
@@ -93,20 +127,17 @@ export default function TrustSection() {
                   {point.heading}
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                  {point.body}
+                  {exam === "COMEDK" ? point.comdekBody : point.kcetBody}
                 </p>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Bottom KEA disclaimer */}
+        {/* Bottom disclaimer */}
         <div className="mt-12 text-center">
           <p className="text-xs text-gray-400 dark:text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            Final allotments are determined by the Karnataka Examinations
-            Authority (KEA) based on rank, category, seat availability,
-            cutoffs and other factors. This counselling service does not
-            control or influence KEA allotments.
+            {meta.disclaimer}
           </p>
         </div>
       </div>

@@ -1,47 +1,41 @@
-const deliverables = [
-  {
-    title: "Rank Analysis",
-    description:
-      "A deep one-on-one review of your KCET rank and category to identify exactly what's within reach — and what to target — in this year's counselling.",
-  },
-  {
-    title: "College Shortlist",
-    description:
-      "A personalised shortlist of colleges realistically within reach, built from previous-year seat matrix data — not generic lists.",
-  },
-  {
-    title: "Branch Guidance",
-    description:
-      "A focused discussion on which branches suit your interests and career goals at each shortlisted college, so you're choosing a future, not just a seat.",
-  },
-  {
-    title: "Seat Matrix Analysis",
-    description:
-      "We use actual previous-year seat matrix data to show you closing ranks by college, branch, and category — so your option entry is grounded in real numbers.",
-  },
-  {
-    title: "Option-Entry Strategy",
-    description:
-      "Your priorities, our data. We build your option list together — ordered to maximise your chances of getting the best possible college for your rank.",
-  },
-  {
-    title: "Option-List Review",
-    description:
-      "Before you hit submit, we review your entire option list one more time to catch any gaps, ordering mistakes, or missed opportunities.",
-  },
-  {
-    title: "Round-by-Round Follow-up",
-    description:
-      "We stay with you through every counselling round — evaluating each allotment, advising on upgrades, and guiding you until you've confirmed a seat you're happy with.",
-  },
-  {
-    title: "PCM Teaching — Zero Extra Cost",
-    description:
-      "Struggling with Physics, Chemistry, or Maths for Boards or KCET? We cover PCM teaching as part of the package — at absolutely zero extra cost.",
-  },
+import { useExam } from "../context/ExamContext";
+
+const kcetDeliverables = [
+  { title: "Rank Analysis", description: "A deep one-on-one review of your KCET rank and category to identify exactly what's within reach — and what to target — in this year's counselling." },
+  { title: "College Shortlist", description: "A personalised shortlist of colleges realistically within reach, built from previous-year seat matrix data — not generic lists." },
+  { title: "Branch Guidance", description: "A focused discussion on which branches suit your interests and career goals at each shortlisted college, so you're choosing a future, not just a seat." },
+  { title: "Seat Matrix Analysis", description: "We use actual previous-year seat matrix data to show you closing ranks by college, branch, and category — so your option entry is grounded in real numbers." },
+  { title: "Option-Entry Strategy", description: "Your priorities, our data. We build your option list together — ordered to maximise your chances of getting the best possible college for your rank." },
+  { title: "Option-List Review", description: "Before you hit submit, we review your entire option list one more time to catch any gaps, ordering mistakes, or missed opportunities." },
+  { title: "Round-by-Round Follow-up", description: "We stay with you through every counselling round — evaluating each allotment, advising on upgrades, and guiding you until you've confirmed a seat you're happy with." },
+  { title: "PCM Teaching — Zero Extra Cost", description: "Struggling with Physics, Chemistry, or Maths for Boards or KCET? We cover PCM teaching as part of the package — at absolutely zero extra cost." },
+];
+
+const comdekDeliverables = [
+  { title: "Rank Analysis", description: "A deep one-on-one review of your COMEDK rank to identify exactly what's within reach — and what to target — in this year's counselling." },
+  { title: "College Shortlist", description: "A personalised shortlist of COMEDK colleges realistically within your reach, built from previous-year seat data — not generic lists." },
+  { title: "Branch Guidance", description: "A focused discussion on which engineering branches suit your interests and career goals at each shortlisted college, so you're choosing a future, not just a seat." },
+  { title: "Seat Data Analysis", description: "We use actual previous-year COMEDK seat data to show you closing ranks by college and branch — so your choice filling is grounded in real numbers." },
+  { title: "Choice Filling Strategy", description: "Your priorities, our data. We build your COMEDK choice list together — ordered to maximise your chances of getting the best possible college for your rank." },
+  { title: "Choice List Review", description: "Before you submit, we review your entire choice list one final time to catch any gaps, ordering issues, or missed opportunities." },
+  { title: "Round-by-Round Follow-up", description: "We stay with you through every COMEDK counselling round — evaluating each allotment, advising on upgrades, and guiding you until you've confirmed a seat you're happy with." },
+  { title: "PCM Teaching — Zero Extra Cost", description: "Struggling with Physics, Chemistry, or Maths for Boards or COMEDK? We cover PCM teaching as part of the package — at absolutely zero extra cost." },
 ];
 
 export default function WhatYouGet() {
+  const { exam } = useExam();
+  const deliverables = exam === "COMEDK" ? comdekDeliverables : kcetDeliverables;
+
+  const heading =
+    exam === "COMEDK"
+      ? "Everything You Need to Navigate COMEDK Counselling"
+      : "Everything You Need to Navigate Counselling";
+
+  const subheading =
+    exam === "COMEDK"
+      ? "Everything included in one package — from rank analysis to final seat confirmation, plus PCM teaching at zero extra cost."
+      : "Everything included in one package — from rank analysis to final seat confirmation, plus PCM teaching at zero extra cost.";
+
   return (
     <section
       id="what-you-get"
@@ -55,11 +49,10 @@ export default function WhatYouGet() {
             What You Get
           </span>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Everything You Need to Navigate Counselling
+            {heading}
           </h2>
           <p className="text-brand-300 text-lg max-w-2xl mx-auto">
-            Everything included in one package — from rank analysis to final
-            seat confirmation, plus PCM teaching at zero extra cost.
+            {subheading}
           </p>
         </div>
 

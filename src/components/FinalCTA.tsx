@@ -1,8 +1,40 @@
-import { buildWhatsAppUrl, buildPhoneUrl, siteConfig } from "../config/siteConfig";
+import { buildWhatsAppUrl, buildPhoneUrl } from "../config/siteConfig";
 import { trackWhatsAppClick, trackCallClick, trackCTAClick } from "../utils/analytics";
+import { useExam } from "../context/ExamContext";
+
+const examContent = {
+  KCET: {
+    heading: (
+      <>
+        Don't Leave Your KCET Counselling
+        <br className="hidden sm:block" />
+        <span className="text-accent-400"> Decisions to Guesswork</span>
+      </>
+    ),
+    subheading:
+      "Get one-on-one personalised guidance for option entry, college & branch selection — backed by seat matrix data, with follow-up through every round until you confirm a seat. PCM teaching included at zero extra cost. Limited seats only.",
+    disclaimer:
+      "Seat allotment is solely determined by KEA based on rank, category, seat availability, cutoffs and other factors outside our control. We guide you to the best possible choice — we do not guarantee any specific college or branch. No refunds once enrolled. Limited seats.",
+  },
+  COMEDK: {
+    heading: (
+      <>
+        Don't Leave Your COMEDK Counselling
+        <br className="hidden sm:block" />
+        <span className="text-accent-400"> Decisions to Guesswork</span>
+      </>
+    ),
+    subheading:
+      "Get one-on-one personalised guidance for choice filling, college & branch selection — backed by previous-year seat data, with follow-up through every COMEDK round until you confirm a seat. PCM teaching included at zero extra cost. Limited seats only.",
+    disclaimer:
+      "Seat allotment is determined by COMEDK authority based on rank, seat availability, cutoffs and other factors outside our control. We guide you to the best possible choice — we do not guarantee any specific college or branch. No refunds once enrolled. Limited seats.",
+  },
+} as const;
 
 export default function FinalCTA() {
   const phoneUrl = buildPhoneUrl();
+  const { exam } = useExam();
+  const content = examContent[exam];
 
   return (
     <section
@@ -13,24 +45,19 @@ export default function FinalCTA() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
         {/* Heading */}
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-5">
-          Don't Leave Your KCET Counselling
-          <br className="hidden sm:block" />
-          <span className="text-accent-400"> Decisions to Guesswork</span>
+          {content.heading}
         </h2>
 
         {/* Subheading */}
         <p className="text-brand-200 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl mx-auto">
-          Get one-on-one personalised guidance for option entry, college &amp;
-          branch selection — backed by seat matrix data, with follow-up through
-          every round until you confirm a seat. PCM teaching included at zero
-          extra cost. Limited seats only.
+          {content.subheading}
         </p>
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
           <a
             href="#contact"
-            onClick={() => trackCTAClick("final_cta_get_guidance")}
+            onClick={() => trackCTAClick(`final_cta_get_guidance_${exam.toLowerCase()}`)}
             className="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-base transition-colors shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900 w-full sm:w-auto justify-center"
           >
             Get Counselling Guidance
@@ -40,10 +67,10 @@ export default function FinalCTA() {
           </a>
 
           <a
-            href={buildWhatsAppUrl()}
+            href={buildWhatsAppUrl(undefined, exam)}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackWhatsAppClick("final_cta")}
+            onClick={() => trackWhatsAppClick(`final_cta_${exam.toLowerCase()}`)}
             className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-4 rounded-xl text-base transition-colors shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900 w-full sm:w-auto justify-center"
           >
             <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
@@ -55,7 +82,7 @@ export default function FinalCTA() {
           {phoneUrl !== "#" && (
             <a
               href={phoneUrl}
-              onClick={() => trackCallClick("final_cta")}
+              onClick={() => trackCallClick(`final_cta_${exam.toLowerCase()}`)}
               className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold px-8 py-4 rounded-xl text-base transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900 w-full sm:w-auto justify-center"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -70,16 +97,10 @@ export default function FinalCTA() {
         {/* Disclaimer */}
         <div className="bg-white/10 border border-white/20 rounded-xl px-6 py-4 max-w-2xl mx-auto">
           <p className="text-brand-300 text-xs leading-relaxed">
-            Seat allotment is solely determined by KEA based on rank, category,
-            seat availability, cutoffs and other factors outside our control.
-            We guide you to the best possible choice — we do not guarantee any
-            specific college or branch. No refunds once enrolled. Limited seats.
+            {content.disclaimer}
           </p>
         </div>
       </div>
-
-      {/* Suppress unused import */}
-      {void siteConfig}
     </section>
   );
 }

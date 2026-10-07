@@ -1,9 +1,57 @@
 import { buildWhatsAppUrl } from "../config/siteConfig";
 import { trackWhatsAppClick, trackCTAClick } from "../utils/analytics";
 import { useSheetConfig } from "../context/SheetConfigContext";
+import { useExam } from "../context/ExamContext";
+
+const examContent = {
+  KCET: {
+    badge: (year: string) => `KCET ${year} Counselling Guidance`,
+    heading: (year: string) => (
+      <>
+        KCET {year} Counselling Guidance —{" "}
+        <span className="text-accent-400">Make the Most of Your Rank</span>
+      </>
+    ),
+    subheading:
+      "One-on-one personalised guidance for option entry, college & branch selection — built around your rank, category, and priorities. We follow up with you through every round until you get a good seat.",
+    trustLine:
+      "Option entry based on previous-year seat matrix data. PCM teaching for Boards & KCET included at zero extra cost. Limited seats only.",
+    honestMessage:
+      "Seat allotment is solely by KEA. We guide you to make the smartest possible choice — honestly, without false promises.",
+    ctaLabel: "Get Counselling Guidance",
+    stats: [
+      { value: "1-on-1", label: "Personalised Guidance" },
+      { value: "Limited", label: "Seats Available" },
+      { value: "Zero Cost", label: "PCM Boards + KCET teaching" },
+    ],
+  },
+  COMEDK: {
+    badge: (year: string) => `COMEDK ${year} Counselling Guidance`,
+    heading: (year: string) => (
+      <>
+        COMEDK {year} Counselling Guidance —{" "}
+        <span className="text-accent-400">Make the Most of Your Rank</span>
+      </>
+    ),
+    subheading:
+      "One-on-one personalised guidance for choice filling, college & branch selection — built around your COMEDK rank, category, and priorities. We support you through every round until you secure a good seat.",
+    trustLine:
+      "Choice filling based on previous-year seat data. PCM teaching for Boards & COMEDK included at zero extra cost. Limited seats only.",
+    honestMessage:
+      "Seat allotment is solely by COMEDK authority. We guide you to make the smartest possible choice — honestly, without false promises.",
+    ctaLabel: "Get Counselling Guidance",
+    stats: [
+      { value: "1-on-1", label: "Personalised Guidance" },
+      { value: "Limited", label: "Seats Available" },
+      { value: "Zero Cost", label: "PCM Boards + COMEDK teaching" },
+    ],
+  },
+} as const;
 
 export default function Hero() {
   const { year, counsellingBatchUrl } = useSheetConfig();
+  const { exam } = useExam();
+  const content = examContent[exam];
 
   return (
     <section
@@ -29,34 +77,29 @@ export default function Hero() {
           <div className="inline-flex items-center gap-2 bg-brand-700/60 border border-brand-500/40 rounded-full px-4 py-1.5 mb-6">
             <span className="w-2 h-2 rounded-full bg-accent-400 animate-pulse" aria-hidden="true"></span>
             <span className="text-sm font-medium text-brand-200">
-              KCET {year} Counselling Guidance
+              {content.badge(year)}
             </span>
           </div>
 
           {/* Main heading */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-6">
-            KCET {year} Counselling Guidance —{" "}
-            <span className="text-accent-400">Make the Most of Your Rank</span>
+            {content.heading(year)}
           </h1>
 
           {/* Subheading */}
           <p className="text-lg md:text-xl text-brand-200 leading-relaxed mb-4 max-w-2xl">
-            One-on-one personalised guidance for option entry, college &amp;
-            branch selection — built around your rank, category, and priorities.
-            We follow up with you through every round until you get a good seat.
+            {content.subheading}
           </p>
 
           {/* Trust line */}
           <p className="text-brand-300 text-sm md:text-base mb-8 max-w-xl">
-            Option entry based on previous-year seat matrix data. PCM teaching
-            for Boards &amp; KCET included at zero extra cost. Limited seats only.
+            {content.trustLine}
           </p>
 
           {/* Honest message */}
           <div className="inline-block bg-white/10 border border-white/20 rounded-xl px-5 py-3 mb-10">
             <p className="text-brand-100 text-sm md:text-base font-medium">
-              Seat allotment is solely by KEA. We guide you to make the smartest
-              possible choice — honestly, without false promises.
+              {content.honestMessage}
             </p>
           </div>
 
@@ -65,19 +108,19 @@ export default function Hero() {
             <a
               href={counsellingBatchUrl || "#contact"}
               {...(counsellingBatchUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              onClick={() => trackCTAClick("hero_get_guidance")}
+              onClick={() => trackCTAClick(`hero_get_guidance_${exam.toLowerCase()}`)}
               className="inline-flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-bold px-7 py-3.5 rounded-xl text-base transition-colors shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900"
             >
-              Get Counselling Guidance
+              {content.ctaLabel}
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </a>
             <a
-              href={buildWhatsAppUrl()}
+              href={buildWhatsAppUrl(undefined, exam)}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackWhatsAppClick("hero")}
+              onClick={() => trackWhatsAppClick(`hero_${exam.toLowerCase()}`)}
               className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold px-7 py-3.5 rounded-xl text-base transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900"
             >
               {/* WhatsApp icon */}
@@ -91,11 +134,7 @@ export default function Hero() {
 
         {/* Stats strip */}
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl">
-          {[
-            { value: "1-on-1", label: "Personalised Guidance" },
-            { value: "Limited", label: "Seats Available" },
-            { value: "Zero Cost", label: "PCM Boards + KCET teaching" },
-          ].map((stat) => (
+          {content.stats.map((stat) => (
             <div key={stat.label} className="flex flex-col gap-1">
               <span className="text-2xl font-bold text-white">{stat.value}</span>
               <span className="text-sm text-brand-300">{stat.label}</span>

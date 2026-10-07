@@ -3,12 +3,22 @@ import { siteConfig, buildWhatsAppUrl } from "../config/siteConfig";
 import peptalkLogo from "../assets/peptalklogo.png";
 import { useSheetConfig } from "../context/SheetConfigContext";
 import { useTheme } from "../context/ThemeContext";
+import { useExam } from "../context/ExamContext";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { testimonials, loading, counsellingBatchUrl } = useSheetConfig();
+  const { testimonials, loading, counsellingBatchUrl, headerTagline, comdekTagline } = useSheetConfig();
   const { theme, toggleTheme } = useTheme();
+  const { exam } = useExam();
+
+  // Pick the correct tagline based on exam
+  // For COMEDK: use comdekTagline from sheet if set, else fallback
+  // For KCET: use headerTagline from sheet (same as existing behaviour)
+  const displayTagline =
+    exam === "COMEDK"
+      ? (comdekTagline || `COMEDK ${new Date().getFullYear() + 1} Counselling`)
+      : (headerTagline || siteConfig.headerTagline);
 
   // Hide the Testimonials nav link until we know there are videos
   const hasTestimonials = !loading && testimonials.length > 0;
@@ -51,7 +61,7 @@ export default function Header() {
                 {siteConfig.brandName}
               </span>
               <span className="text-brand-500 dark:text-brand-400 text-xs font-medium tracking-wide">
-                {siteConfig.headerTagline}
+                {displayTagline}
               </span>
             </div>
           </a>

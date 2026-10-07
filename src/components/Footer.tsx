@@ -1,11 +1,29 @@
 import { siteConfig, buildWhatsAppUrl, buildPhoneUrl } from "../config/siteConfig";
 import peptalkLogo from "../assets/peptalklogo.png";
 import { useSheetConfig } from "../context/SheetConfigContext";
+import { useExam } from "../context/ExamContext";
 
 const currentYear = new Date().getFullYear();
 
 export default function Footer() {
-  const { year } = useSheetConfig();
+  const { year, headerTagline, comdekTagline } = useSheetConfig();
+  const { exam } = useExam();
+
+  const displayTagline =
+    exam === "COMEDK"
+      ? (comdekTagline || `COMEDK ${year} Counselling`)
+      : (headerTagline || siteConfig.headerTagline);
+
+  const description =
+    exam === "COMEDK"
+      ? `Personalized COMEDK ${year} counselling guidance for college selection, branch selection and choice filling.`
+      : `Personalized KCET ${year} counselling guidance for college selection, branch selection and option entry.`;
+
+  const disclaimer =
+    exam === "COMEDK"
+      ? "This service provides counselling guidance only. Final allotments are determined by COMEDK authority. No specific college or branch is guaranteed."
+      : "This service provides counselling guidance only. Final allotments are determined by KEA. No specific college or branch is guaranteed.";
+
   return (
     <footer
       className="bg-gray-950 dark:bg-gray-950 text-gray-400"
@@ -21,8 +39,8 @@ export default function Footer() {
               className="inline-flex items-center gap-3 mb-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded"
               aria-label={`${siteConfig.brandName} — Back to top`}
             >
-              <img 
-                src={peptalkLogo} 
+              <img
+                src={peptalkLogo}
                 alt="Physics Pep Talk Logo"
                 className="h-10 w-10"
               />
@@ -31,17 +49,16 @@ export default function Footer() {
                   {siteConfig.brandName}
                 </span>
                 <span className="text-brand-400 text-xs font-medium tracking-wide mt-0.5">
-                  {siteConfig.headerTagline}
+                  {displayTagline}
                 </span>
               </div>
             </a>
             <p className="text-sm leading-relaxed text-gray-500 mb-5">
-              Personalized KCET {year} counselling guidance for college
-              selection, branch selection and option entry.
+              {description}
             </p>
             <div className="flex gap-3">
               <a
-                href={buildWhatsAppUrl()}
+                href={buildWhatsAppUrl(undefined, exam)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-lg bg-gray-800 hover:bg-green-700 flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400"
@@ -90,7 +107,7 @@ export default function Footer() {
           {/* Legal & links column */}
           <div>
             <h3 className="text-white font-semibold text-sm mb-4 uppercase tracking-wide">
-              Legal & Links
+              Legal &amp; Links
             </h3>
             <ul className="flex flex-col gap-2.5" role="list">
               <li>
@@ -146,8 +163,7 @@ export default function Footer() {
             © {currentYear} {siteConfig.brandName}. All rights reserved.
           </p>
           <p className="text-xs text-gray-700 text-center md:text-right leading-relaxed max-w-sm">
-            This service provides counselling guidance only. Final allotments
-            are determined by KEA. No specific college or branch is guaranteed.
+            {disclaimer}
           </p>
         </div>
       </div>

@@ -10,19 +10,24 @@
  * Sheet tab: "config" (gid=0)
  * Format:  Column A = variable name (lowercase),  Column B = value
  *
- * Variable names to add in your sheet:
+ * Variable names in your sheet:
  * ┌──────────────────────────┬─────────────────────────────────────────────┐
  * │ Variable name (col A)    │ What it controls                            │
  * ├──────────────────────────┼─────────────────────────────────────────────┤
- * │ year                     │ KCET year shown everywhere (e.g. 2027)      │
+ * │ year                     │ Counselling year shown everywhere (e.g. 2027)│
  * │ whatsappnumber           │ WhatsApp number, no + or spaces (919xxxxxxx)│
  * │ phonenumber              │ Phone number shown in UI (e.g. 9986555819)  │
  * │ email                    │ Contact email address                       │
  * │ brandname                │ Brand name in header/footer                 │
- * │ headertagline            │ Tagline under logo in header                │
+ * │ headertagline            │ KCET tagline under logo in header           │
  * │ counsellingbatchurl      │ Enrol button link                           │
  * │ counsellingbatchthumbnail│ Batch thumbnail image URL                   │
+ * │ comedk_tagline           │ COMEDK tagline under logo in header (NEW)   │
  * └──────────────────────────┴─────────────────────────────────────────────┘
+ *
+ * The new comedk_tagline variable is ADDITIVE — the existing KCET site
+ * continues to work as-is because the parser is forward-compatible with
+ * unknown keys (it just stores them in the config map).
  */
 
 import {
@@ -46,6 +51,9 @@ const DEFAULTS: SheetConfig = {
   headertagline: siteConfig.headerTagline,
   counsellingbatchurl: "",
   counsellingbatchthumbnail: "",
+  // comedk_tagline is intentionally not set in defaults so it can be
+  // distinguished from "not loaded yet" vs "set in sheet".
+  // Components will fall back gracefully when it is absent.
 };
 
 // ─── Patch siteConfig with live sheet values ──────────────────────────────────
@@ -57,6 +65,8 @@ function patchSiteConfig(remote: SheetConfig) {
   if (remote.email)            siteConfig.email           = remote.email;
   if (remote.brandname)        siteConfig.brandName       = remote.brandname;
   if (remote.headertagline)    siteConfig.headerTagline   = remote.headertagline;
+  // comedk_tagline is NOT patched into siteConfig — it is consumed directly
+  // from the context by COMEDK-specific logic (see Header, Hero etc.)
 }
 
 // ─── Context shape ────────────────────────────────────────────────────────────
@@ -64,12 +74,20 @@ function patchSiteConfig(remote: SheetConfig) {
 interface SheetConfigState {
   /** Raw merged config map (sheet values + defaults) */
   config: SheetConfig;
-  /** KCET year string */
+  /** Counselling year string (e.g. "2027") */
   year: string;
   /** Batch enrolment URL */
   counsellingBatchUrl: string;
   /** Batch thumbnail image URL */
   counsellingBatchThumbnail: string;
+  /** KCET tagline (from headertagline in sheet) */
+  headerTagline: string;
+  /**
+   * COMEDK tagline loaded from the "comedk_tagline" variable in gid=0.
+   * Empty string if not set in the sheet — callers should fall back to
+   * a sensible default in that case.
+   */
+  comdekTagline: string;
   /** Testimonial videos from the testimonials sheet tab */
   testimonials: Testimonial[];
   /** True while the initial fetch is in-flight */
@@ -83,6 +101,8 @@ const SheetConfigContext = createContext<SheetConfigState>({
   year: DEFAULTS.year,
   counsellingBatchUrl: "",
   counsellingBatchThumbnail: "",
+  headerTagline: DEFAULTS.headertagline,
+  comdekTagline: "",
   testimonials: [],
   loading: true,
   error: null,
@@ -127,9 +147,13 @@ export function SheetConfigProvider({ children }: { children: ReactNode }) {
 
   const value: SheetConfigState = {
     config,
-    year:                    config.year                    ?? DEFAULTS.year,
-    counsellingBatchUrl:     config.counsellingbatchurl     ?? "",
-    counsellingBatchThumbnail: config.counsellingbatchthumbnail ?? "",
+    year:                       config.year                    ?? DEFAULTS.year,
+    counsellingBatchUrl:        config.counsellingbatchurl     ?? "",
+    counsellingBatchThumbnail:  config.counsellingbatchthumbnail ?? "",
+    headerTagline:              config.headertagline           ?? DEFAULTS.headertagline,
+    // comedk_tagline is the new variable — read it directly from the config map
+    // (key as stored by the parser, which lowercases it: "comedk_tagline")
+    comdekTagline:              config["comedk_tagline"]       ?? "",
     testimonials,
     loading,
     error,

@@ -15,60 +15,81 @@ import Testimonials from "./components/Testimonials";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import { SheetConfigProvider } from "./context/SheetConfigContext";
+import { ExamProvider } from "./context/ExamContext";
+import type { ExamType } from "./config/siteConfig";
 
 /**
- * Simple path-based routing without react-router.
- * Works with GitHub Pages because we create separate HTML entry points
- * for /privacy-policy and /terms in the build (see vite.config.ts or
- * public copies). For the MVP, we do client-side path detection.
+ * Detect the current page from the URL path.
  *
- * Note: If you add more pages, consider adding react-router-dom.
+ * /kcet/    → exam page (KCET)
+ * /comedk/  → exam page (COMEDK)
+ * /privacy-policy → privacy page
+ * /terms          → terms page
+ *
+ * GitHub Pages serves each path from its own HTML entry point
+ * (kcet/index.html, comedk/index.html, privacy-policy.html, terms.html),
+ * so direct URL access and browser refresh both work without any server
+ * fallback configuration.
  */
-function usePage(): "home" | "privacy" | "terms" {
-  const path = window.location.pathname.replace(/\/$/, "");
-  if (path === "/privacy-policy") return "privacy";
-  if (path === "/terms") return "terms";
-  return "home";
+function detectPage(): { type: "exam"; exam: ExamType } | { type: "privacy" | "terms" } {
+  const path = window.location.pathname;
+
+  // Normalise: strip trailing slash for comparison
+  const normalised = path.replace(/\/$/, "");
+
+  if (normalised === "/privacy-policy") return { type: "privacy" };
+  if (normalised === "/terms") return { type: "terms" };
+  if (normalised.startsWith("/comedk")) return { type: "exam", exam: "COMEDK" };
+
+  // Default to KCET for /kcet/ or any unrecognised path
+  return { type: "exam", exam: "KCET" };
+}
+
+/**
+ * Main landing page layout — shared by both KCET and COMEDK.
+ * Wrapped in SheetConfigProvider and ExamProvider so all children
+ * can read remote config and the current exam type.
+ */
+function CounsellingPage({ exam }: { exam: ExamType }) {
+  return (
+    <ExamProvider exam={exam}>
+      <SheetConfigProvider>
+        <div className="min-h-screen bg-white pb-14 md:pb-0">
+          {/* Fixed sticky header */}
+          <Header />
+
+          {/* Main content */}
+          <main id="main-content">
+            <Hero />
+            <Contact />
+            <Testimonials />
+            <Services />
+            <HowItWorks />
+            <OptionEntry />
+            <WhatYouGet />
+            <TrustSection />
+            <RoundSupport />
+            <FAQ />
+            <FinalCTA />
+          </main>
+
+          <Footer />
+
+          {/* Fixed mobile bottom CTA bar (hidden on md+) */}
+          <MobileCTA />
+        </div>
+      </SheetConfigProvider>
+    </ExamProvider>
+  );
 }
 
 export default function App() {
-  const page = usePage();
+  const page = detectPage();
 
-  if (page === "privacy") return <PrivacyPolicy />;
-  if (page === "terms") return <Terms />;
+  if (page.type === "privacy") return <PrivacyPolicy />;
+  if (page.type === "terms") return <Terms />;
 
-  /**
-   * Main landing page — single page layout.
-   * Wrapped in SheetConfigProvider so all children can read remote config
-   * (e.g. the `year` variable from the Google Sheet).
-   * Add bottom padding to prevent the fixed mobile CTA bar from overlapping content.
-   */
-  return (
-    <SheetConfigProvider>
-      <div className="min-h-screen bg-white pb-14 md:pb-0">
-        {/* Fixed sticky header */}
-        <Header />
-
-        {/* Main content */}
-        <main id="main-content">
-          <Hero />
-          <Contact />
-          <Testimonials />
-          <Services />
-          <HowItWorks />
-          <OptionEntry />
-          <WhatYouGet />
-          <TrustSection />
-          <RoundSupport />
-          <FAQ />
-          <FinalCTA />
-        </main>
-
-        <Footer />
-
-        {/* Fixed mobile bottom CTA bar (hidden on md+) */}
-        <MobileCTA />
-      </div>
-    </SheetConfigProvider>
-  );
+  // At this point TypeScript knows page.type === "exam"
+  const exam = page.type === "exam" ? page.exam : "KCET";
+  return <CounsellingPage exam={exam} />;
 }

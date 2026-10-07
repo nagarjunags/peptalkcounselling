@@ -1,4 +1,4 @@
-# robots.txt — https://kcetcounselling.physicspeptalk.com
+# robots.txt — https://counselling.physicspeptalk.com
 # Updated: 2026-10-07
 
 # Allow all crawlers (default)
@@ -67,9 +67,8 @@ User-agent: Applebot-Extended
 Allow: /
 
 # ── AI Content Files ─────────────────────────────────────────────────────────
-# Explicitly allow AI summary files
 Allow: /llms.txt
 Allow: /llms-full.txt
 
 # ── Sitemap ──────────────────────────────────────────────────────────────────
-Sitemap: https://kcetcounselling.physicspeptalk.com/sitemap.xml
+Sitemap: https://counselling.physicspeptalk.com/sitemap.xml

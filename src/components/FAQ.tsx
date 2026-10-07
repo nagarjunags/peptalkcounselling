@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { useExam } from "../context/ExamContext";
 
-const faqs = [
+const kcetFaqs = [
   {
     question: "Is this service free?",
     answer:
@@ -45,6 +46,54 @@ const faqs = [
     question: "Is this only for Karnataka students?",
     answer:
       "KCET counselling is specifically for students eligible for Karnataka Engineering entrance (KEA). If you are eligible for KCET counselling and need guidance, reach out to us.",
+  },
+];
+
+const comdekFaqs = [
+  {
+    question: "Is this service free?",
+    answer:
+      "No. This is a paid COMEDK counselling guidance service. Contact us for current package details and pricing.",
+  },
+  {
+    question: "Do you guarantee a specific college or branch?",
+    answer:
+      "No. We do not guarantee admission to any specific college or branch. Final allotments are determined by COMEDK authority based on rank, seat availability, cutoffs and other factors outside our control. No counselling service can honestly make this guarantee.",
+  },
+  {
+    question: "Can you help with choice filling?",
+    answer:
+      "Yes. We provide guidance for preparing, reviewing, and optimising your COMEDK choice filling. We help you understand how to prioritise your choices based on your rank and preferences.",
+  },
+  {
+    question: "Do you support multiple counselling rounds?",
+    answer:
+      "Yes, according to the counselling package purchased. Support for each round is subject to the package you select. Contact us for details on what is included.",
+  },
+  {
+    question: "Can you tell me exactly which college I will get?",
+    answer:
+      "No. We can analyse previous-year COMEDK trends and your specific circumstances to help identify realistic possibilities, but future allotments depend on current-year cutoffs, seat availability and many other factors that cannot be predicted with certainty.",
+  },
+  {
+    question: "Do you consider branch preferences?",
+    answer:
+      "Yes. Branch preferences are a central part of the COMEDK counselling discussion. We help you weigh college vs branch priorities based on your individual situation and goals.",
+  },
+  {
+    question: "Can parents participate in the counselling sessions?",
+    answer:
+      "Yes. Parents are welcome to participate in all sessions. We encourage family involvement in major college and branch decisions.",
+  },
+  {
+    question: "When should I reach out — before or after getting my COMEDK rank?",
+    answer:
+      "You can reach out at any time. However, the most practical counselling can begin once your COMEDK rank is available, as the analysis is specific to your rank.",
+  },
+  {
+    question: "Is COMEDK only for Karnataka students?",
+    answer:
+      "COMEDK is open to students from across India for engineering admissions in Karnataka. If you are eligible for COMEDK counselling and need guidance, reach out to us.",
   },
 ];
 
@@ -93,6 +142,13 @@ function FAQItem({
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const { exam } = useExam();
+  const faqs = exam === "COMEDK" ? comdekFaqs : kcetFaqs;
+
+  const description =
+    exam === "COMEDK"
+      ? "Honest answers to common questions about our COMEDK counselling guidance service."
+      : "Honest answers to common questions about our KCET counselling guidance service.";
 
   return (
     <section
@@ -110,8 +166,7 @@ export default function FAQ() {
             Frequently Asked Questions
           </h2>
           <p className="text-gray-500 dark:text-gray-400 text-lg max-w-xl mx-auto">
-            Honest answers to common questions about our KCET counselling
-            guidance service.
+            {description}
           </p>
         </div>
 
