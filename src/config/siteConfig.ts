@@ -52,18 +52,75 @@ export const siteConfig = {
       "Get personalized KCET 2027 counselling guidance for college selection, branch selection and option entry. Get support throughout the counselling process.",
     ogImage: "https://kcetcounselling.physicspeptalk.com/images/og-image.png",
     keywords: [
-      "KCET 2027 Counselling",
+      // Core service terms
+      "KCET 2027 counselling",
       "KCET counselling 2027",
       "KCET 2027 counselling guidance",
-      "KCET college counselling",
-      "KCET option entry",
-      "KCET option entry guidance",
-      "KCET college selection",
+      "KCET counselling guidance",
       "KCET counselling help",
-      "KCET engineering counselling",
-      "KCET counselling Karnataka",
-      "KCET engineering college selection",
       "KCET counselling service",
+      "KCET counselling Karnataka",
+      "KCET engineering counselling",
+
+      // Option entry
+      "KCET option entry",
+      "KCET option entry 2027",
+      "KCET option entry guidance",
+      "KCET option entry help",
+      "KCET option entry strategy",
+      "KCET choice filling",
+      "KCET choice filling 2027",
+      "KCET choice filling guidance",
+      "KEA option entry",
+      "KEA choice filling",
+
+      // College and branch selection
+      "KCET college selection",
+      "KCET college selection 2027",
+      "KCET branch selection",
+      "KCET branch selection guidance",
+      "KCET engineering college selection",
+      "KCET college counselling",
+      "best college for KCET rank",
+      "KCET college list 2027",
+
+      // Seat allotment
+      "KCET seat allotment",
+      "KCET seat allotment 2027",
+      "KCET seat allotment guidance",
+      "KEA seat allotment 2027",
+      "KCET allotment rounds",
+      "KCET round 1 allotment",
+      "KCET round 2 allotment",
+      "KCET extended round",
+      "KCET allotment result",
+
+      // Document verification
+      "KCET document verification",
+      "KCET document verification 2027",
+      "KEA document verification",
+      "KCET documents required",
+      "KCET eligibility verification",
+
+      // Rank and cutoff
+      "KCET rank analysis",
+      "KCET cutoff 2027",
+      "KCET previous year cutoff",
+      "KCET closing rank",
+      "KCET rank wise college",
+      "KCET rank predictor",
+      "KCET college predictor",
+
+      // KEA / Karnataka
+      "KEA counselling 2027",
+      "KEA Karnataka engineering admission",
+      "Karnataka engineering admission 2027",
+      "Karnataka engineering counselling",
+      "Karnataka CET counselling",
+
+      // Brand
+      "Physics Pep Talk KCET",
+      "Physics Pep Talk counselling",
     ],
   },
 
