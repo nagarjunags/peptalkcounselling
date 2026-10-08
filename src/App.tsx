@@ -14,6 +14,8 @@ import MobileCTA from "./components/MobileCTA";
 import Testimonials from "./components/Testimonials";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
+import KcetPredictor from "./components/KcetPredictor/KcetPredictor";
+import KcetPredictorWidget from "./components/KcetPredictorWidget";
 import { SheetConfigProvider } from "./context/SheetConfigContext";
 import { ExamProvider } from "./context/ExamContext";
 import type { ExamType } from "./config/siteConfig";
@@ -31,7 +33,7 @@ import type { ExamType } from "./config/siteConfig";
  * so direct URL access and browser refresh both work without any server
  * fallback configuration.
  */
-function detectPage(): { type: "exam"; exam: ExamType } | { type: "privacy" | "terms" } {
+function detectPage(): { type: "exam"; exam: ExamType } | { type: "privacy" | "terms" | "kcet-predictor" } {
   const path = window.location.pathname;
 
   // Normalise: strip trailing slash for comparison
@@ -39,6 +41,7 @@ function detectPage(): { type: "exam"; exam: ExamType } | { type: "privacy" | "t
 
   if (normalised === "/privacy-policy") return { type: "privacy" };
   if (normalised === "/terms") return { type: "terms" };
+  if (normalised.startsWith("/kcet-college-predictor")) return { type: "kcet-predictor" };
   if (normalised.startsWith("/comedk")) return { type: "exam", exam: "COMEDK" };
 
   // Default to KCET for /kcet/ or any unrecognised path
@@ -77,6 +80,9 @@ function CounsellingPage({ exam }: { exam: ExamType }) {
 
           {/* Fixed mobile bottom CTA bar (hidden on md+) */}
           <MobileCTA />
+
+          {/* Floating KCET College Predictor widget */}
+          <KcetPredictorWidget />
         </div>
       </SheetConfigProvider>
     </ExamProvider>
@@ -88,6 +94,7 @@ export default function App() {
 
   if (page.type === "privacy") return <PrivacyPolicy />;
   if (page.type === "terms") return <Terms />;
+  if (page.type === "kcet-predictor") return <KcetPredictor />;
 
   // At this point TypeScript knows page.type === "exam"
   const exam = page.type === "exam" ? page.exam : "KCET";

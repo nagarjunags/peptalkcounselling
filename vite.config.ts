@@ -26,6 +26,8 @@ export default defineConfig({
         kcet: resolve(import.meta.dirname, "kcet/index.html"),
         // COMEDK page — https://counselling.physicspeptalk.com/comedk/
         comedk: resolve(import.meta.dirname, "comedk/index.html"),
+        // KCET Rank & College Predictor — https://counselling.physicspeptalk.com/kcet-college-predictor/
+        "kcet-college-predictor": resolve(import.meta.dirname, "kcet-college-predictor/index.html"),
         // Privacy policy & terms (redirects to parent site)
         "privacy-policy": resolve(import.meta.dirname, "privacy-policy.html"),
         terms: resolve(import.meta.dirname, "terms.html"),
