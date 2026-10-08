@@ -29,6 +29,8 @@ export default defineConfig({
         // Privacy policy & terms (redirects to parent site)
         "privacy-policy": resolve(import.meta.dirname, "privacy-policy.html"),
         terms: resolve(import.meta.dirname, "terms.html"),
+        // Custom 404 — GitHub Pages serves this for any unresolved path
+        404: resolve(import.meta.dirname, "404.html"),
       },
       output: {
         assetFileNames: "assets/[name]-[hash][extname]",

@@ -14,6 +14,7 @@ import MobileCTA from "./components/MobileCTA";
 import Testimonials from "./components/Testimonials";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
+import NotFound from "./pages/NotFound";
 import { SheetConfigProvider } from "./context/SheetConfigContext";
 import { ExamProvider } from "./context/ExamContext";
 import type { ExamType } from "./config/siteConfig";
@@ -31,7 +32,9 @@ import type { ExamType } from "./config/siteConfig";
  * so direct URL access and browser refresh both work without any server
  * fallback configuration.
  */
-function detectPage(): { type: "exam"; exam: ExamType } | { type: "privacy" | "terms" } {
+function detectPage():
+  | { type: "exam"; exam: ExamType }
+  | { type: "privacy" | "terms" | "notfound" } {
   const path = window.location.pathname;
 
   // Normalise: strip trailing slash for comparison
@@ -40,9 +43,11 @@ function detectPage(): { type: "exam"; exam: ExamType } | { type: "privacy" | "t
   if (normalised === "/privacy-policy") return { type: "privacy" };
   if (normalised === "/terms") return { type: "terms" };
   if (normalised.startsWith("/comedk")) return { type: "exam", exam: "COMEDK" };
+  if (normalised.startsWith("/kcet") || normalised === "") return { type: "exam", exam: "KCET" };
 
-  // Default to KCET for /kcet/ or any unrecognised path
-  return { type: "exam", exam: "KCET" };
+  // The 404.html entry is served by GitHub Pages for any unknown path.
+  // When it boots, we show the NotFound component instead of the main page.
+  return { type: "notfound" };
 }
 
 /**
@@ -88,6 +93,7 @@ export default function App() {
 
   if (page.type === "privacy") return <PrivacyPolicy />;
   if (page.type === "terms") return <Terms />;
+  if (page.type === "notfound") return <NotFound />;
 
   // At this point TypeScript knows page.type === "exam"
   const exam = page.type === "exam" ? page.exam : "KCET";
