@@ -1,51 +1,45 @@
 import { siteConfig } from "../config/siteConfig";
 
-/**
- * Custom 404 — Not Found page.
- *
- * GitHub Pages serves dist/404.html for any path it cannot resolve.
- * The 404.html entry boots this React component.
- *
- * The "Go to Home" button links to the main KCET counselling page.
- */
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 text-center">
+    <div className="min-h-screen bg-black text-[#f5f5f7] flex flex-col items-center justify-center px-6 text-center relative overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute w-96 h-96 bg-white/[0.02] rounded-full blur-[140px] pointer-events-none" />
+
       {/* Brand wordmark */}
       <a
         href={siteConfig.kcetUrl}
-        className="mb-10 text-xl font-bold text-brand-600 hover:text-brand-700 transition-colors"
+        className="mb-8 text-lg font-semibold text-[#f5f5f7] tracking-tight"
         aria-label="Go to Physics Pep Talk home"
       >
         {siteConfig.brandName}
       </a>
 
       {/* Error code */}
-      <p className="text-8xl font-extrabold text-brand-600 leading-none select-none">
+      <p className="text-8xl sm:text-9xl font-semibold text-[#86868b] leading-none select-none tracking-tighter">
         404
       </p>
 
       {/* Heading */}
-      <h1 className="mt-4 text-2xl font-semibold text-gray-900">
-        Page not found
+      <h1 className="mt-6 text-3xl font-semibold text-[#f5f5f7] tracking-tight">
+        Page Not Found
       </h1>
 
       {/* Sub-text */}
-      <p className="mt-3 max-w-sm text-gray-500 text-base">
-        The page you're looking for doesn't exist or may have been moved.
+      <p className="mt-3 max-w-sm text-[#86868b] text-base font-normal">
+        The page you're looking for doesn't exist or has been moved.
       </p>
 
       {/* CTA */}
       <a
         href={siteConfig.kcetUrl}
-        className="mt-8 inline-flex items-center gap-2 rounded-lg bg-brand-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-colors"
+        className="mt-8 apple-btn-primary min-h-[48px] inline-flex items-center gap-2 rounded-full px-7 py-3 text-sm font-semibold cursor-pointer"
       >
-        {/* Left arrow icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="h-5 w-5"
+          className="h-4 w-4"
           aria-hidden="true"
         >
           <path
@@ -54,7 +48,7 @@ export default function NotFound() {
             clipRule="evenodd"
           />
         </svg>
-        Go to Home
+        <span>Return to Home</span>
       </a>
     </div>
   );

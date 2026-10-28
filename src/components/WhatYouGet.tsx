@@ -1,4 +1,6 @@
 import { useExam } from "../context/ExamContext";
+import Tilt3DCard from "./3d/Tilt3DCard";
+import { CyberBadge } from "./3d/CyberHUDDecor";
 
 const kcetDeliverables = [
   { title: "Rank Analysis", description: "A deep one-on-one review of your KCET rank and category to identify exactly what's within reach — and what to target — in this year's counselling." },
@@ -39,65 +41,69 @@ export default function WhatYouGet() {
   return (
     <section
       id="what-you-get"
-      className="py-20 md:py-28 bg-brand-950 dark:bg-gray-950 text-white"
+      className="py-20 md:py-28 bg-black text-[#f5f5f7] relative overflow-hidden border-t border-white/[0.08]"
       aria-label="What you get"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-white/[0.02] rounded-full blur-[160px] pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section header */}
-        <div className="text-center mb-14">
-          <span className="inline-block text-accent-400 font-semibold text-sm uppercase tracking-widest mb-3">
-            What You Get
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <div className="text-center mb-16">
+          <div className="mb-4">
+            <CyberBadge color="gold">Inclusions</CyberBadge>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-semibold text-[#f5f5f7] mb-4 tracking-tight">
             {heading}
           </h2>
-          <p className="text-brand-300 text-lg max-w-2xl mx-auto">
+          <p className="text-[#86868b] text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
             {subheading}
           </p>
         </div>
 
-        {/* Deliverables grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+        {/* Deliverables 3D Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
           {deliverables.map((item) => (
-            <div
-              key={item.title}
-              className="bg-brand-800/50 border border-brand-700/60 rounded-2xl p-6 flex flex-col gap-3"
-            >
-              <div className="flex items-center gap-2">
-                <span
-                  className="flex-shrink-0 w-6 h-6 rounded-full bg-accent-500 flex items-center justify-center"
-                  aria-hidden="true"
-                >
-                  <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                  </svg>
-                </span>
-                <h3 className="text-white font-semibold text-sm">
-                  {item.title}
-                </h3>
+            <Tilt3DCard key={item.title} maxTilt={6}>
+              <div className="apple-card p-6 h-full flex flex-col justify-between group">
+                <div>
+                  <div className="w-8 h-8 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#e2b474] mb-4">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <h3 className="text-[#f5f5f7] font-semibold text-base leading-snug mb-2 group-hover:text-white transition-colors tracking-tight">
+                    {item.title}
+                  </h3>
+                  <p className="text-[#86868b] text-xs leading-relaxed font-normal">
+                    {item.description}
+                  </p>
+                </div>
               </div>
-              <p className="text-brand-300 text-xs leading-relaxed">
-                {item.description}
-              </p>
-            </div>
+            </Tilt3DCard>
           ))}
         </div>
 
-        {/* Pricing disclaimer */}
-        <div className="text-center">
-          <div className="inline-block bg-brand-800/60 border border-brand-600/40 rounded-2xl px-8 py-5">
-            <p className="text-brand-200 text-sm mb-3">
-              Limited seats available. Contact us for current pricing.
-              <br />
-              Note: No refunds once enrolled.
-            </p>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
-            >
-              Contact us for package details and pricing
-            </a>
-          </div>
+        {/* Pricing disclaimer with Apple Card */}
+        <div className="text-center max-w-2xl mx-auto">
+          <Tilt3DCard maxTilt={5}>
+            <div className="apple-card p-8">
+              <p className="text-[#86868b] text-sm mb-5 leading-relaxed font-normal">
+                Limited seats available. Contact us for current pricing.
+                <br />
+                <span className="text-[#f5f5f7] font-medium">Note:</span> No refunds once enrolled.
+              </p>
+              <a
+                href="#contact"
+                className="apple-btn-primary min-h-[50px] inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-base font-semibold cursor-pointer"
+              >
+                <span>Contact us for package details and pricing</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </Tilt3DCard>
         </div>
       </div>
     </section>

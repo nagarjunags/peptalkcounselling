@@ -11,12 +11,12 @@ export default function Terms() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center">
-      <p className="text-gray-500 text-sm">
+    <div className="min-h-screen bg-black flex items-center justify-center">
+      <p className="text-[#86868b] text-sm">
         Redirecting to Terms &amp; Disclaimer…{" "}
         <a
           href={siteConfig.termsUrl}
-          className="text-brand-600 hover:underline"
+          className="text-[#f5f5f7] hover:underline"
         >
           Click here if you are not redirected.
         </a>

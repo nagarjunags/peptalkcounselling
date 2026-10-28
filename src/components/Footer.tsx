@@ -11,8 +11,8 @@ export default function Footer() {
 
   const displayTagline =
     exam === "COMEDK"
-      ? (comdekTagline || `COMEDK ${year} Counselling`)
-      : (headerTagline || siteConfig.headerTagline);
+      ? comdekTagline || `COMEDK ${year} Counselling`
+      : headerTagline || siteConfig.headerTagline;
 
   const description =
     exam === "COMEDK"
@@ -26,7 +26,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="bg-gray-950 dark:bg-gray-950 text-gray-400"
+      className="bg-black text-[#86868b] border-t border-white/[0.08] relative z-10"
       role="contentinfo"
       aria-label="Site footer"
     >
@@ -36,33 +36,33 @@ export default function Footer() {
           <div>
             <a
               href="#home"
-              className="inline-flex items-center gap-3 mb-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded"
+              className="inline-flex items-center gap-3 mb-4 focus:outline-none focus-visible:ring-1 focus-visible:ring-white/40 rounded-full group"
               aria-label={`${siteConfig.brandName} — Back to top`}
             >
               <img
                 src={peptalkLogo}
                 alt="Physics Pep Talk Logo"
-                className="h-10 w-10"
+                className="h-9 w-9 rounded-full object-cover transition-transform group-hover:scale-105"
               />
               <div className="flex flex-col">
-                <span className="text-white font-bold text-lg leading-tight">
+                <span className="text-[#f5f5f7] font-semibold text-base leading-tight">
                   {siteConfig.brandName}
                 </span>
-                <span className="text-brand-400 text-xs font-medium tracking-wide mt-0.5">
+                <span className="text-[#86868b] text-xs font-normal tracking-tight mt-0.5">
                   {displayTagline}
                 </span>
               </div>
             </a>
-            <p className="text-sm leading-relaxed text-gray-500 mb-5">
+            <p className="text-xs leading-relaxed text-[#86868b] mb-5 max-w-sm">
               {description}
             </p>
-            <div className="flex gap-3 items-start">
+            <div className="flex gap-2.5 items-center">
               {/* WhatsApp */}
               <a
                 href={buildWhatsAppUrl(undefined, exam)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-gray-800 hover:bg-green-700 flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400"
+                className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 hover:border-white/20 hover:bg-white/[0.08] flex items-center justify-center text-emerald-400 hover:text-white transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400"
                 aria-label="WhatsApp"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
@@ -73,11 +73,11 @@ export default function Footer() {
               {buildPhoneUrl() !== "#" && (
                 <a
                   href={buildPhoneUrl()}
-                  className="w-9 h-9 rounded-lg bg-gray-800 hover:bg-brand-700 flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+                  className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 hover:border-white/20 hover:bg-white/[0.08] flex items-center justify-center text-[#70a9ff] hover:text-white transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
                   aria-label="Phone"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                       d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </a>
@@ -87,53 +87,31 @@ export default function Footer() {
                 href={siteConfig.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-gray-800 hover:bg-pink-700 flex items-center justify-center text-gray-400 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-400"
+                className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 hover:border-white/20 hover:bg-white/[0.08] flex items-center justify-center text-[#bf5af2] hover:text-white transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-pink-400"
                 aria-label="Instagram — Physics Pep Talk"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                 </svg>
               </a>
-              {/* YouTube — main channel */}
+              {/* YouTube Main */}
               <a
                 href={siteConfig.youtubeMainUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-1 group focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400 rounded"
-                aria-label="YouTube — Physics Pep Talk (main channel)"
+                className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 hover:border-white/20 hover:bg-white/[0.08] flex items-center justify-center text-red-400 hover:text-white transition-all"
+                aria-label="YouTube — Physics Pep Talk"
               >
-                <span className="w-9 h-9 rounded-lg bg-gray-800 group-hover:bg-red-700 flex items-center justify-center text-gray-400 group-hover:text-white transition-colors">
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                  </svg>
-                </span>
-                <span className="text-gray-600 group-hover:text-gray-400 text-[10px] leading-tight transition-colors">
-                  Main
-                </span>
-              </a>
-              {/* YouTube — CET info channel */}
-              <a
-                href={siteConfig.youtubeKcetUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col items-center gap-1 group focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400 rounded"
-                aria-label="YouTube — Pep Talk Info KCET (counselling info channel)"
-              >
-                <span className="w-9 h-9 rounded-lg bg-gray-800 group-hover:bg-red-700 flex items-center justify-center text-gray-400 group-hover:text-white transition-colors">
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                  </svg>
-                </span>
-                <span className="text-gray-600 group-hover:text-gray-400 text-[10px] leading-tight transition-colors">
-                  CET Info
-                </span>
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
               </a>
             </div>
           </div>
 
           {/* Navigation column */}
           <div>
-            <h3 className="text-white font-semibold text-sm mb-4 uppercase tracking-wide">
+            <h3 className="text-[#f5f5f7] font-medium text-xs mb-4 uppercase tracking-wider">
               Navigation
             </h3>
             <nav aria-label="Footer navigation">
@@ -142,7 +120,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <a
                       href={link.href}
-                      className="text-sm text-gray-500 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded"
+                      className="text-xs text-[#86868b] hover:text-[#f5f5f7] transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-white/40"
                     >
                       {link.label}
                     </a>
@@ -154,7 +132,7 @@ export default function Footer() {
 
           {/* Legal & links column */}
           <div>
-            <h3 className="text-white font-semibold text-sm mb-4 uppercase tracking-wide">
+            <h3 className="text-[#f5f5f7] font-medium text-xs mb-4 uppercase tracking-wider">
               Legal &amp; Links
             </h3>
             <ul className="flex flex-col gap-2.5" role="list">
@@ -163,7 +141,7 @@ export default function Footer() {
                   href={siteConfig.privacyPolicyUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-gray-500 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded"
+                  className="text-xs text-[#86868b] hover:text-[#f5f5f7] transition-colors"
                 >
                   Privacy Policy
                 </a>
@@ -173,7 +151,7 @@ export default function Footer() {
                   href={siteConfig.termsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-gray-500 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded"
+                  className="text-xs text-[#86868b] hover:text-[#f5f5f7] transition-colors"
                 >
                   Terms &amp; Disclaimer
                 </a>
@@ -183,9 +161,9 @@ export default function Footer() {
                   href={siteConfig.parentWebsite}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-gray-500 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded inline-flex items-center gap-1"
+                  className="text-xs text-[#86868b] hover:text-[#f5f5f7] transition-colors inline-flex items-center gap-1.5"
                 >
-                  Physics Pep Talk (Main Site)
+                  <span>Physics Pep Talk (Main Site)</span>
                   <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
@@ -195,7 +173,7 @@ export default function Footer() {
                 <li>
                   <a
                     href={`mailto:${siteConfig.email}`}
-                    className="text-sm text-gray-500 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded"
+                    className="text-xs text-[#86868b] hover:text-[#f5f5f7] transition-colors"
                   >
                     {siteConfig.email}
                   </a>
@@ -206,11 +184,11 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-gray-800 mt-12 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-gray-600">
+        <div className="border-t border-white/[0.08] mt-12 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#86868b]">
+          <p>
             © {currentYear} {siteConfig.brandName}. All rights reserved.
           </p>
-          <p className="text-xs text-gray-700 text-center md:text-right leading-relaxed max-w-sm">
+          <p className="text-center md:text-right leading-relaxed max-w-sm">
             {disclaimer}
           </p>
         </div>

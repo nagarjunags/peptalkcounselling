@@ -1,4 +1,7 @@
 import { useExam } from "../context/ExamContext";
+import OptionEntry3DVisualizer from "./3d/OptionEntry3DVisualizer";
+import Tilt3DCard from "./3d/Tilt3DCard";
+import { CyberBadge } from "./3d/CyberHUDDecor";
 
 const kcetConfusionPoints = [
   "Which college gives the best outcome for my exact rank and category?",
@@ -56,62 +59,90 @@ export default function OptionEntry() {
   return (
     <section
       id="option-entry"
-      className="py-20 md:py-28 bg-white dark:bg-gray-900"
+      className="py-20 md:py-28 bg-black text-[#f5f5f7] relative overflow-hidden border-t border-white/[0.08]"
       aria-label="Why option entry matters"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-          {/* Left: text */}
-          <div>
-            <span className="inline-block text-brand-600 dark:text-brand-400 font-semibold text-sm uppercase tracking-widest mb-3">
-              {content.badge}
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-5">
+      {/* Background Lighting */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/[0.02] rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Left Column: Heading + Intro + 3D Visualizer (7 cols) */}
+          <div className="lg:col-span-7 flex flex-col items-start">
+            <div className="mb-4">
+              <CyberBadge color="gold">{content.badge}</CyberBadge>
+            </div>
+
+            <h2 className="text-3xl md:text-5xl font-semibold text-[#f5f5f7] mb-5 tracking-tight">
               {content.heading}
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-5">
+
+            <p className="text-[#86868b] text-base md:text-lg leading-relaxed mb-4 font-normal">
               {content.intro}
             </p>
-            <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
+
+            <p className="text-[#a1a1a6] leading-relaxed mb-6 text-sm font-normal">
               {content.detail}
             </p>
 
+            {/* Embedded Interactive 3D Simulator */}
+            <div className="w-full mb-8">
+              <OptionEntry3DVisualizer />
+            </div>
+
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-brand-700 hover:bg-brand-800 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900"
+              className="apple-btn-primary min-h-[50px] inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full text-base font-semibold cursor-pointer"
             >
-              {content.ctaLabel}
+              <span>{content.ctaLabel}</span>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </a>
           </div>
 
-          {/* Right: confusion points */}
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-8">
-            <h3 className="text-gray-800 dark:text-gray-100 font-semibold text-base mb-5">
-              {content.confusionHeading}
-            </h3>
-            <ul className="flex flex-col gap-3" role="list">
-              {content.confusionPoints.map((point) => (
-                <li key={point} className="flex items-start gap-3">
-                  <span
-                    className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-brand-100 dark:bg-brand-900/50 text-brand-700 dark:text-brand-400 flex items-center justify-center"
-                    aria-hidden="true"
-                  >
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4" />
+          {/* Right Column: Confusion points card in 3D (5 cols) */}
+          <div className="lg:col-span-5">
+            <Tilt3DCard maxTilt={6}>
+              <div className="apple-card p-7 sm:p-8">
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                  <div className="w-8 h-8 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#e2b474] flex-shrink-0">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                  </span>
-                  <span className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">{point}</span>
-                </li>
-              ))}
-            </ul>
+                  </div>
+                  <h3 className="text-[#f5f5f7] font-semibold text-base leading-snug tracking-tight">
+                    {content.confusionHeading}
+                  </h3>
+                </div>
 
-            {/* Disclaimer note */}
-            <div className="mt-6 pt-5 border-t border-gray-200 dark:border-gray-700">
-              <p className="text-xs text-gray-400 dark:text-gray-500 leading-relaxed">
-                <strong className="text-gray-500 dark:text-gray-400">Note:</strong>{" "}
-                {content.disclaimerText}
-              </p>
-            </div>
+                <ul className="flex flex-col gap-3.5" role="list">
+                  {content.confusionPoints.map((point) => (
+                    <li key={point} className="flex items-start gap-3 group">
+                      <span
+                        className="mt-1 flex-shrink-0 w-4 h-4 rounded-full bg-white/[0.04] text-[#e2b474] border border-white/10 flex items-center justify-center"
+                        aria-hidden="true"
+                      >
+                        <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                      <span className="text-[#86868b] text-sm leading-relaxed group-hover:text-[#f5f5f7] transition-colors font-normal">
+                        {point}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Disclaimer note */}
+                <div className="mt-6 pt-5 border-t border-white/[0.08] p-3.5 rounded-xl bg-white/[0.02]">
+                  <p className="text-xs text-[#86868b] leading-relaxed font-normal">
+                    <strong className="text-[#f5f5f7] font-medium">Note:</strong>{" "}
+                    {content.disclaimerText}
+                  </p>
+                </div>
+              </div>
+            </Tilt3DCard>
           </div>
         </div>
       </div>

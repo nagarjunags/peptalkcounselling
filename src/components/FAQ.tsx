@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useExam } from "../context/ExamContext";
+import { CyberBadge } from "./3d/CyberHUDDecor";
 
 const kcetFaqs = [
   {
@@ -78,22 +79,22 @@ const comdekFaqs = [
   {
     question: "Do you consider branch preferences?",
     answer:
-      "Yes. Branch preferences are a central part of the COMEDK counselling discussion. We help you weigh college vs branch priorities based on your individual situation and goals.",
+      "Yes. Branch preferences are an essential part of the counselling discussion. We help you evaluate college reputation versus engineering branch priorities based on your career ambitions.",
   },
   {
     question: "Can parents participate in the counselling sessions?",
     answer:
-      "Yes. Parents are welcome to participate in all sessions. We encourage family involvement in major college and branch decisions.",
+      "Yes. Parents are welcome to participate in all counselling discussions. We encourage family involvement in major college and branch decisions.",
   },
   {
-    question: "When should I reach out — before or after getting my COMEDK rank?",
+    question: "When should I reach out — before or after getting my rank?",
     answer:
-      "You can reach out at any time. However, the most practical counselling can begin once your COMEDK rank is available, as the analysis is specific to your rank.",
+      "You can reach out at any time. However, the most practical counselling can begin once your COMEDK rank is declared, as the strategy is tailored specifically to your rank.",
   },
   {
-    question: "Is COMEDK only for Karnataka students?",
+    question: "Is this open to non-Karnataka students?",
     answer:
-      "COMEDK is open to students from across India for engineering admissions in Karnataka. If you are eligible for COMEDK counselling and need guidance, reach out to us.",
+      "Yes! COMEDK is open to students from all across India. We regularly guide students from all states to secure top engineering seats in Karnataka through COMEDK counselling.",
   },
 ];
 
@@ -109,31 +110,31 @@ function FAQItem({
   onToggle: () => void;
 }) {
   return (
-    <div className="border border-gray-100 dark:border-gray-700 rounded-2xl overflow-hidden">
+    <div className="apple-card overflow-hidden transition-all duration-300">
       <button
         type="button"
-        className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-inset"
         onClick={onToggle}
+        className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 cursor-pointer"
         aria-expanded={isOpen}
       >
-        <span className="text-gray-900 dark:text-white font-medium text-sm md:text-base pr-2">
+        <span className="font-semibold text-base text-[#f5f5f7] leading-snug tracking-tight">
           {question}
         </span>
         <span
-          className={`flex-shrink-0 w-6 h-6 text-brand-600 dark:text-brand-400 transition-transform duration-200 ${
-            isOpen ? "rotate-45" : ""
+          className={`flex-shrink-0 w-7 h-7 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#86868b] transition-transform duration-300 ${
+            isOpen ? "rotate-180 text-white" : ""
           }`}
           aria-hidden="true"
         >
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </span>
       </button>
 
       {isOpen && (
-        <div className="px-6 pb-5 bg-white dark:bg-gray-800">
-          <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{answer}</p>
+        <div className="px-6 pb-5 pt-1 border-t border-white/[0.06] animate-in fade-in duration-200">
+          <p className="text-[#86868b] text-sm leading-relaxed font-normal">{answer}</p>
         </div>
       )}
     </div>
@@ -153,24 +154,24 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="py-20 md:py-28 bg-white dark:bg-gray-900"
+      className="py-20 md:py-28 bg-black text-[#f5f5f7] relative overflow-hidden border-t border-white/[0.08]"
       aria-label="Frequently asked questions"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-14">
-          <span className="inline-block text-brand-600 dark:text-brand-400 font-semibold text-sm uppercase tracking-widest mb-3">
-            FAQs
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mb-4">
+            <CyberBadge color="gold">FAQ</CyberBadge>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-semibold text-[#f5f5f7] mb-4 tracking-tight">
             Frequently Asked Questions
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 text-lg max-w-xl mx-auto">
+          <p className="text-[#86868b] text-base md:text-lg max-w-xl mx-auto leading-relaxed font-normal">
             {description}
           </p>
         </div>
 
-        {/* Accordion */}
+        {/* Accordion List */}
         <div className="max-w-3xl mx-auto flex flex-col gap-3" role="list">
           {faqs.map((faq, i) => (
             <div key={faq.question} role="listitem">
@@ -185,15 +186,18 @@ export default function FAQ() {
         </div>
 
         {/* Still have questions */}
-        <div className="text-center mt-12">
-          <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">
+        <div className="text-center mt-14">
+          <p className="text-[#86868b] text-sm mb-4 font-normal">
             Have a question not answered above?
           </p>
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 border-2 border-brand-700 dark:border-brand-500 text-brand-700 dark:text-brand-400 hover:bg-brand-700 dark:hover:bg-brand-600 hover:text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+            className="apple-btn-secondary min-h-[46px] inline-flex items-center gap-2 px-7 py-3 rounded-full text-sm font-medium cursor-pointer"
           >
-            Ask Us Directly
+            <span>Ask Us Directly</span>
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </a>
         </div>
       </div>

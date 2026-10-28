@@ -1,46 +1,29 @@
 import { useExam } from "../context/ExamContext";
+import Service3DObject from "./3d/Service3DObject";
+import Tilt3DCard from "./3d/Tilt3DCard";
+import { CyberBadge } from "./3d/CyberHUDDecor";
 
 const kcetServices = [
   {
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-      </svg>
-    ),
+    type: "rank" as const,
     title: "Rank-Based College Guidance",
     description:
       "We analyse your KCET rank, category, and preferences against previous-year seat matrix data to identify the best realistic colleges and branches for your specific situation — not generic advice.",
   },
   {
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-          d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-      </svg>
-    ),
+    type: "branch" as const,
     title: "College & Branch Selection",
     description:
       "One-on-one sessions to help you pick the right college and the right course. We weigh your interests, career goals, location, and rank together — because the right fit is different for every student.",
   },
   {
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-      </svg>
-    ),
+    type: "option" as const,
     title: "Option Entry Guidance",
     description:
       "Our option entry strategy is built on actual previous-year seat matrix data — giving you a much higher chance of securing a better college. We set your priorities, build the list, and submit it with you.",
   },
   {
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
+    type: "rounds" as const,
     title: "Counselling-Round Support",
     description:
       "We don't disappear after option entry. We follow up and guide you through every counselling round until you get a good seat — helping you evaluate allotments and decide your next step each time.",
@@ -49,45 +32,25 @@ const kcetServices = [
 
 const comdekServices = [
   {
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-      </svg>
-    ),
+    type: "rank" as const,
     title: "Rank-Based College Guidance",
     description:
       "We analyse your COMEDK rank, category, and preferences against previous-year seat data to identify the best realistic colleges and branches for your specific situation — not generic advice.",
   },
   {
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-          d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-      </svg>
-    ),
+    type: "branch" as const,
     title: "College & Branch Selection",
     description:
       "One-on-one sessions to help you pick the right college and the right engineering branch for your COMEDK rank. We weigh your interests, career goals, location, and score together.",
   },
   {
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-      </svg>
-    ),
+    type: "option" as const,
     title: "Choice Filling Guidance",
     description:
       "Our choice filling strategy is built on actual previous-year COMEDK seat data — giving you a higher chance of securing a better college. We build and review your choice list together.",
   },
   {
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
+    type: "rounds" as const,
     title: "Counselling-Round Support",
     description:
       "We stay with you through every COMEDK counselling round — evaluating allotments, advising on upgrades, and guiding you until you confirm a seat you're satisfied with.",
@@ -106,48 +69,68 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="py-20 md:py-28 bg-white dark:bg-gray-900"
+      className="py-20 md:py-28 bg-black text-[#f5f5f7] relative overflow-hidden border-t border-white/[0.08]"
       aria-label="Our services"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      {/* Background Glow */}
+      <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-white/[0.02] rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section header */}
-        <div className="text-center mb-14">
-          <span className="inline-block text-brand-600 dark:text-brand-400 font-semibold text-sm uppercase tracking-widest mb-3">
-            What We Offer
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="text-center mb-16">
+          <div className="mb-4">
+            <CyberBadge color="cyan">Capabilities</CyberBadge>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-semibold text-[#f5f5f7] mb-4 tracking-tight">
             {sectionHeading}
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-[#86868b] text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
             One-on-one support across every stage — from understanding your
             realistic options to securing the right seat.
           </p>
         </div>
 
-        {/* Cards grid */}
+        {/* 3D Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service) => (
-            <article
-              key={service.title}
-              className="group bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-7 shadow-card hover:shadow-md hover:border-brand-200 dark:hover:border-brand-600 transition-all duration-300 flex flex-col gap-4"
-            >
-              <div className="w-12 h-12 rounded-xl bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 flex items-center justify-center group-hover:bg-brand-100 dark:group-hover:bg-brand-900/60 transition-colors">
-                {service.icon}
-              </div>
-              <h3 className="text-gray-900 dark:text-white font-semibold text-base leading-snug">
-                {service.title}
-              </h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                {service.description}
-              </p>
-            </article>
+          {services.map((service, idx) => (
+            <Tilt3DCard key={service.title} maxTilt={6}>
+              <article className="apple-card p-6 h-full flex flex-col justify-between group">
+                <div>
+                  {/* Top: 3D Animated WebGL Object */}
+                  <div className="flex items-center justify-between mb-4">
+                    <Service3DObject type={service.type} />
+                    <span className="text-xs font-mono font-medium text-[#86868b] px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.06]">
+                      0{idx + 1}
+                    </span>
+                  </div>
+
+                  <h3 className="text-[#f5f5f7] font-semibold text-lg leading-snug mb-3 group-hover:text-white transition-colors tracking-tight">
+                    {service.title}
+                  </h3>
+
+                  <p className="text-[#86868b] text-sm leading-relaxed font-normal">
+                    {service.description}
+                  </p>
+                </div>
+
+                <div className="pt-4 mt-6 border-t border-white/[0.06] flex items-center justify-between text-xs text-[#86868b]">
+                  <span className="font-medium group-hover:text-[#f5f5f7] transition-colors">Personalised Session</span>
+                  <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </article>
+            </Tilt3DCard>
           ))}
         </div>
 
         {/* CTA nudge */}
-        <p className="text-center text-sm text-gray-400 dark:text-gray-500 mt-10">
+        <p className="text-center text-sm text-[#86868b] mt-12 font-normal">
           Contact us for current package details and pricing.{" "}
-          <a href="#contact" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">
+          <a
+            href="#contact"
+            className="text-[#e2b474] font-medium hover:underline transition-colors"
+          >
             Get in touch →
           </a>
         </p>

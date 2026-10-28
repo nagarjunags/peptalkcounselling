@@ -18,6 +18,7 @@ import NotFound from "./pages/NotFound";
 import { SheetConfigProvider } from "./context/SheetConfigContext";
 import { ExamProvider } from "./context/ExamContext";
 import type { ExamType } from "./config/siteConfig";
+import GlobalThreeCanvas from "./components/3d/GlobalThreeCanvas";
 
 /**
  * Detect the current page from the URL path.
@@ -26,11 +27,6 @@ import type { ExamType } from "./config/siteConfig";
  * /comedk/  → exam page (COMEDK)
  * /privacy-policy → privacy page
  * /terms          → terms page
- *
- * GitHub Pages serves each path from its own HTML entry point
- * (kcet/index.html, comedk/index.html, privacy-policy.html, terms.html),
- * so direct URL access and browser refresh both work without any server
- * fallback configuration.
  */
 function detectPage():
   | { type: "exam"; exam: ExamType }
@@ -45,26 +41,26 @@ function detectPage():
   if (normalised.startsWith("/comedk")) return { type: "exam", exam: "COMEDK" };
   if (normalised.startsWith("/kcet") || normalised === "") return { type: "exam", exam: "KCET" };
 
-  // The 404.html entry is served by GitHub Pages for any unknown path.
-  // When it boots, we show the NotFound component instead of the main page.
   return { type: "notfound" };
 }
 
 /**
  * Main landing page layout — shared by both KCET and COMEDK.
- * Wrapped in SheetConfigProvider and ExamProvider so all children
- * can read remote config and the current exam type.
+ * Packed with interactive 3D WebGL animations and futuristic cyber styling.
  */
 function CounsellingPage({ exam }: { exam: ExamType }) {
   return (
     <ExamProvider exam={exam}>
       <SheetConfigProvider>
-        <div className="min-h-screen bg-white pb-14 md:pb-0">
-          {/* Fixed sticky header */}
+        <div className="min-h-screen bg-black text-[#f5f5f7] pb-28 md:pb-0 relative selection:bg-white selection:text-black antialiased font-sans">
+          {/* Ambient 3D Three.js WebGL Particle & Geometry Canvas */}
+          <GlobalThreeCanvas />
+
+          {/* Fixed sticky frosted glass header */}
           <Header />
 
           {/* Main content */}
-          <main id="main-content">
+          <main id="main-content" className="relative z-10">
             <Hero />
             <Contact />
             <Testimonials />
@@ -95,7 +91,6 @@ export default function App() {
   if (page.type === "terms") return <Terms />;
   if (page.type === "notfound") return <NotFound />;
 
-  // At this point TypeScript knows page.type === "exam"
   const exam = page.type === "exam" ? page.exam : "KCET";
   return <CounsellingPage exam={exam} />;
 }
