@@ -34,8 +34,8 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#030712]/85 backdrop-blur-2xl border-b border-sky-500/20 shadow-2xl"
-          : "bg-[#030712]/50 backdrop-blur-xl border-b border-sky-500/10"
+          ? "bg-[#020617]/85 backdrop-blur-2xl border-b border-slate-800 shadow-2xl"
+          : "bg-[#020617]/50 backdrop-blur-xl border-b border-slate-800/60"
       }`}
       role="banner"
     >
@@ -44,11 +44,11 @@ export default function Header() {
           {/* Brand */}
           <a
             href="#home"
-            className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded-full p-1 transition-transform"
+            className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 rounded-full p-1 transition-transform"
             aria-label={`${siteConfig.brandName} — Home`}
           >
             <div className="relative">
-              <div className="absolute -inset-1 rounded-full bg-sky-500/20 blur-md group-hover:bg-sky-400/40 transition-all" />
+              <div className="absolute -inset-1 rounded-full bg-amber-500/15 blur-md group-hover:bg-amber-400/30 transition-all" />
               <img
                 src={peptalkLogo}
                 alt="Physics Pep Talk Logo"
@@ -59,7 +59,7 @@ export default function Header() {
               <span className="text-white font-semibold text-sm sm:text-base md:text-lg tracking-tight">
                 {siteConfig.brandName}
               </span>
-              <span className="text-sky-400/80 text-[10px] sm:text-[11px] font-normal tracking-tight">
+              <span className="text-slate-400 text-[10px] sm:text-[11px] font-normal tracking-tight">
                 {displayTagline}
               </span>
             </div>
@@ -74,7 +74,7 @@ export default function Header() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-xs font-normal text-slate-300 hover:text-sky-300 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-sky-400 rounded px-1.5 py-0.5 tracking-tight"
+                className="text-xs font-normal text-slate-300 hover:text-white transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-slate-400 rounded px-1.5 py-0.5 tracking-tight"
               >
                 {link.label}
               </a>
@@ -86,7 +86,7 @@ export default function Header() {
             <a
               href={counsellingBatchUrl || "#contact"}
               {...(counsellingBatchUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className="apple-btn-primary text-xs font-semibold px-4.5 py-2 rounded-full cursor-pointer transition-all duration-200"
+              className="apple-btn-primary text-xs font-semibold px-6 py-2.5 !rounded-lg cursor-pointer transition-all duration-200 tracking-wide whitespace-nowrap"
             >
               <span>Get Counselling</span>
             </a>
@@ -96,7 +96,7 @@ export default function Header() {
           <div className="md:hidden flex items-center">
             <button
               type="button"
-              className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full text-slate-300 hover:text-white bg-sky-950/40 border border-sky-500/20 active:scale-95 transition-transform cursor-pointer"
+              className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full text-slate-300 hover:text-white bg-slate-900 border border-slate-700/60 active:scale-95 transition-transform cursor-pointer"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"

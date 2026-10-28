@@ -52,7 +52,7 @@ function CounsellingPage({ exam }: { exam: ExamType }) {
   return (
     <ExamProvider exam={exam}>
       <SheetConfigProvider>
-        <div className="min-h-screen bg-[#030712] text-slate-100 pb-28 md:pb-0 relative selection:bg-sky-400 selection:text-slate-950 antialiased font-sans">
+        <div className="min-h-screen bg-[#020617] text-slate-100 pb-28 md:pb-0 relative selection:bg-amber-300 selection:text-slate-950 antialiased font-sans">
           {/* Ambient 3D Three.js WebGL Particle & Geometry Canvas */}
           <GlobalThreeCanvas />
 

@@ -100,13 +100,22 @@ export default function Hero3DGateway({ exam }: { exam: ExamType }) {
     materialsToDispose.push(cosmicBlueAlloy);
 
     const stellarCyanGlow = new THREE.MeshStandardMaterial({
-      color: 0x38bdf8,
+      color: 0x93c5fd,
       emissive: 0x38bdf8,
-      emissiveIntensity: 0.9,
+      emissiveIntensity: 0.35,
       metalness: 0.3,
-      roughness: 0.2,
+      roughness: 0.25,
     });
     materialsToDispose.push(stellarCyanGlow);
+
+    const warmStarlightBeacon = new THREE.MeshStandardMaterial({
+      color: 0xfde68a,
+      emissive: 0xf59e0b,
+      emissiveIntensity: 0.45,
+      metalness: 0.4,
+      roughness: 0.2,
+    });
+    materialsToDispose.push(warmStarlightBeacon);
 
     // ─── 1. Volumetric Central Celestial Body ─────────────────────────────────────
     const centralBodyGroup = new THREE.Group();
@@ -213,7 +222,7 @@ export default function Hero3DGateway({ exam }: { exam: ExamType }) {
     const beaconCount = 6;
     for (let i = 0; i < beaconCount; i++) {
       const angle = (i * Math.PI * 2) / beaconCount;
-      const beacon = new THREE.Mesh(beaconGeo, stellarCyanGlow);
+      const beacon = new THREE.Mesh(beaconGeo, warmStarlightBeacon);
       beacon.position.set(Math.cos(angle) * 3.1, Math.sin(angle) * 3.1, 0);
       gimbalRing2.add(beacon);
     }

@@ -23,45 +23,49 @@ function getServerSnapshot() {
 
 const examContent = {
   KCET: {
-    eyebrow: (year: string) => `DHRONA ${year} • ONE-ON-ONE COUNSELLING`,
+    badge: (year: string) => `KCET ${year} Counselling Guidance`,
     heading: (year: string) => (
       <>
         KCET {year} Counselling Guidance —{" "}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-sky-300 to-blue-400 font-semibold">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-sky-100 to-white font-semibold">
           Make the Most of Your Rank
         </span>
       </>
     ),
     subheading:
-      "One-on-one personalised guidance for option entry, college & branch selection — built around your rank, category, and priorities. We follow up with you through every counselling round until you get a good seat.",
+      "One-on-one personalised guidance for option entry, college & branch selection — built around your rank, category, and priorities. We follow up with you through every round until you get a good seat.",
+    trustLine:
+      "Option entry based on previous-year seat matrix data. PCM teaching for Boards & KCET included at zero extra cost. Limited seats only.",
     honestMessage:
-      "Seat allotment is determined solely by KEA based on rank and availability. We guide you to make the smartest possible choice — honestly, without false promises.",
+      "Seat allotment is solely by KEA. We guide you to make the smartest possible choice — honestly, without false promises.",
     ctaLabel: "Get Counselling Guidance",
     stats: [
-      { value: "1-on-1", label: "Personalised Guidance", note: "Direct Mentor Access" },
-      { value: "Limited", label: "Seats Available", note: "Quality-Controlled Batch" },
-      { value: "Zero Cost", label: "PCM Boards + KCET", note: "Comprehensive Teaching" },
+      { value: "1-on-1", label: "Personalised Guidance" },
+      { value: "Limited", label: "Seats Available" },
+      { value: "Zero Cost", label: "PCM Boards + KCET teaching" },
     ],
   },
   COMEDK: {
-    eyebrow: (year: string) => `DHRONA ${year} • COMEDK CHOICE FILLING`,
+    badge: (year: string) => `COMEDK ${year} Counselling Guidance`,
     heading: (year: string) => (
       <>
         COMEDK {year} Counselling Guidance —{" "}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-sky-300 to-blue-400 font-semibold">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-sky-100 to-white font-semibold">
           Make the Most of Your Rank
         </span>
       </>
     ),
     subheading:
       "One-on-one personalised guidance for choice filling, college & branch selection — built around your COMEDK rank, category, and priorities. We support you through every round until you secure a good seat.",
+    trustLine:
+      "Choice filling based on previous-year seat data. PCM teaching for Boards & COMEDK included at zero extra cost. Limited seats only.",
     honestMessage:
-      "Seat allotment is determined solely by COMEDK authority based on rank and availability. We guide you to make the smartest possible choice — honestly, without false promises.",
+      "Seat allotment is solely by COMEDK authority. We guide you to make the smartest possible choice — honestly, without false promises.",
     ctaLabel: "Get Counselling Guidance",
     stats: [
-      { value: "1-on-1", label: "Personalised Guidance", note: "Direct Mentor Access" },
-      { value: "Limited", label: "Seats Available", note: "Quality-Controlled Batch" },
-      { value: "Zero Cost", label: "PCM Boards + COMEDK", note: "Comprehensive Teaching" },
+      { value: "1-on-1", label: "Personalised Guidance" },
+      { value: "Limited", label: "Seats Available" },
+      { value: "Zero Cost", label: "PCM Boards + COMEDK teaching" },
     ],
   },
 } as const;
@@ -80,29 +84,29 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative bg-[#030712] text-slate-100 pt-16 pb-4 sm:pt-18 sm:pb-5 lg:pt-20 lg:pb-6 min-h-[calc(100dvh-3.5rem)] lg:min-h-[calc(100dvh-4rem)] lg:max-h-[880px] flex flex-col justify-between overflow-hidden"
+      className="relative bg-[#020617] text-slate-100 pt-16 pb-4 sm:pt-18 sm:pb-5 lg:pt-20 lg:pb-6 min-h-[calc(100dvh-3.5rem)] lg:min-h-[calc(100dvh-4rem)] lg:max-h-[880px] flex flex-col justify-between overflow-hidden"
       aria-label="Hero section"
     >
       <CyberScanline />
 
       {/* Atmospheric Starlight Ambient Lighting */}
-      <div className="absolute top-1/4 left-1/4 w-[480px] h-[480px] bg-sky-500/[0.03] rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-1/3 right-1/4 w-[480px] h-[480px] bg-indigo-600/[0.03] rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-[480px] h-[480px] bg-amber-500/[0.02] rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-[480px] h-[480px] bg-sky-500/[0.02] rounded-full blur-[160px] pointer-events-none" />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 w-full flex-1 flex flex-col justify-between">
         {/* Main Grid: Desktop side-by-side, Mobile responsive flow */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center my-auto">
-          {/* Left / Main Editorial Column */}
+          {/* Left Column */}
           <div className="lg:col-span-7 flex flex-col items-start z-10">
-            {/* Compact, understated scientific eyebrow */}
-            <div className="mb-2 sm:mb-2.5 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-sky-500/20 backdrop-blur-md">
-              <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
-              <span className="text-[11px] font-mono tracking-wider text-sky-200/90 font-medium">
-                {content.eyebrow(year)}
+            {/* Badge */}
+            <div className="mb-2.5 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/85 border border-slate-700/60 backdrop-blur-md shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+              <span className="text-[11px] font-mono tracking-wider text-amber-200/90 font-medium">
+                {content.badge(year)}
               </span>
             </div>
 
-            {/* Editorial Main Headline */}
+            {/* Main Headline */}
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-semibold tracking-tight leading-[1.14] mb-2 sm:mb-2.5 text-white break-words">
               {content.heading(year)}
             </h1>
@@ -114,16 +118,21 @@ export default function Hero() {
               </div>
             )}
 
-            {/* Constrained, readable supporting paragraph */}
-            <p className="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed mb-2.5 sm:mb-3 max-w-xl font-normal">
+            {/* Subheading */}
+            <p className="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed mb-2 max-w-xl font-normal">
               {content.subheading}
             </p>
 
-            {/* Refined Institutional Trust / Disclaimer Element */}
-            <div className="w-full max-w-xl px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-slate-900/60 border border-sky-500/15 backdrop-blur-sm mb-3">
+            {/* Trust line */}
+            <p className="text-xs sm:text-sm text-slate-400 mb-2.5 max-w-xl font-normal">
+              {content.trustLine}
+            </p>
+
+            {/* Honest message */}
+            <div className="w-full max-w-xl px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-slate-900/70 border border-slate-800 backdrop-blur-sm mb-3.5">
               <div className="flex items-start gap-2.5">
                 <svg
-                  className="w-4 h-4 text-sky-400 flex-shrink-0 mt-0.5"
+                  className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -142,8 +151,8 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Deliberate CTA Hierarchy: Dominant Primary + Quieter Secondary */}
-            <div className="grid grid-cols-2 gap-2.5 sm:flex sm:flex-row sm:gap-3 w-full sm:w-auto">
+            {/* Action buttons */}
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 w-full sm:w-auto">
               <a
                 href={counsellingBatchUrl || "#contact"}
                 {...(counsellingBatchUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}
@@ -167,7 +176,7 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackWhatsAppClick(`hero_${exam.toLowerCase()}`)}
-                className="apple-btn-secondary inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-medium rounded-xl sm:rounded-full cursor-pointer min-h-[44px] text-sky-100 text-center"
+                className="apple-btn-secondary inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-medium rounded-xl sm:rounded-full cursor-pointer min-h-[44px] text-center"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0" />
                 <span>WhatsApp Us</span>
@@ -183,12 +192,12 @@ export default function Hero() {
           )}
         </div>
 
-        {/* Coherent Telemetry Metrics Strip */}
+        {/* Stats Strip */}
         <div className="mt-3 lg:mt-4 grid grid-cols-3 gap-2 sm:gap-3 max-w-4xl w-full">
           {content.stats.map((stat, i) => (
             <Tilt3DCard key={stat.label} maxTilt={5}>
-              <div className="apple-card p-2.5 sm:p-3.5 flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 text-center sm:text-left h-full border-sky-500/15">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-sky-950/60 border border-sky-500/20 flex items-center justify-center flex-shrink-0 text-sky-400">
+              <div className="apple-card p-2.5 sm:p-3.5 flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 text-center sm:text-left h-full border-slate-700/40">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-900 border border-slate-700/60 flex items-center justify-center flex-shrink-0 text-amber-300">
                   {i === 0 && (
                     <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -211,9 +220,6 @@ export default function Hero() {
                   </span>
                   <span className="text-[10px] sm:text-xs text-slate-300 font-medium leading-tight line-clamp-1">
                     {stat.label}
-                  </span>
-                  <span className="hidden sm:block text-[9px] text-slate-500 font-mono leading-tight">
-                    {stat.note}
                   </span>
                 </div>
               </div>

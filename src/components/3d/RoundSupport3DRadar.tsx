@@ -78,7 +78,7 @@ export default function RoundSupport3DRadar() {
     // 5 Checkpoint Nodes (Lifecycle Celestial Phases)
     const nodeCount = 5;
     const nodeMeshes: THREE.Mesh[] = [];
-    const nodePalette = [0x94a3b8, 0x38bdf8, 0x818cf8, 0x60a5fa, 0x34d399];
+    const nodePalette = [0x94a3b8, 0x60a5fa, 0x818cf8, 0xf59e0b, 0x38bdf8];
 
     for (let i = 0; i < nodeCount; i++) {
       const angle = (i * Math.PI * 2) / nodeCount - Math.PI / 2;

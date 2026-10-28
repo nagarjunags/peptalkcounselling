@@ -42,18 +42,18 @@ export default function WormholeCTA3D() {
     renderer.domElement.style.touchAction = "pan-y";
     container.appendChild(renderer.domElement);
 
-    // Relativistic Interstellar Warp Rings (Cyan & Pulsar Violet)
+    // Majestic Celestial Warp Rings (Warm Starlight & Deep Celestial Blue)
     const ringCount = 20;
     const rings: THREE.Mesh[] = [];
-    const ringGeo = new THREE.TorusGeometry(8, 0.032, 16, 64);
+    const ringGeo = new THREE.TorusGeometry(8, 0.03, 16, 64);
     const materialsToDispose: THREE.Material[] = [];
 
     for (let i = 0; i < ringCount; i++) {
-      const isViolet = i % 3 === 0;
+      const isWarm = i % 4 === 0;
       const ringMat = new THREE.MeshBasicMaterial({
-        color: isViolet ? 0x818cf8 : 0x38bdf8,
+        color: isWarm ? 0xf59e0b : 0x60a5fa,
         transparent: true,
-        opacity: isViolet ? 0.22 : 0.14,
+        opacity: isWarm ? 0.16 : 0.1,
       });
       materialsToDispose.push(ringMat);
       const ring = new THREE.Mesh(ringGeo, ringMat);
@@ -62,21 +62,36 @@ export default function WormholeCTA3D() {
       rings.push(ring);
     }
 
-    // High-Velocity Cosmic Star Streaks (White & Starlight Cyan)
-    const starCount = 120;
+    // High-Velocity Cosmic Star Streaks (Warm Starlight & White)
+    const starCount = 140;
     const starGeo = new THREE.BufferGeometry();
     const starPos = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount * 3; i += 3) {
-      starPos[i] = (Math.random() - 0.5) * 28;
-      starPos[i + 1] = (Math.random() - 0.5) * 28;
-      starPos[i + 2] = -Math.random() * 80;
+    const starColors = new Float32Array(starCount * 3);
+    const starPalette = [
+      new THREE.Color(0xfef3c7),
+      new THREE.Color(0xf8fafc),
+      new THREE.Color(0x93c5fd),
+    ];
+
+    for (let i = 0; i < starCount; i++) {
+      const idx = i * 3;
+      starPos[idx] = (Math.random() - 0.5) * 32;
+      starPos[idx + 1] = (Math.random() - 0.5) * 32;
+      starPos[idx + 2] = -Math.random() * 80;
+
+      const col = starPalette[Math.floor(Math.random() * starPalette.length)];
+      starColors[idx] = col.r;
+      starColors[idx + 1] = col.g;
+      starColors[idx + 2] = col.b;
     }
     starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
+    starGeo.setAttribute("color", new THREE.BufferAttribute(starColors, 3));
+
     const starMat = new THREE.PointsMaterial({
-      color: 0x38bdf8,
-      size: 0.22,
+      size: 0.28,
+      vertexColors: true,
       transparent: true,
-      opacity: 0.65,
+      opacity: 0.8,
     });
     materialsToDispose.push(starMat);
     const starPoints = new THREE.Points(starGeo, starMat);

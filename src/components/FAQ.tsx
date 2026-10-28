@@ -10,7 +10,7 @@ const kcetFaqs = [
   {
     question: "Do you guarantee a specific college or branch?",
     answer:
-      "No. We do not guarantee admission to any specific college or branch. Final allotments are determined solely by the Karnataka Examinations Authority (KEA) based on rank, category, seat availability, cutoffs and other factors outside our control. No counselling service can honestly make this guarantee.",
+      "No. We do not guarantee admission to any specific college or branch. Final allotments are determined by the Karnataka Examinations Authority (KEA) based on rank, category, seat availability, cutoffs and other factors outside our control. No counselling service can honestly make this guarantee.",
   },
   {
     question: "Can you help with option entry?",
@@ -58,7 +58,7 @@ const comdekFaqs = [
   {
     question: "Do you guarantee a specific college or branch?",
     answer:
-      "No. We do not guarantee admission to any specific college or branch. Final allotments are determined solely by COMEDK authority based on rank, seat availability, cutoffs and other factors outside our control. No counselling service can honestly make this guarantee.",
+      "No. We do not guarantee admission to any specific college or branch. Final allotments are determined by COMEDK authority based on rank, seat availability, cutoffs and other factors outside our control. No counselling service can honestly make this guarantee.",
   },
   {
     question: "Can you help with choice filling?",
@@ -78,22 +78,22 @@ const comdekFaqs = [
   {
     question: "Do you consider branch preferences?",
     answer:
-      "Yes. Branch preferences are an essential part of the counselling discussion. We help you evaluate college reputation versus engineering branch priorities based on your career ambitions.",
+      "Yes. Branch preferences are a central part of the COMEDK counselling discussion. We help you weigh college vs branch priorities based on your individual situation and goals.",
   },
   {
     question: "Can parents participate in the counselling sessions?",
     answer:
-      "Yes. Parents are welcome to participate in all counselling discussions. We encourage family involvement in major college and branch decisions.",
+      "Yes. Parents are welcome to participate in all sessions. We encourage family involvement in major college and branch decisions.",
   },
   {
-    question: "When should I reach out — before or after getting my rank?",
+    question: "When should I reach out — before or after getting my COMEDK rank?",
     answer:
-      "You can reach out at any time. However, the most practical counselling can begin once your COMEDK rank is declared, as the strategy is tailored specifically to your rank.",
+      "You can reach out at any time. However, the most practical counselling can begin once your COMEDK rank is available, as the analysis is specific to your rank.",
   },
   {
-    question: "Is this open to non-Karnataka students?",
+    question: "Is COMEDK only for Karnataka students?",
     answer:
-      "Yes! COMEDK is open to students from all across India. We regularly guide students from all states to secure top engineering seats in Karnataka through COMEDK counselling.",
+      "COMEDK is open to students from across India for engineering admissions in Karnataka. If you are eligible for COMEDK counselling and need guidance, reach out to us.",
   },
 ];
 
@@ -109,19 +109,19 @@ function FAQItem({
   onToggle: () => void;
 }) {
   return (
-    <div className="apple-card overflow-hidden transition-all duration-200 border-sky-500/15 bg-[#060c1d]/75">
+    <div className="apple-card overflow-hidden transition-all duration-200 border-slate-800 bg-[#050b18]/85">
       <button
         type="button"
         onClick={onToggle}
-        className="w-full text-left px-5 sm:px-6 py-4.5 sm:py-5 flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 cursor-pointer"
+        className="w-full text-left px-5 sm:px-6 py-4.5 sm:py-5 flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 cursor-pointer"
         aria-expanded={isOpen}
       >
         <span className="font-semibold text-sm sm:text-base text-white leading-snug tracking-tight">
           {question}
         </span>
         <span
-          className={`flex-shrink-0 w-6 h-6 rounded-lg bg-sky-950/60 border border-sky-500/20 flex items-center justify-center text-sky-400 transition-transform duration-200 ${
-            isOpen ? "rotate-180 text-sky-200" : ""
+          className={`flex-shrink-0 w-6 h-6 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 transition-transform duration-200 ${
+            isOpen ? "rotate-180 text-amber-300" : ""
           }`}
           aria-hidden="true"
         >
@@ -132,7 +132,7 @@ function FAQItem({
       </button>
 
       {isOpen && (
-        <div className="px-5 sm:px-6 pb-5 pt-1 border-t border-sky-500/10 animate-in fade-in duration-150">
+        <div className="px-5 sm:px-6 pb-5 pt-1 border-t border-slate-800 animate-in fade-in duration-150">
           <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">{answer}</p>
         </div>
       )}
@@ -147,22 +147,22 @@ export default function FAQ() {
 
   const description =
     exam === "COMEDK"
-      ? "Direct, transparent answers regarding COMEDK counselling, choice filling, round progression, and policies."
-      : "Direct, transparent answers regarding KCET counselling, option entry, round progression, and policies.";
+      ? "Honest answers to common questions about our COMEDK counselling guidance service."
+      : "Honest answers to common questions about our KCET counselling guidance service.";
 
   return (
     <section
       id="faq"
-      className="py-20 md:py-28 bg-[#030712] text-slate-100 relative overflow-hidden border-t border-sky-500/15"
+      className="py-20 md:py-28 bg-[#020617] text-slate-100 relative overflow-hidden border-t border-slate-800"
       aria-label="Frequently asked questions"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Header */}
         <div className="max-w-3xl mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-sky-500/20 backdrop-blur-md mb-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
-            <span className="text-[11px] font-mono tracking-wider text-sky-200/90 font-medium uppercase">
-              Clarifications &amp; Policies
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-slate-700/60 backdrop-blur-md mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+            <span className="text-[11px] font-mono tracking-wider text-amber-200/90 font-medium uppercase">
+              FAQs
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight leading-[1.15] mb-4">
@@ -190,13 +190,13 @@ export default function FAQ() {
         {/* Still have questions */}
         <div className="text-center mt-12">
           <p className="text-slate-400 text-xs sm:text-sm mb-4 font-normal">
-            Have a question about your specific rank or category?
+            Have a question not answered above?
           </p>
           <a
             href="#contact"
             className="apple-btn-secondary min-h-[44px] inline-flex items-center gap-2 px-6 py-2.5 rounded-xl sm:rounded-full text-xs font-semibold cursor-pointer"
           >
-            <span>Ask Our Mentors Directly</span>
+            <span>Ask Us Directly</span>
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
