@@ -11,9 +11,9 @@ function VideoCard({ testimonial }: { testimonial: Testimonial }) {
 
   return (
     <Tilt3DCard maxTilt={6}>
-      <div className="flex flex-col rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0c0c0e]/80 backdrop-blur-xl hover:border-white/20 transition-all apple-card h-full">
+      <div className="flex flex-col rounded-2xl overflow-hidden apple-card h-full">
         {/* Video area */}
-        <div className="relative aspect-video bg-black overflow-hidden">
+        <div className="relative aspect-video bg-[#0a1020] overflow-hidden">
           {playing ? (
             <iframe
               src={`${testimonial.embedUrl}?autoplay=1&rel=0`}
@@ -25,7 +25,7 @@ function VideoCard({ testimonial }: { testimonial: Testimonial }) {
           ) : (
             <button
               onClick={() => setPlaying(true)}
-              className="absolute inset-0 w-full h-full group focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-inset cursor-pointer"
+              className="absolute inset-0 w-full h-full group focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-inset cursor-pointer"
               aria-label={`Play video: ${testimonial.title}`}
             >
               {/* Thumbnail */}
@@ -35,14 +35,14 @@ function VideoCard({ testimonial }: { testimonial: Testimonial }) {
                 className="w-full h-full object-cover transform group-hover:scale-103 transition-transform duration-700"
                 loading="lazy"
               />
-              {/* Subtle dark glass overlay */}
-              <span className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors" />
+              {/* Subtle cosmic glass overlay */}
+              <span className="absolute inset-0 bg-[#030712]/30 group-hover:bg-[#030712]/10 transition-colors" />
 
               {/* Minimalist Frosted Glass Play button */}
               <span className="absolute inset-0 flex items-center justify-center">
-                <span className="w-13 h-13 rounded-full bg-white/20 backdrop-blur-md border border-white/30 group-hover:bg-white/30 flex items-center justify-center shadow-lg transition-transform group-hover:scale-108 duration-300">
+                <span className="w-13 h-13 rounded-full bg-slate-900/60 backdrop-blur-md border border-sky-400/40 group-hover:border-sky-300 flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.3)] transition-transform group-hover:scale-110 duration-300">
                   <svg
-                    className="w-5 h-5 text-white translate-x-0.5"
+                    className="w-5 h-5 text-sky-200 translate-x-0.5"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     aria-hidden="true"
@@ -57,11 +57,11 @@ function VideoCard({ testimonial }: { testimonial: Testimonial }) {
 
         {/* Title */}
         <div className="p-5 flex-1 flex flex-col justify-between">
-          <p className="text-sm font-medium text-[#f5f5f7] line-clamp-2 leading-relaxed">
+          <p className="text-sm font-medium text-white line-clamp-2 leading-relaxed">
             {testimonial.title}
           </p>
-          <span className="text-xs text-[#86868b] font-normal mt-3 flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+          <span className="text-xs text-sky-400/80 font-normal mt-3 flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
             Verified Student Experience
           </span>
         </div>
@@ -74,11 +74,11 @@ function VideoCard({ testimonial }: { testimonial: Testimonial }) {
 
 function SkeletonCard() {
   return (
-    <div className="rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0c0c0e]/80 animate-pulse">
-      <div className="aspect-video bg-white/[0.04]" />
+    <div className="rounded-2xl overflow-hidden apple-card animate-pulse">
+      <div className="aspect-video bg-sky-950/20" />
       <div className="p-5">
-        <div className="h-4 bg-white/[0.06] rounded w-3/4 mb-2" />
-        <div className="h-3 bg-white/[0.04] rounded w-1/2" />
+        <div className="h-4 bg-sky-900/30 rounded w-3/4 mb-2" />
+        <div className="h-3 bg-sky-900/20 rounded w-1/2" />
       </div>
     </div>
   );
@@ -94,19 +94,19 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="py-20 md:py-28 bg-black text-[#f5f5f7] relative overflow-hidden border-t border-white/[0.08]"
+      className="py-20 md:py-28 bg-[#030712] text-slate-100 relative overflow-hidden border-t border-sky-500/15"
       aria-label="Student testimonials"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-14">
           <div className="mb-4">
-            <CyberBadge color="emerald">Testimonials</CyberBadge>
+            <CyberBadge color="cyan">Testimonials</CyberBadge>
           </div>
-          <h2 className="text-3xl md:text-5xl font-semibold text-[#f5f5f7] mb-4 tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-semibold text-white mb-4 tracking-tight">
             Hear From Our Students
           </h2>
-          <p className="text-[#86868b] text-base md:text-lg leading-relaxed max-w-2xl mx-auto font-normal">
+          <p className="text-slate-400 text-base md:text-lg leading-relaxed max-w-2xl mx-auto font-normal">
             Real students share their experience with our KCET &amp; COMEDK counselling
             guidance.
           </p>

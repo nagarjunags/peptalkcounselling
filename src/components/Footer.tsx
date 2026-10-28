@@ -26,7 +26,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="bg-black text-[#86868b] border-t border-white/[0.08] relative z-10"
+      className="bg-[#030712] text-slate-400 border-t border-sky-500/15 relative z-10"
       role="contentinfo"
       aria-label="Site footer"
     >
@@ -36,24 +36,27 @@ export default function Footer() {
           <div>
             <a
               href="#home"
-              className="inline-flex items-center gap-3 mb-4 focus:outline-none focus-visible:ring-1 focus-visible:ring-white/40 rounded-full group"
+              className="inline-flex items-center gap-3 mb-4 focus:outline-none focus-visible:ring-1 focus-visible:ring-sky-400 rounded-full group"
               aria-label={`${siteConfig.brandName} — Back to top`}
             >
-              <img
-                src={peptalkLogo}
-                alt="Physics Pep Talk Logo"
-                className="h-9 w-9 rounded-full object-cover transition-transform group-hover:scale-105"
-              />
+              <div className="relative">
+                <div className="absolute -inset-1 rounded-full bg-sky-500/20 blur-md group-hover:bg-sky-400/40 transition-all" />
+                <img
+                  src={peptalkLogo}
+                  alt="Physics Pep Talk Logo"
+                  className="relative h-9 w-9 rounded-full object-cover transition-transform group-hover:scale-105"
+                />
+              </div>
               <div className="flex flex-col">
-                <span className="text-[#f5f5f7] font-semibold text-base leading-tight">
+                <span className="text-white font-semibold text-base leading-tight">
                   {siteConfig.brandName}
                 </span>
-                <span className="text-[#86868b] text-xs font-normal tracking-tight mt-0.5">
+                <span className="text-sky-400/80 text-xs font-normal tracking-tight mt-0.5">
                   {displayTagline}
                 </span>
               </div>
             </a>
-            <p className="text-xs leading-relaxed text-[#86868b] mb-5 max-w-sm">
+            <p className="text-xs leading-relaxed text-slate-400 mb-5 max-w-sm">
               {description}
             </p>
             <div className="flex gap-2.5 items-center">
@@ -62,7 +65,7 @@ export default function Footer() {
                 href={buildWhatsAppUrl(undefined, exam)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 hover:border-white/20 hover:bg-white/[0.08] flex items-center justify-center text-emerald-400 hover:text-white transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400"
+                className="w-9 h-9 rounded-full bg-sky-950/40 border border-sky-500/20 hover:border-emerald-400/40 hover:bg-emerald-950/30 flex items-center justify-center text-emerald-400 hover:text-emerald-300 transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400"
                 aria-label="WhatsApp"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
@@ -73,7 +76,7 @@ export default function Footer() {
               {buildPhoneUrl() !== "#" && (
                 <a
                   href={buildPhoneUrl()}
-                  className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 hover:border-white/20 hover:bg-white/[0.08] flex items-center justify-center text-[#70a9ff] hover:text-white transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
+                  className="w-9 h-9 rounded-full bg-sky-950/40 border border-sky-500/20 hover:border-sky-400/40 hover:bg-sky-900/40 flex items-center justify-center text-sky-400 hover:text-sky-300 transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-sky-400"
                   aria-label="Phone"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -87,7 +90,7 @@ export default function Footer() {
                 href={siteConfig.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 hover:border-white/20 hover:bg-white/[0.08] flex items-center justify-center text-[#bf5af2] hover:text-white transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-pink-400"
+                className="w-9 h-9 rounded-full bg-sky-950/40 border border-sky-500/20 hover:border-pink-400/40 hover:bg-pink-950/30 flex items-center justify-center text-pink-400 hover:text-pink-300 transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-pink-400"
                 aria-label="Instagram — Physics Pep Talk"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
@@ -99,7 +102,7 @@ export default function Footer() {
                 href={siteConfig.youtubeMainUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 hover:border-white/20 hover:bg-white/[0.08] flex items-center justify-center text-red-400 hover:text-white transition-all"
+                className="w-9 h-9 rounded-full bg-sky-950/40 border border-sky-500/20 hover:border-red-400/40 hover:bg-red-950/30 flex items-center justify-center text-red-400 hover:text-red-300 transition-all"
                 aria-label="YouTube — Physics Pep Talk"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
@@ -111,7 +114,7 @@ export default function Footer() {
 
           {/* Navigation column */}
           <div>
-            <h3 className="text-[#f5f5f7] font-medium text-xs mb-4 uppercase tracking-wider">
+            <h3 className="text-white font-medium text-xs mb-4 uppercase tracking-wider">
               Navigation
             </h3>
             <nav aria-label="Footer navigation">
@@ -120,7 +123,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <a
                       href={link.href}
-                      className="text-xs text-[#86868b] hover:text-[#f5f5f7] transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-white/40"
+                      className="text-xs text-slate-400 hover:text-sky-300 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-sky-400"
                     >
                       {link.label}
                     </a>
@@ -132,7 +135,7 @@ export default function Footer() {
 
           {/* Legal & links column */}
           <div>
-            <h3 className="text-[#f5f5f7] font-medium text-xs mb-4 uppercase tracking-wider">
+            <h3 className="text-white font-medium text-xs mb-4 uppercase tracking-wider">
               Legal &amp; Links
             </h3>
             <ul className="flex flex-col gap-2.5" role="list">
@@ -141,7 +144,7 @@ export default function Footer() {
                   href={siteConfig.privacyPolicyUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-[#86868b] hover:text-[#f5f5f7] transition-colors"
+                  className="text-xs text-slate-400 hover:text-sky-300 transition-colors"
                 >
                   Privacy Policy
                 </a>
@@ -151,7 +154,7 @@ export default function Footer() {
                   href={siteConfig.termsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-[#86868b] hover:text-[#f5f5f7] transition-colors"
+                  className="text-xs text-slate-400 hover:text-sky-300 transition-colors"
                 >
                   Terms &amp; Disclaimer
                 </a>
@@ -161,7 +164,7 @@ export default function Footer() {
                   href={siteConfig.parentWebsite}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-[#86868b] hover:text-[#f5f5f7] transition-colors inline-flex items-center gap-1.5"
+                  className="text-xs text-slate-400 hover:text-sky-300 transition-colors inline-flex items-center gap-1.5"
                 >
                   <span>Physics Pep Talk (Main Site)</span>
                   <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -173,7 +176,7 @@ export default function Footer() {
                 <li>
                   <a
                     href={`mailto:${siteConfig.email}`}
-                    className="text-xs text-[#86868b] hover:text-[#f5f5f7] transition-colors"
+                    className="text-xs text-slate-400 hover:text-sky-300 transition-colors"
                   >
                     {siteConfig.email}
                   </a>
@@ -184,7 +187,7 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-white/[0.08] mt-12 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#86868b]">
+        <div className="border-t border-sky-500/15 mt-12 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>
             © {currentYear} {siteConfig.brandName}. All rights reserved.
           </p>

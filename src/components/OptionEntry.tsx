@@ -59,29 +59,29 @@ export default function OptionEntry() {
   return (
     <section
       id="option-entry"
-      className="py-20 md:py-28 bg-black text-[#f5f5f7] relative overflow-hidden border-t border-white/[0.08]"
+      className="py-20 md:py-28 bg-[#030712] text-slate-100 relative overflow-hidden border-t border-sky-500/15"
       aria-label="Why option entry matters"
     >
       {/* Background Lighting */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/[0.02] rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-sky-500/[0.03] rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Column: Heading + Intro + 3D Visualizer (7 cols) */}
           <div className="lg:col-span-7 flex flex-col items-start">
             <div className="mb-4">
-              <CyberBadge color="gold">{content.badge}</CyberBadge>
+              <CyberBadge color="cyan">{content.badge}</CyberBadge>
             </div>
 
-            <h2 className="text-3xl md:text-5xl font-semibold text-[#f5f5f7] mb-5 tracking-tight">
+            <h2 className="text-3xl md:text-5xl font-semibold text-white mb-5 tracking-tight">
               {content.heading}
             </h2>
 
-            <p className="text-[#86868b] text-base md:text-lg leading-relaxed mb-4 font-normal">
+            <p className="text-slate-300 text-base md:text-lg leading-relaxed mb-4 font-normal">
               {content.intro}
             </p>
 
-            <p className="text-[#a1a1a6] leading-relaxed mb-6 text-sm font-normal">
+            <p className="text-sky-300/80 leading-relaxed mb-6 text-sm font-normal">
               {content.detail}
             </p>
 
@@ -105,13 +105,13 @@ export default function OptionEntry() {
           <div className="lg:col-span-5">
             <Tilt3DCard maxTilt={6}>
               <div className="apple-card p-7 sm:p-8">
-                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/[0.08]">
-                  <div className="w-8 h-8 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#e2b474] flex-shrink-0">
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-sky-500/15">
+                  <div className="w-8 h-8 rounded-full bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 flex-shrink-0">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  <h3 className="text-[#f5f5f7] font-semibold text-base leading-snug tracking-tight">
+                  <h3 className="text-white font-semibold text-base leading-snug tracking-tight">
                     {content.confusionHeading}
                   </h3>
                 </div>
@@ -120,14 +120,14 @@ export default function OptionEntry() {
                   {content.confusionPoints.map((point) => (
                     <li key={point} className="flex items-start gap-3 group">
                       <span
-                        className="mt-1 flex-shrink-0 w-4 h-4 rounded-full bg-white/[0.04] text-[#e2b474] border border-white/10 flex items-center justify-center"
+                        className="mt-1 flex-shrink-0 w-4 h-4 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 flex items-center justify-center"
                         aria-hidden="true"
                       >
                         <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       </span>
-                      <span className="text-[#86868b] text-sm leading-relaxed group-hover:text-[#f5f5f7] transition-colors font-normal">
+                      <span className="text-slate-300 text-sm leading-relaxed group-hover:text-white transition-colors font-normal">
                         {point}
                       </span>
                     </li>
@@ -135,9 +135,9 @@ export default function OptionEntry() {
                 </ul>
 
                 {/* Disclaimer note */}
-                <div className="mt-6 pt-5 border-t border-white/[0.08] p-3.5 rounded-xl bg-white/[0.02]">
-                  <p className="text-xs text-[#86868b] leading-relaxed font-normal">
-                    <strong className="text-[#f5f5f7] font-medium">Note:</strong>{" "}
+                <div className="mt-6 pt-5 border-t border-sky-500/15 p-3.5 rounded-xl bg-sky-950/20">
+                  <p className="text-xs text-slate-400 leading-relaxed font-normal">
+                    <strong className="text-sky-300 font-medium">Note:</strong>{" "}
                     {content.disclaimerText}
                   </p>
                 </div>

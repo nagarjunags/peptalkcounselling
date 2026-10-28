@@ -29,30 +29,30 @@ export default function RoundSupport3DRadar() {
     const group = new THREE.Group();
     scene.add(group);
 
-    // Studio Lighting
-    const amb = new THREE.AmbientLight(0xffffff, 1.2);
+    // Deep Space Studio Lighting
+    const amb = new THREE.AmbientLight(0xffffff, 1.0);
     scene.add(amb);
 
-    const keyLight = new THREE.DirectionalLight(0xfff5ea, 2.5);
+    const keyLight = new THREE.DirectionalLight(0xf0f9ff, 2.8);
     keyLight.position.set(6, 12, 8);
     scene.add(keyLight);
 
-    const rimLight = new THREE.DirectionalLight(0x70a9ff, 1.5);
+    const rimLight = new THREE.DirectionalLight(0x38bdf8, 2.2);
     rimLight.position.set(-6, -4, -6);
     scene.add(rimLight);
 
-    // Titanium Orbit Rings (Vision Pro spatial style)
+    // Astronomical Orbit Rings (Deep Space Observatory)
     const ringRadii = [3.0, 4.8, 6.4];
     const rings: THREE.Mesh[] = [];
 
     ringRadii.forEach((r, idx) => {
-      const ringGeo = new THREE.TorusGeometry(r, 0.02, 16, 100);
+      const ringGeo = new THREE.TorusGeometry(r, 0.025, 16, 100);
       const ringMat = new THREE.MeshStandardMaterial({
-        color: idx === 2 ? 0xe2b474 : 0x86868b,
+        color: idx === 2 ? 0x38bdf8 : 0x475569,
         metalness: 0.9,
         roughness: 0.2,
         transparent: true,
-        opacity: idx === 2 ? 0.6 : 0.35,
+        opacity: idx === 2 ? 0.7 : 0.35,
       });
       const ring = new THREE.Mesh(ringGeo, ringMat);
       ring.rotation.x = Math.PI / 2;
@@ -60,11 +60,11 @@ export default function RoundSupport3DRadar() {
       rings.push(ring);
     });
 
-    // 5 Checkpoint Nodes (Phases)
+    // 5 Checkpoint Nodes (Lifecycle Celestial Phases)
     const nodeCount = 5;
     const nodeMeshes: THREE.Mesh[] = [];
-    // Titanium and subtle champagne tones
-    const nodePalette = [0xd1d5db, 0x86868b, 0xe2b474, 0xf5c984, 0x34c759];
+    // Celestial spectrum: Titanium, Cyan, Pulsar Violet, Azure, Emerald
+    const nodePalette = [0x94a3b8, 0x38bdf8, 0x818cf8, 0x60a5fa, 0x34d399];
 
     for (let i = 0; i < nodeCount; i++) {
       const angle = (i * Math.PI * 2) / nodeCount - Math.PI / 2;
@@ -73,6 +73,8 @@ export default function RoundSupport3DRadar() {
       const sphereGeo = new THREE.SphereGeometry(0.38, 32, 32);
       const sphereMat = new THREE.MeshStandardMaterial({
         color: nodePalette[i],
+        emissive: nodePalette[i],
+        emissiveIntensity: 0.45,
         metalness: 0.85,
         roughness: 0.2,
       });
@@ -81,9 +83,9 @@ export default function RoundSupport3DRadar() {
       group.add(sphere);
       nodeMeshes.push(sphere);
 
-      // Delicate radial connector ray
+      // Radial Telemetry Beam
       const lineMat = new THREE.LineBasicMaterial({
-        color: 0x86868b,
+        color: 0x38bdf8,
         transparent: true,
         opacity: 0.2,
       });
@@ -95,24 +97,26 @@ export default function RoundSupport3DRadar() {
       group.add(ray);
     }
 
-    // Central Precision Titanium Gyro Core
+    // Central Telemetry Observatory Core
     const coreGroup = new THREE.Group();
     group.add(coreGroup);
 
     const innerSphereGeo = new THREE.SphereGeometry(0.65, 32, 32);
     const innerSphereMat = new THREE.MeshStandardMaterial({
-      color: 0x18181b,
+      color: 0x0f172a,
+      emissive: 0x0284c7,
+      emissiveIntensity: 0.5,
       metalness: 0.95,
       roughness: 0.1,
     });
     const innerSphere = new THREE.Mesh(innerSphereGeo, innerSphereMat);
     coreGroup.add(innerSphere);
 
-    const gyroRingGeo = new THREE.TorusGeometry(0.9, 0.03, 16, 64);
+    const gyroRingGeo = new THREE.TorusGeometry(0.95, 0.035, 16, 64);
     const gyroRingMat = new THREE.MeshStandardMaterial({
-      color: 0xe2b474,
+      color: 0x38bdf8,
       metalness: 0.9,
-      roughness: 0.2,
+      roughness: 0.15,
     });
     const gyroRing1 = new THREE.Mesh(gyroRingGeo, gyroRingMat);
     const gyroRing2 = new THREE.Mesh(gyroRingGeo, gyroRingMat);
@@ -120,12 +124,12 @@ export default function RoundSupport3DRadar() {
     coreGroup.add(gyroRing1);
     coreGroup.add(gyroRing2);
 
-    // Subtle Sweep Arc
+    // Celestial Radar Sweep Arc
     const sweepGeo = new THREE.ConeGeometry(6.4, 0.02, 48, 1, true, 0, Math.PI / 6);
     const sweepMat = new THREE.MeshBasicMaterial({
-      color: 0xe2b474,
+      color: 0x38bdf8,
       transparent: true,
-      opacity: 0.08,
+      opacity: 0.1,
       side: THREE.DoubleSide,
     });
     const sweep = new THREE.Mesh(sweepGeo, sweepMat);

@@ -8,166 +8,166 @@ export default function GlobalThreeCanvas() {
     const container = mountRef.current;
     if (!container) return;
 
-    const isMobile = window.innerWidth < 768;
     let width = window.innerWidth;
     let height = window.innerHeight;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x000000, 0.0035);
+    scene.fog = new THREE.FogExp2(0x030712, 0.012);
 
     const camera = new THREE.PerspectiveCamera(55, width / height, 0.1, 1000);
-    camera.position.z = 70;
+    camera.position.z = 45;
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: !isMobile,
+      antialias: true,
       powerPreference: "high-performance",
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.0 : 1.5));
-    renderer.setClearColor(0x000000, 0);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.domElement.style.touchAction = "pan-y";
     container.appendChild(renderer.domElement);
 
-    // Subtle Apple-style Ambient Starlight Dust
-    const particleCount = isMobile ? 50 : 120;
-    const particleGeometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const velocities = new Float32Array(particleCount * 3);
+    // Astronomical Starfield (Magnitude distribution: white, cyan, subtle pulsar violet)
+    const starCount = 380;
+    const starGeo = new THREE.BufferGeometry();
+    const starPos = new Float32Array(starCount * 3);
+    const starColors = new Float32Array(starCount * 3);
 
-    for (let i = 0; i < particleCount; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 140;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 120;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 80;
+    const palette = [
+      new THREE.Color(0xf8fafc), // pure starlight
+      new THREE.Color(0x38bdf8), // celestial cyan
+      new THREE.Color(0x818cf8), // pulsar violet
+      new THREE.Color(0x93c5fd), // nebula blue
+    ];
 
-      velocities[i * 3] = (Math.random() - 0.5) * 0.015;
-      velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.015;
-      velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.015;
+    for (let i = 0; i < starCount; i++) {
+      const idx = i * 3;
+      starPos[idx] = (Math.random() - 0.5) * 160;
+      starPos[idx + 1] = (Math.random() - 0.5) * 160;
+      starPos[idx + 2] = (Math.random() - 0.5) * 120;
+
+      const col = palette[Math.floor(Math.random() * palette.length)];
+      starColors[idx] = col.r;
+      starColors[idx + 1] = col.g;
+      starColors[idx + 2] = col.b;
     }
-    particleGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
-    const particleMaterial = new THREE.PointsMaterial({
-      color: 0xffffff,
-      size: isMobile ? 1.0 : 1.2,
+    starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
+    starGeo.setAttribute("color", new THREE.BufferAttribute(starColors, 3));
+
+    const starMat = new THREE.PointsMaterial({
+      size: 0.35,
+      vertexColors: true,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.75,
     });
-    const particles = new THREE.Points(particleGeometry, particleMaterial);
-    scene.add(particles);
+    const starPoints = new THREE.Points(starGeo, starMat);
+    scene.add(starPoints);
 
-    // Precision Titanium Geometric Sculptures in Deep Space
-    const sculptureGroup = new THREE.Group();
+    // Floating Scientific Celestial Orbital Structures
+    const group = new THREE.Group();
+    scene.add(group);
 
-    // 1. Sleek Torus (Thin hairline titanium ring)
-    const ringGeo = new THREE.TorusGeometry(8, 0.06, 16, 64);
-    const ringMat = new THREE.MeshBasicMaterial({
-      color: 0x86868b,
+    // Geodesic Wireframes & Celestial Rings
+    const celestialWireMat = new THREE.MeshBasicMaterial({
+      color: 0x38bdf8,
+      wireframe: true,
       transparent: true,
-      opacity: 0.15,
+      opacity: 0.14,
     });
-    const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-    ringMesh.position.set(-36, 16, -15);
-    sculptureGroup.add(ringMesh);
 
-    // 2. Minimalist Icosahedron (Frosted titanium edges)
-    const icoGeo = new THREE.IcosahedronGeometry(6.5, 0);
-    const icoMat = new THREE.MeshBasicMaterial({
-      color: 0xa1a1a6,
+    const violetWireMat = new THREE.MeshBasicMaterial({
+      color: 0x818cf8,
       wireframe: true,
       transparent: true,
       opacity: 0.12,
     });
-    const icoMesh = new THREE.Mesh(icoGeo, icoMat);
-    icoMesh.position.set(38, -18, -20);
-    sculptureGroup.add(icoMesh);
 
-    // 3. Precision Octahedron
-    const octGeo = new THREE.OctahedronGeometry(5, 0);
-    const octMat = new THREE.MeshBasicMaterial({
-      color: 0x6e6e73,
-      wireframe: true,
+    // 1. Quantum Octahedron
+    const octMesh = new THREE.Mesh(new THREE.OctahedronGeometry(4.5, 1), celestialWireMat);
+    octMesh.position.set(-28, 14, -20);
+    group.add(octMesh);
+
+    // 2. Astrometry Coordinate Sphere
+    const sphereMesh = new THREE.Mesh(new THREE.IcosahedronGeometry(5.0, 1), violetWireMat);
+    sphereMesh.position.set(30, -18, -25);
+    group.add(sphereMesh);
+
+    // 3. Orbital Resonance Ring
+    const ringGeo = new THREE.TorusGeometry(8, 0.04, 16, 80);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: 0x38bdf8,
       transparent: true,
-      opacity: 0.1,
+      opacity: 0.18,
     });
-    const octMesh = new THREE.Mesh(octGeo, octMat);
-    octMesh.position.set(32, 24, -25);
-    sculptureGroup.add(octMesh);
+    const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+    ringMesh.position.set(22, 18, -30);
+    ringMesh.rotation.x = 1.1;
+    group.add(ringMesh);
 
-    scene.add(sculptureGroup);
+    // 4. Quantum Core
+    const tetraMesh = new THREE.Mesh(new THREE.TetrahedronGeometry(3.5, 0), celestialWireMat);
+    tetraMesh.position.set(-24, -14, -18);
+    group.add(tetraMesh);
 
-    // Subtle Parallax
+    // Lighting for depth
+    const dirLight = new THREE.DirectionalLight(0x38bdf8, 1.2);
+    dirLight.position.set(10, 20, 15);
+    scene.add(dirLight);
+
+    const ambLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambLight);
+
+    // Parallax mouse interaction
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
     let targetY = 0;
 
-    const handlePointerMove = (e: MouseEvent) => {
+    const onMouseMove = (e: MouseEvent) => {
       mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
       mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
     };
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
 
-    if (!isMobile) {
-      window.addEventListener("mousemove", handlePointerMove, { passive: true });
-    }
-
-    const handleResize = () => {
+    // Resize
+    const onResize = () => {
       width = window.innerWidth;
       height = window.innerHeight;
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
     };
-    window.addEventListener("resize", handleResize, { passive: true });
+    window.addEventListener("resize", onResize);
 
-    let scrollY = 0;
-    const handleScroll = () => {
-      scrollY = window.scrollY;
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    let animationFrameId: number;
-    let isVisible = true;
-
-    const handleVisibility = () => {
-      isVisible = !document.hidden;
-    };
-    document.addEventListener("visibilitychange", handleVisibility);
-
-    let clock = new THREE.Clock();
+    // Animation Loop
+    let animId: number;
+    const clock = new THREE.Clock();
 
     const animate = () => {
-      animationFrameId = requestAnimationFrame(animate);
-      if (!isVisible) return;
-
+      animId = requestAnimationFrame(animate);
       const elapsed = clock.getElapsedTime();
 
-      targetX += (mouseX * 5 - targetX) * 0.03;
-      targetY += (-mouseY * 5 - targetY) * 0.03;
-
+      // Smooth camera parallax
+      targetX += (mouseX * 2.5 - targetX) * 0.03;
+      targetY += (-mouseY * 2.5 - targetY) * 0.03;
       camera.position.x = targetX;
-      camera.position.y = targetY - (scrollY * 0.015) % 25;
-      camera.lookAt(0, 0, 0);
+      camera.position.y = targetY;
 
-      // Slow, majestic rotation
-      ringMesh.rotation.x = elapsed * 0.1;
-      ringMesh.rotation.y = elapsed * 0.12;
+      // Slow orbital drift of celestial structures
+      octMesh.rotation.x = elapsed * 0.08;
+      octMesh.rotation.y = elapsed * 0.12;
 
-      icoMesh.rotation.x = elapsed * 0.08;
-      icoMesh.rotation.y = elapsed * 0.1;
+      sphereMesh.rotation.y = -elapsed * 0.09;
+      sphereMesh.rotation.z = elapsed * 0.06;
 
-      octMesh.rotation.z = elapsed * 0.07;
-      octMesh.rotation.x = -elapsed * 0.09;
+      ringMesh.rotation.z = elapsed * 0.1;
 
-      // Particle subtle drift
-      const posAttr = particleGeometry.attributes.position as THREE.BufferAttribute;
-      const posArray = posAttr.array as Float32Array;
-      for (let i = 0; i < particleCount; i++) {
-        posArray[i * 3] += velocities[i * 3];
-        posArray[i * 3 + 1] += velocities[i * 3 + 1];
+      tetraMesh.rotation.x = -elapsed * 0.07;
+      tetraMesh.rotation.y = elapsed * 0.11;
 
-        if (Math.abs(posArray[i * 3]) > 70) velocities[i * 3] *= -1;
-        if (Math.abs(posArray[i * 3 + 1]) > 60) velocities[i * 3 + 1] *= -1;
-      }
-      posAttr.needsUpdate = true;
+      // Starfield slow cosmic rotation
+      starPoints.rotation.y = elapsed * 0.015;
 
       renderer.render(scene, camera);
     };
@@ -175,24 +175,12 @@ export default function GlobalThreeCanvas() {
     animate();
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
-      if (!isMobile) {
-        window.removeEventListener("mousemove", handlePointerMove);
-      }
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("visibilitychange", handleVisibility);
-
+      cancelAnimationFrame(animId);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("resize", onResize);
       renderer.dispose();
-      particleGeometry.dispose();
-      particleMaterial.dispose();
-      ringGeo.dispose();
-      ringMat.dispose();
-      icoGeo.dispose();
-      icoMat.dispose();
-      octGeo.dispose();
-      octMat.dispose();
-
+      starGeo.dispose();
+      starMat.dispose();
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
@@ -202,7 +190,7 @@ export default function GlobalThreeCanvas() {
   return (
     <div
       ref={mountRef}
-      className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-60"
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
       aria-hidden="true"
     />
   );

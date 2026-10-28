@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ============================================================
-   Apple-Grade Base Styles & Dark Aesthetic
+   Space & Science Base Styles — Professional Astronomical Aesthetic
    ============================================================ */
 @layer base {
   *,
@@ -16,19 +16,19 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #000000;
+    background-color: #030712;
     color-scheme: dark;
   }
 
   body {
-    @apply font-sans text-[#f5f5f7] bg-[#000000];
+    @apply font-sans text-slate-100 bg-[#030712];
     line-height: 1.6;
     overflow-x: hidden;
     letter-spacing: -0.011em;
   }
 
   :focus-visible {
-    outline: 2px solid rgba(255, 255, 255, 0.4);
+    outline: 2px solid rgba(56, 189, 248, 0.6);
     outline-offset: 2px;
   }
 
@@ -44,24 +44,24 @@
     scroll-margin-top: 80px;
   }
 
-  /* Minimalist Premium Dark Scrollbar */
+  /* Deep Space Celestial Scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #000000;
+    background: #030712;
   }
   ::-webkit-scrollbar-thumb {
-    background: #27272a;
+    background: #1e293b;
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #3f3f46;
+    background: #334155;
   }
 }
 
 /* ============================================================
-   Apple-Style Glassmorphism & Refined Surfaces
+   Scientific Observatory Glassmorphism & Stellar Surfaces
    ============================================================ */
 @layer utilities {
   .safe-bottom {
@@ -72,39 +72,47 @@
     height: env(safe-area-inset-bottom, 0px);
   }
 
-  /* Apple Glass Card — Minimal, Deep, Refined */
-  .apple-card {
-    background: rgba(18, 18, 22, 0.65);
+  /* Scientific Observatory Glass Card — Deep Space Blue & Hairline Cyan */
+  .apple-card,
+  .cosmic-card {
+    background: rgba(10, 18, 36, 0.65);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(56, 189, 248, 0.12);
+    box-shadow: 0 16px 36px -10px rgba(2, 6, 23, 0.8), 0 0 20px -8px rgba(56, 189, 248, 0.08);
     transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .apple-card:hover {
-    border-color: rgba(255, 255, 255, 0.18);
-    box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  .apple-card:hover,
+  .cosmic-card:hover {
+    border-color: rgba(56, 189, 248, 0.28);
+    box-shadow: 0 24px 48px -12px rgba(2, 6, 23, 0.95), 0 0 28px rgba(56, 189, 248, 0.14);
   }
 
-  /* Apple Pill Buttons */
-  .apple-btn-primary {
-    @apply rounded-full bg-white text-black font-medium transition-all duration-200 inline-flex items-center justify-center;
+  /* Stellar & Science Pill Buttons */
+  .apple-btn-primary,
+  .space-btn-primary {
+    @apply rounded-full bg-gradient-to-r from-sky-400 via-sky-300 to-blue-500 text-slate-950 font-semibold transition-all duration-200 inline-flex items-center justify-center shadow-[0_0_22px_rgba(56,189,248,0.3)];
   }
-  .apple-btn-primary:hover {
-    @apply bg-[#e8e8ed] shadow-lg transform -translate-y-0.5;
+  .apple-btn-primary:hover,
+  .space-btn-primary:hover {
+    @apply from-sky-300 via-sky-200 to-blue-400 shadow-[0_0_30px_rgba(56,189,248,0.5)] transform -translate-y-0.5;
   }
-  .apple-btn-primary:active {
+  .apple-btn-primary:active,
+  .space-btn-primary:active {
     @apply scale-95;
   }
 
-  .apple-btn-secondary {
-    @apply rounded-full bg-white/[0.08] text-white font-medium border border-white/[0.15] backdrop-blur-md transition-all duration-200 inline-flex items-center justify-center;
+  .apple-btn-secondary,
+  .space-btn-secondary {
+    @apply rounded-full bg-sky-950/40 text-sky-100 font-medium border border-sky-500/25 backdrop-blur-xl transition-all duration-200 inline-flex items-center justify-center;
   }
-  .apple-btn-secondary:hover {
-    @apply bg-white/[0.14] border-white/[0.25] transform -translate-y-0.5;
+  .apple-btn-secondary:hover,
+  .space-btn-secondary:hover {
+    @apply bg-sky-900/50 border-sky-400/40 text-white shadow-[0_0_18px_rgba(56,189,248,0.2)] transform -translate-y-0.5;
   }
-  .apple-btn-secondary:active {
+  .apple-btn-secondary:active,
+  .space-btn-secondary:active {
     @apply scale-95;
   }
 }

@@ -2,32 +2,32 @@ import { siteConfig } from "../config/siteConfig";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-black text-[#f5f5f7] flex flex-col items-center justify-center px-6 text-center relative overflow-hidden">
+    <div className="min-h-screen bg-[#030712] text-slate-100 flex flex-col items-center justify-center px-6 text-center relative overflow-hidden">
       {/* Background glow */}
-      <div className="absolute w-96 h-96 bg-white/[0.02] rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute w-96 h-96 bg-sky-500/[0.04] rounded-full blur-[140px] pointer-events-none" />
 
       {/* Brand wordmark */}
       <a
         href={siteConfig.kcetUrl}
-        className="mb-8 text-lg font-semibold text-[#f5f5f7] tracking-tight"
+        className="mb-8 text-lg font-semibold text-white tracking-tight"
         aria-label="Go to Physics Pep Talk home"
       >
         {siteConfig.brandName}
       </a>
 
       {/* Error code */}
-      <p className="text-8xl sm:text-9xl font-semibold text-[#86868b] leading-none select-none tracking-tighter">
+      <p className="text-8xl sm:text-9xl font-semibold text-sky-400/40 leading-none select-none tracking-tighter">
         404
       </p>
 
       {/* Heading */}
-      <h1 className="mt-6 text-3xl font-semibold text-[#f5f5f7] tracking-tight">
-        Page Not Found
+      <h1 className="mt-6 text-3xl font-semibold text-white tracking-tight">
+        Coordinates Not Found
       </h1>
 
       {/* Sub-text */}
-      <p className="mt-3 max-w-sm text-[#86868b] text-base font-normal">
-        The page you're looking for doesn't exist or has been moved.
+      <p className="mt-3 max-w-sm text-slate-400 text-base font-normal">
+        The celestial coordinates you requested don't exist or have moved out of range.
       </p>
 
       {/* CTA */}
@@ -48,7 +48,7 @@ export default function NotFound() {
             clipRule="evenodd"
           />
         </svg>
-        <span>Return to Home</span>
+        <span>Return to Orbit</span>
       </a>
     </div>
   );

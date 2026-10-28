@@ -63,22 +63,22 @@ export default function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="py-20 md:py-28 bg-black text-[#f5f5f7] relative overflow-hidden border-t border-white/[0.08]"
+      className="py-20 md:py-28 bg-[#030712] text-slate-100 relative overflow-hidden border-t border-sky-500/15"
       aria-label="How the counselling process works"
     >
       {/* Background Lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-white/[0.02] rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-sky-500/[0.03] rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section header */}
         <div className="text-center mb-16">
           <div className="mb-4">
-            <CyberBadge color="emerald">Roadmap</CyberBadge>
+            <CyberBadge color="cyan">Roadmap</CyberBadge>
           </div>
-          <h2 className="text-3xl md:text-5xl font-semibold text-[#f5f5f7] mb-4 tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-semibold text-white mb-4 tracking-tight">
             A Clear, Step-by-Step Process
           </h2>
-          <p className="text-[#86868b] text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
+          <p className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
             Every student gets one-on-one attention at each stage — from your
             first call to confirming your final seat.
           </p>
@@ -92,7 +92,7 @@ export default function HowItWorks() {
                 <div>
                   {/* Step header */}
                   <div className="flex items-center justify-between mb-5">
-                    <div className="w-10 h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#e2b474]">
+                    <div className="w-10 h-10 rounded-full bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400">
                       {index === 0 && (
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -114,22 +114,22 @@ export default function HowItWorks() {
                         </svg>
                       )}
                     </div>
-                    <span className="text-sm font-mono font-medium text-[#86868b] select-none">
+                    <span className="text-xs font-mono font-medium text-sky-400 select-none">
                       {step.number}
                     </span>
                   </div>
 
-                  <h3 className="text-[#f5f5f7] font-semibold text-lg mb-2.5 tracking-tight">
+                  <h3 className="text-white font-semibold text-lg mb-2.5 tracking-tight">
                     {step.title}
                   </h3>
-                  <p className="text-[#86868b] text-sm leading-relaxed font-normal">
+                  <p className="text-slate-400 text-sm leading-relaxed font-normal">
                     {step.description}
                   </p>
                 </div>
 
-                <div className="pt-4 mt-6 border-t border-white/[0.06] flex items-center justify-between text-xs text-[#86868b]">
+                <div className="pt-4 mt-6 border-t border-sky-500/10 flex items-center justify-between text-xs text-slate-400">
                   <span>Step {index + 1} of 4</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-white/20" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
                 </div>
               </div>
             </Tilt3DCard>

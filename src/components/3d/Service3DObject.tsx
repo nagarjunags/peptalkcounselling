@@ -1,23 +1,21 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-interface Service3DObjectProps {
-  type: "rank" | "branch" | "option" | "rounds";
-}
+export type ServiceObjectType = "rank" | "branch" | "option" | "rounds";
 
-export default function Service3DObject({ type }: Service3DObjectProps) {
+export default function Service3DObject({ type }: { type: ServiceObjectType }) {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const container = mountRef.current;
     if (!container) return;
 
-    let width = container.clientWidth || 80;
-    let height = container.clientHeight || 80;
+    const width = 84;
+    const height = 84;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    camera.position.z = 10;
+    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
+    camera.position.z = 5.2;
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -25,104 +23,121 @@ export default function Service3DObject({ type }: Service3DObjectProps) {
       powerPreference: "high-performance",
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.domElement.style.touchAction = "pan-y";
     container.appendChild(renderer.domElement);
 
     const group = new THREE.Group();
     scene.add(group);
 
-    // Studio Lighting
-    const dirLight = new THREE.DirectionalLight(0xffffff, 2.8);
-    dirLight.position.set(5, 7, 6);
-    scene.add(dirLight);
+    // Scientific Lighting
+    const amb = new THREE.AmbientLight(0xffffff, 1.2);
+    scene.add(amb);
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-    scene.add(ambientLight);
+    const key = new THREE.DirectionalLight(0xf0f9ff, 3.0);
+    key.position.set(4, 6, 5);
+    scene.add(key);
 
-    // Apple Style Metallic & Frosted Materials
+    const rim = new THREE.DirectionalLight(0x38bdf8, 2.0);
+    rim.position.set(-4, -4, -3);
+    scene.add(rim);
+
+    // Materials: Space Titanium, Anodized Azure Alloy, Cyan Emissive
     const titaniumMat = new THREE.MeshStandardMaterial({
-      color: 0xd4d4d8,
+      color: 0x94a3b8,
       metalness: 0.9,
+      roughness: 0.2,
+    });
+
+    const celestialCyanMat = new THREE.MeshStandardMaterial({
+      color: 0x0284c7,
+      emissive: 0x38bdf8,
+      emissiveIntensity: 0.6,
+      metalness: 0.85,
       roughness: 0.15,
     });
 
-    const goldMat = new THREE.MeshStandardMaterial({
-      color: 0xf5d061,
-      metalness: 0.95,
-      roughness: 0.2,
-    });
-
-    const darkGlassMat = new THREE.MeshStandardMaterial({
-      color: 0x27272a,
-      metalness: 0.7,
-      roughness: 0.2,
-    });
+    let animCallback: (t: number) => void;
 
     if (type === "rank") {
-      // 3D Precision Data Monoliths
-      const bars = [
-        { h: 2.2, x: -1.8, mat: darkGlassMat },
-        { h: 3.6, x: 0, mat: titaniumMat },
-        { h: 5.2, x: 1.8, mat: goldMat },
-      ];
-      bars.forEach(({ h, x, mat }) => {
-        const geo = new THREE.BoxGeometry(1.0, h, 1.0);
-        const mesh = new THREE.Mesh(geo, mat);
-        mesh.position.set(x, h / 2 - 2.4, 0);
-        group.add(mesh);
-      });
+      // 1. Quantum Energy Matrix Monolith & Orbital Ring
+      const monolithGeo = new THREE.BoxGeometry(0.8, 1.6, 0.4);
+      const monolith = new THREE.Mesh(monolithGeo, titaniumMat);
+      group.add(monolith);
 
-      // Thin halo ring above peak
-      const ringGeo = new THREE.TorusGeometry(0.8, 0.05, 8, 32);
-      const ring = new THREE.Mesh(ringGeo, goldMat);
-      ring.position.set(1.8, 1.8, 0);
-      ring.rotation.x = Math.PI / 2;
-      group.add(ring);
+      const orbitGeo = new THREE.TorusGeometry(1.2, 0.035, 16, 64);
+      const orbit = new THREE.Mesh(orbitGeo, celestialCyanMat);
+      orbit.rotation.x = Math.PI / 3;
+      group.add(orbit);
+
+      animCallback = (t) => {
+        monolith.rotation.y = t * 0.8;
+        orbit.rotation.z = t * 1.2;
+      };
     } else if (type === "branch") {
-      // Minimalist Dual Orbital Gyroscope
-      const ring1Geo = new THREE.TorusGeometry(2.8, 0.08, 12, 48);
+      // 2. Dual Gravitational Gyroscope / Astrolabe Gimbal
+      const ring1Geo = new THREE.TorusGeometry(1.15, 0.04, 16, 64);
       const ring1 = new THREE.Mesh(ring1Geo, titaniumMat);
       group.add(ring1);
 
-      const ring2Geo = new THREE.TorusGeometry(2.1, 0.07, 12, 40);
-      const ring2 = new THREE.Mesh(ring2Geo, goldMat);
-      ring2.rotation.y = Math.PI / 2.8;
+      const ring2Geo = new THREE.TorusGeometry(0.85, 0.035, 16, 64);
+      const ring2 = new THREE.Mesh(ring2Geo, celestialCyanMat);
       group.add(ring2);
 
-      const coreGeo = new THREE.SphereGeometry(0.7, 24, 24);
-      const core = new THREE.Mesh(coreGeo, darkGlassMat);
+      const coreGeo = new THREE.SphereGeometry(0.35, 24, 24);
+      const core = new THREE.Mesh(coreGeo, celestialCyanMat);
       group.add(core);
+
+      animCallback = (t) => {
+        ring1.rotation.x = t * 0.9;
+        ring1.rotation.y = t * 0.5;
+        ring2.rotation.y = -t * 1.1;
+        ring2.rotation.z = t * 0.7;
+      };
     } else if (type === "option") {
-      // Precision Hierarchy Slabs
-      const levels = [
-        { size: 3.2, y: -1.6, mat: darkGlassMat },
-        { size: 2.3, y: -0.1, mat: titaniumMat },
-        { size: 1.4, y: 1.3, mat: goldMat },
-      ];
-      levels.forEach(({ size, y, mat }) => {
-        const geo = new THREE.BoxGeometry(size, 0.6, size);
-        const mesh = new THREE.Mesh(geo, mat);
-        mesh.position.y = y;
-        group.add(mesh);
+      // 3. Optical Spectrometer / Refractive Dispersion Prism
+      const prismGeo = new THREE.ConeGeometry(1.0, 1.4, 3);
+      const prismMat = new THREE.MeshStandardMaterial({
+        color: 0x0f172a,
+        emissive: 0x0284c7,
+        emissiveIntensity: 0.35,
+        metalness: 0.9,
+        roughness: 0.1,
       });
+      const prism = new THREE.Mesh(prismGeo, prismMat);
+      prism.rotation.x = 0.3;
+      group.add(prism);
+
+      // Celestial spectral ring around prism
+      const haloGeo = new THREE.TorusGeometry(1.2, 0.025, 16, 64);
+      const halo = new THREE.Mesh(haloGeo, celestialCyanMat);
+      halo.rotation.x = Math.PI / 2;
+      group.add(halo);
+
+      animCallback = (t) => {
+        prism.rotation.y = t * 0.7;
+        halo.rotation.z = -t * 0.9;
+        halo.position.y = Math.sin(t * 2) * 0.1;
+      };
     } else {
-      // Precision Möbius Loop (Round Support)
-      const knotGeo = new THREE.TorusKnotGeometry(2.0, 0.45, 64, 16, 2, 3);
+      // 4. Relativistic Spacetime Möbius / Quantum Orbital Loop
+      const knotGeo = new THREE.TorusKnotGeometry(0.8, 0.16, 80, 16, 2, 3);
       const knot = new THREE.Mesh(knotGeo, titaniumMat);
       group.add(knot);
+
+      animCallback = (t) => {
+        knot.rotation.x = t * 0.6;
+        knot.rotation.y = t * 0.8;
+      };
     }
 
-    // Animation Loop
     let animId: number;
-    let clock = new THREE.Clock();
+    const clock = new THREE.Clock();
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
       const elapsed = clock.getElapsedTime();
-
-      group.rotation.y = elapsed * 0.7;
-      group.rotation.x = Math.sin(elapsed * 0.5) * 0.15;
-
+      if (animCallback) animCallback(elapsed);
       renderer.render(scene, camera);
     };
 
@@ -131,9 +146,6 @@ export default function Service3DObject({ type }: Service3DObjectProps) {
     return () => {
       cancelAnimationFrame(animId);
       renderer.dispose();
-      titaniumMat.dispose();
-      goldMat.dispose();
-      darkGlassMat.dispose();
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
@@ -143,7 +155,7 @@ export default function Service3DObject({ type }: Service3DObjectProps) {
   return (
     <div
       ref={mountRef}
-      className="w-16 h-16 flex-shrink-0 relative overflow-hidden"
+      className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center flex-shrink-0"
       aria-hidden="true"
     />
   );

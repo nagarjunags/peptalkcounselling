@@ -41,22 +41,22 @@ export default function WhatYouGet() {
   return (
     <section
       id="what-you-get"
-      className="py-20 md:py-28 bg-black text-[#f5f5f7] relative overflow-hidden border-t border-white/[0.08]"
+      className="py-20 md:py-28 bg-[#030712] text-slate-100 relative overflow-hidden border-t border-sky-500/15"
       aria-label="What you get"
     >
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-white/[0.02] rounded-full blur-[160px] pointer-events-none" />
+      {/* Background Cosmic Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-sky-500/[0.03] rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section header */}
         <div className="text-center mb-16">
           <div className="mb-4">
-            <CyberBadge color="gold">Inclusions</CyberBadge>
+            <CyberBadge color="cyan">Inclusions</CyberBadge>
           </div>
-          <h2 className="text-3xl md:text-5xl font-semibold text-[#f5f5f7] mb-4 tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-semibold text-white mb-4 tracking-tight">
             {heading}
           </h2>
-          <p className="text-[#86868b] text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
+          <p className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
             {subheading}
           </p>
         </div>
@@ -67,15 +67,15 @@ export default function WhatYouGet() {
             <Tilt3DCard key={item.title} maxTilt={6}>
               <div className="apple-card p-6 h-full flex flex-col justify-between group">
                 <div>
-                  <div className="w-8 h-8 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#e2b474] mb-4">
+                  <div className="w-8 h-8 rounded-full bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mb-4">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-[#f5f5f7] font-semibold text-base leading-snug mb-2 group-hover:text-white transition-colors tracking-tight">
+                  <h3 className="text-white font-semibold text-base leading-snug mb-2 group-hover:text-sky-300 transition-colors tracking-tight">
                     {item.title}
                   </h3>
-                  <p className="text-[#86868b] text-xs leading-relaxed font-normal">
+                  <p className="text-slate-400 text-xs leading-relaxed font-normal">
                     {item.description}
                   </p>
                 </div>
@@ -84,14 +84,14 @@ export default function WhatYouGet() {
           ))}
         </div>
 
-        {/* Pricing disclaimer with Apple Card */}
+        {/* Pricing disclaimer with Cosmic Card */}
         <div className="text-center max-w-2xl mx-auto">
           <Tilt3DCard maxTilt={5}>
             <div className="apple-card p-8">
-              <p className="text-[#86868b] text-sm mb-5 leading-relaxed font-normal">
+              <p className="text-slate-300 text-sm mb-5 leading-relaxed font-normal">
                 Limited seats available. Contact us for current pricing.
                 <br />
-                <span className="text-[#f5f5f7] font-medium">Note:</span> No refunds once enrolled.
+                <span className="text-sky-300 font-medium">Note:</span> No refunds once enrolled.
               </p>
               <a
                 href="#contact"

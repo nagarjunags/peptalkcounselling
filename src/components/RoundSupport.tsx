@@ -50,7 +50,7 @@ export default function RoundSupport() {
   return (
     <section
       id="round-support"
-      className="py-20 md:py-28 bg-black text-[#f5f5f7] relative overflow-hidden border-t border-white/[0.08]"
+      className="py-20 md:py-28 bg-[#030712] text-slate-100 relative overflow-hidden border-t border-sky-500/15"
       aria-label="Round-by-round counselling support"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
@@ -59,10 +59,10 @@ export default function RoundSupport() {
           <div className="mb-4">
             <CyberBadge color="cyan">Lifecycle Tracking</CyberBadge>
           </div>
-          <h2 className="text-3xl md:text-5xl font-semibold text-[#f5f5f7] mb-4 tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-semibold text-white mb-4 tracking-tight">
             Support Throughout the Counselling Process
           </h2>
-          <p className="text-[#86868b] text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
+          <p className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
             We provide structured support at each stage, from pre-counselling
             analysis to the final allotment decision. Support is subject to the
             counselling package purchased.
@@ -73,8 +73,8 @@ export default function RoundSupport() {
         <div className="mb-14 flex flex-col items-center">
           <div className="relative w-full max-w-lg flex flex-col items-center">
             <RoundSupport3DRadar />
-            <div className="text-center whitespace-nowrap px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-medium text-[#86868b] backdrop-blur-md mt-2">
-              Multi-Round Progression Map
+            <div className="text-center whitespace-nowrap px-4 py-1.5 rounded-full bg-sky-950/40 border border-sky-500/20 text-xs font-medium text-sky-300 backdrop-blur-md mt-2">
+              Multi-Round Telemetry Map
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function RoundSupport() {
         <div className="relative">
           {/* Vertical Hairline Divider */}
           <div
-            className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-white/[0.08] -translate-x-1/2"
+            className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-sky-500/15 -translate-x-1/2"
             aria-hidden="true"
           />
 
@@ -108,8 +108,8 @@ export default function RoundSupport() {
                           index % 2 === 0 ? "md:justify-end" : ""
                         }`}
                       >
-                        <span className="w-2 h-2 rounded-full bg-[#e2b474]" aria-hidden="true" />
-                        <h3 className="text-[#f5f5f7] font-semibold text-base tracking-tight">
+                        <span className="w-2 h-2 rounded-full bg-sky-400" aria-hidden="true" />
+                        <h3 className="text-white font-semibold text-base tracking-tight">
                           {phase.label}
                         </h3>
                       </div>
@@ -122,10 +122,10 @@ export default function RoundSupport() {
                         {phase.steps.map((step) => (
                           <li
                             key={step}
-                            className="text-[#86868b] text-sm flex items-center gap-2 font-normal"
+                            className="text-slate-400 text-sm flex items-center gap-2 font-normal"
                           >
                             <svg
-                              className={`w-3.5 h-3.5 flex-shrink-0 text-[#e2b474] ${
+                              className={`w-3.5 h-3.5 flex-shrink-0 text-sky-400 ${
                                 index % 2 === 0 ? "md:order-last" : ""
                               }`}
                               fill="none"
@@ -150,7 +150,7 @@ export default function RoundSupport() {
 
                 {/* Center dot */}
                 <div
-                  className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-9 h-9 rounded-full bg-[#0c0c0e] border border-white/20 items-center justify-center z-10 text-[#d1d5db] font-mono text-xs font-medium"
+                  className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-9 h-9 rounded-full bg-slate-900 border border-sky-500/30 items-center justify-center z-10 text-sky-300 font-mono text-xs font-medium"
                   aria-hidden="true"
                 >
                   0{index + 1}
@@ -164,11 +164,11 @@ export default function RoundSupport() {
         </div>
 
         {/* Disclaimer */}
-        <div className="mt-14 max-w-xl mx-auto flex items-start gap-2.5 bg-white/[0.02] border border-white/[0.06] p-4 rounded-2xl">
-          <svg className="w-4 h-4 text-[#e2b474] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <div className="mt-14 max-w-xl mx-auto flex items-start gap-2.5 bg-sky-950/20 border border-sky-500/15 p-4 rounded-2xl">
+          <svg className="w-4 h-4 text-sky-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
           </svg>
-          <p className="text-xs text-[#86868b] leading-relaxed font-normal">
+          <p className="text-xs text-slate-400 leading-relaxed font-normal">
             Counselling support is provided according to the package purchased.
             This service does not control KEA or COMEDK processes, allotments or seat
             availability. The number of rounds varies by year.

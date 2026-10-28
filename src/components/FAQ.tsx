@@ -114,15 +114,15 @@ function FAQItem({
       <button
         type="button"
         onClick={onToggle}
-        className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 cursor-pointer"
+        className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 cursor-pointer"
         aria-expanded={isOpen}
       >
-        <span className="font-semibold text-base text-[#f5f5f7] leading-snug tracking-tight">
+        <span className="font-semibold text-base text-white leading-snug tracking-tight">
           {question}
         </span>
         <span
-          className={`flex-shrink-0 w-7 h-7 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#86868b] transition-transform duration-300 ${
-            isOpen ? "rotate-180 text-white" : ""
+          className={`flex-shrink-0 w-7 h-7 rounded-full bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 transition-transform duration-300 ${
+            isOpen ? "rotate-180 text-sky-200" : ""
           }`}
           aria-hidden="true"
         >
@@ -133,8 +133,8 @@ function FAQItem({
       </button>
 
       {isOpen && (
-        <div className="px-6 pb-5 pt-1 border-t border-white/[0.06] animate-in fade-in duration-200">
-          <p className="text-[#86868b] text-sm leading-relaxed font-normal">{answer}</p>
+        <div className="px-6 pb-5 pt-1 border-t border-sky-500/10 animate-in fade-in duration-200">
+          <p className="text-slate-400 text-sm leading-relaxed font-normal">{answer}</p>
         </div>
       )}
     </div>
@@ -154,19 +154,19 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="py-20 md:py-28 bg-black text-[#f5f5f7] relative overflow-hidden border-t border-white/[0.08]"
+      className="py-20 md:py-28 bg-[#030712] text-slate-100 relative overflow-hidden border-t border-sky-500/15"
       aria-label="Frequently asked questions"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-14">
           <div className="mb-4">
-            <CyberBadge color="gold">FAQ</CyberBadge>
+            <CyberBadge color="cyan">FAQ</CyberBadge>
           </div>
-          <h2 className="text-3xl md:text-5xl font-semibold text-[#f5f5f7] mb-4 tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-semibold text-white mb-4 tracking-tight">
             Frequently Asked Questions
           </h2>
-          <p className="text-[#86868b] text-base md:text-lg max-w-xl mx-auto leading-relaxed font-normal">
+          <p className="text-slate-400 text-base md:text-lg max-w-xl mx-auto leading-relaxed font-normal">
             {description}
           </p>
         </div>
@@ -187,7 +187,7 @@ export default function FAQ() {
 
         {/* Still have questions */}
         <div className="text-center mt-14">
-          <p className="text-[#86868b] text-sm mb-4 font-normal">
+          <p className="text-slate-400 text-sm mb-4 font-normal">
             Have a question not answered above?
           </p>
           <a

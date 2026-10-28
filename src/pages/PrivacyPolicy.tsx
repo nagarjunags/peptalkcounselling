@@ -11,12 +11,12 @@ export default function PrivacyPolicy() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
-      <p className="text-[#86868b] text-sm">
+    <div className="min-h-screen bg-[#030712] flex items-center justify-center">
+      <p className="text-slate-400 text-sm">
         Redirecting to Privacy Policy…{" "}
         <a
           href={siteConfig.privacyPolicyUrl}
-          className="text-[#f5f5f7] hover:underline"
+          className="text-sky-300 hover:underline"
         >
           Click here if you are not redirected.
         </a>
