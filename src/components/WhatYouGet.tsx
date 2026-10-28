@@ -1,4 +1,5 @@
 import { useExam } from "../context/ExamContext";
+import Tilt3DCard from "./3d/Tilt3DCard";
 
 const kcetDeliverables = [
   { title: "Rank Analysis", description: "A deep one-on-one review of your KCET rank and category to identify exactly what's within reach — and what to target — in this year's counselling." },
@@ -39,19 +40,22 @@ export default function WhatYouGet() {
   return (
     <section
       id="what-you-get"
-      className="py-20 md:py-28 bg-brand-950 dark:bg-gray-950 text-white"
+      className="py-20 md:py-28 bg-[#020617] text-slate-100 relative overflow-hidden border-t border-slate-800"
       aria-label="What you get"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      {/* Background Subtle Nebula Lighting */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-amber-500/[0.015] rounded-full blur-[160px] pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section header */}
         <div className="text-center mb-14">
-          <span className="inline-block text-accent-400 font-semibold text-sm uppercase tracking-widest mb-3">
+          <span className="inline-block text-amber-300 font-semibold text-sm uppercase tracking-widest mb-3">
             What You Get
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
             {heading}
           </h2>
-          <p className="text-brand-300 text-lg max-w-2xl mx-auto">
+          <p className="text-slate-300 text-lg max-w-2xl mx-auto">
             {subheading}
           </p>
         </div>
@@ -59,41 +63,40 @@ export default function WhatYouGet() {
         {/* Deliverables grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
           {deliverables.map((item) => (
-            <div
-              key={item.title}
-              className="bg-brand-800/50 border border-brand-700/60 rounded-2xl p-6 flex flex-col gap-3"
-            >
-              <div className="flex items-center gap-2">
-                <span
-                  className="flex-shrink-0 w-6 h-6 rounded-full bg-accent-500 flex items-center justify-center"
-                  aria-hidden="true"
-                >
-                  <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                  </svg>
-                </span>
-                <h3 className="text-white font-semibold text-sm">
-                  {item.title}
-                </h3>
+            <Tilt3DCard key={item.title} maxTilt={3}>
+              <div className="apple-card p-6 border-slate-800 bg-[#050b18]/85 h-full flex flex-col gap-3 group">
+                <div className="flex items-center gap-2.5">
+                  <span
+                    className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center font-bold"
+                    aria-hidden="true"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  <h3 className="text-white font-semibold text-sm group-hover:text-amber-200 transition-colors">
+                    {item.title}
+                  </h3>
+                </div>
+                <p className="text-slate-400 text-xs leading-relaxed">
+                  {item.description}
+                </p>
               </div>
-              <p className="text-brand-300 text-xs leading-relaxed">
-                {item.description}
-              </p>
-            </div>
+            </Tilt3DCard>
           ))}
         </div>
 
         {/* Pricing disclaimer */}
         <div className="text-center">
-          <div className="inline-block bg-brand-800/60 border border-brand-600/40 rounded-2xl px-8 py-5">
-            <p className="text-brand-200 text-sm mb-3">
+          <div className="inline-block apple-card border-slate-800 bg-[#050b18]/90 rounded-2xl px-8 py-5">
+            <p className="text-slate-300 text-sm mb-3">
               Limited seats available. Contact us for current pricing.
               <br />
               Note: No refunds once enrolled.
             </p>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
+              className="apple-btn-primary min-h-[44px] px-6 py-2.5 text-sm font-semibold"
             >
               Contact us for package details and pricing
             </a>

@@ -109,31 +109,31 @@ function FAQItem({
   onToggle: () => void;
 }) {
   return (
-    <div className="border border-gray-100 dark:border-gray-700 rounded-2xl overflow-hidden">
+    <div className="apple-card overflow-hidden transition-all duration-200 border-slate-800 bg-[#050b18]/85">
       <button
         type="button"
-        className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-inset"
         onClick={onToggle}
+        className="w-full text-left px-5 sm:px-6 py-4.5 sm:py-5 flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 cursor-pointer"
         aria-expanded={isOpen}
       >
-        <span className="text-gray-900 dark:text-white font-medium text-sm md:text-base pr-2">
+        <span className="font-semibold text-sm sm:text-base text-white leading-snug tracking-tight">
           {question}
         </span>
         <span
-          className={`flex-shrink-0 w-6 h-6 text-brand-600 dark:text-brand-400 transition-transform duration-200 ${
-            isOpen ? "rotate-45" : ""
+          className={`flex-shrink-0 w-6 h-6 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 transition-transform duration-200 ${
+            isOpen ? "rotate-180 text-amber-300" : ""
           }`}
           aria-hidden="true"
         >
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </span>
       </button>
 
       {isOpen && (
-        <div className="px-6 pb-5 bg-white dark:bg-gray-800">
-          <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{answer}</p>
+        <div className="px-5 sm:px-6 pb-5 pt-1 border-t border-slate-800 animate-in fade-in duration-150">
+          <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">{answer}</p>
         </div>
       )}
     </div>
@@ -153,24 +153,27 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="py-20 md:py-28 bg-white dark:bg-gray-900"
+      className="py-20 md:py-28 bg-[#020617] text-slate-100 relative overflow-hidden border-t border-slate-800"
       aria-label="Frequently asked questions"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Header */}
-        <div className="text-center mb-14">
-          <span className="inline-block text-brand-600 dark:text-brand-400 font-semibold text-sm uppercase tracking-widest mb-3">
-            FAQs
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="max-w-3xl mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-slate-700/60 backdrop-blur-md mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+            <span className="text-[11px] font-mono tracking-wider text-amber-200/90 font-medium uppercase">
+              FAQs
+            </span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight leading-[1.15] mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 text-lg max-w-xl mx-auto">
+          <p className="text-slate-300 text-base sm:text-lg leading-relaxed font-normal">
             {description}
           </p>
         </div>
 
-        {/* Accordion */}
+        {/* Accordion List */}
         <div className="max-w-3xl mx-auto flex flex-col gap-3" role="list">
           {faqs.map((faq, i) => (
             <div key={faq.question} role="listitem">
@@ -186,14 +189,17 @@ export default function FAQ() {
 
         {/* Still have questions */}
         <div className="text-center mt-12">
-          <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">
+          <p className="text-slate-400 text-xs sm:text-sm mb-4 font-normal">
             Have a question not answered above?
           </p>
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 border-2 border-brand-700 dark:border-brand-500 text-brand-700 dark:text-brand-400 hover:bg-brand-700 dark:hover:bg-brand-600 hover:text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+            className="apple-btn-secondary min-h-[44px] inline-flex items-center gap-2 px-6 py-2.5 rounded-xl sm:rounded-full text-xs font-semibold cursor-pointer"
           >
-            Ask Us Directly
+            <span>Ask Us Directly</span>
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </a>
         </div>
       </div>

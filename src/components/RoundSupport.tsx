@@ -1,7 +1,10 @@
+import Tilt3DCard from "./3d/Tilt3DCard";
+import RoundSupport3DRadar from "./3d/RoundSupport3DRadar";
+
 const phases = [
   {
+    phase: "01",
     label: "Before Counselling",
-    color: "bg-brand-700",
     steps: [
       "Rank and category analysis",
       "College research and shortlisting",
@@ -10,8 +13,8 @@ const phases = [
     ],
   },
   {
+    phase: "02",
     label: "Option Entry",
-    color: "bg-brand-600",
     steps: [
       "Prepare option list",
       "Review and refine choices",
@@ -19,8 +22,8 @@ const phases = [
     ],
   },
   {
+    phase: "03",
     label: "Round 1",
-    color: "bg-brand-500",
     steps: [
       "Evaluate Round 1 allotment",
       "Understand accept/upgrade options",
@@ -28,8 +31,8 @@ const phases = [
     ],
   },
   {
+    phase: "04",
     label: "Further Rounds",
-    color: "bg-accent-500",
     steps: [
       "Review available upgrade opportunities",
       "Adjust strategy if appropriate",
@@ -37,8 +40,8 @@ const phases = [
     ],
   },
   {
+    phase: "05",
     label: "Final Decision",
-    color: "bg-green-600",
     steps: [
       "Evaluate final allotment",
       "Understand reporting and admission process",
@@ -51,118 +54,84 @@ export default function RoundSupport() {
   return (
     <section
       id="round-support"
-      className="py-20 md:py-28 bg-gray-50 dark:bg-gray-950"
+      className="py-20 md:py-28 bg-[#020617] text-slate-100 relative overflow-hidden border-t border-slate-800"
       aria-label="Round-by-round counselling support"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Header */}
-        <div className="text-center mb-14">
-          <span className="inline-block text-brand-600 dark:text-brand-400 font-semibold text-sm uppercase tracking-widest mb-3">
-            Round-by-Round Support
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      {/* Background Subtle Starlight Aura */}
+      <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-amber-500/[0.02] rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+        {/* Section Header */}
+        <div className="max-w-3xl mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-slate-700/60 backdrop-blur-md mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+            <span className="text-[11px] font-mono tracking-wider text-amber-200/90 font-medium uppercase">
+              Round-by-Round Support
+            </span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight leading-[1.15] mb-4">
             Support Throughout the Counselling Process
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-slate-300 text-base sm:text-lg leading-relaxed font-normal">
             We provide structured support at each stage, from pre-counselling
             analysis to the final allotment decision. Support is subject to the
             counselling package purchased.
           </p>
         </div>
 
-        {/* Timeline */}
-        <div className="relative">
-          {/* Vertical line */}
-          <div
-            className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700 -translate-x-1/2"
-            aria-hidden="true"
-          />
-
-          <div className="flex flex-col gap-8">
-            {phases.map((phase, index) => (
-              <div
-                key={phase.label}
-                className={`relative flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-0 ${
-                  index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                }`}
-              >
-                {/* Content card */}
-                <div
-                  className={`w-full md:w-5/12 ${
-                    index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"
-                  }`}
-                >
-                  <div className="bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-6 shadow-card">
-                    <div
-                      className={`flex items-center gap-2 mb-3 ${
-                        index % 2 === 0 ? "md:justify-end" : ""
-                      }`}
-                    >
-                      <span
-                        className={`w-3 h-3 rounded-full ${phase.color}`}
-                        aria-hidden="true"
-                      />
-                      <h3 className="text-gray-900 dark:text-white font-bold text-base">
-                        {phase.label}
-                      </h3>
-                    </div>
-                    <ul
-                      className={`flex flex-col gap-1.5 ${
-                        index % 2 === 0 ? "md:items-end" : ""
-                      }`}
-                      role="list"
-                    >
-                      {phase.steps.map((step) => (
-                        <li
-                          key={step}
-                          className="text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"
-                        >
-                          <svg
-                            className={`w-3.5 h-3.5 flex-shrink-0 text-brand-400 ${
-                              index % 2 === 0 ? "md:order-last" : ""
-                            }`}
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            aria-hidden="true"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
-                          {step}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Center dot */}
-                <div
-                  className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-10 h-10 rounded-full border-4 border-white dark:border-gray-950 shadow items-center justify-center z-10 text-white text-xs font-bold"
-                  aria-hidden="true"
-                >
-                  <span className={`w-full h-full rounded-full flex items-center justify-center ${phase.color}`}>
-                    {index + 1}
-                  </span>
-                </div>
-
-                {/* Empty spacer for opposite side */}
-                <div className="hidden md:block w-5/12" />
-              </div>
-            ))}
+        {/* 3D Round Radar Widget Section */}
+        <div className="mb-14 p-6 sm:p-8 rounded-2xl bg-[#050b18]/80 border border-slate-800 backdrop-blur-md flex flex-col items-center">
+          <div className="relative w-full max-w-lg flex flex-col items-center">
+            <RoundSupport3DRadar />
           </div>
         </div>
 
-        {/* Disclaimer */}
-        <p className="text-center text-xs text-gray-400 dark:text-gray-500 mt-12 max-w-xl mx-auto leading-relaxed">
-          Counselling support is provided according to the package purchased.
-          This service does not control KEA processes, allotments or seat
-          availability. The number of rounds varies by year.
-        </p>
+        {/* Structured 5-Phase Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+          {phases.map((phase) => (
+            <Tilt3DCard key={phase.phase} maxTilt={3}>
+              <div className="apple-card p-6 h-full flex flex-col justify-between border-slate-800 bg-[#050b18]/85 group">
+                <div>
+                  <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
+                    <span className="text-xs font-mono font-bold text-amber-300 px-2.5 py-1 rounded bg-slate-900 border border-slate-700">
+                      Phase {phase.phase}
+                    </span>
+                  </div>
+
+                  <h3 className="text-base sm:text-lg font-semibold text-white mb-4 tracking-tight group-hover:text-amber-200 transition-colors">
+                    {phase.label}
+                  </h3>
+
+                  <ul className="flex flex-col gap-2.5" role="list">
+                    {phase.steps.map((step) => (
+                      <li key={step} className="text-xs sm:text-sm text-slate-300 flex items-start gap-2.5">
+                        <svg
+                          className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                        <span>{step}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </Tilt3DCard>
+          ))}
+        </div>
+
+        {/* Official Process Disclaimer */}
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-xs text-slate-400 leading-relaxed font-normal">
+            Counselling support is provided according to the package purchased.
+            This service does not control KEA processes, allotments or seat
+            availability. The number of rounds varies by year.
+          </p>
+        </div>
       </div>
     </section>
   );

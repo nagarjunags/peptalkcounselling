@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 /* ============================================================
-   Base styles
+   Space Exploration & Human Mentorship Base Styles
+   Astronomical, cinematic, calm, and humane aesthetic.
+   No artificial radium, no oversaturated neon.
    ============================================================ */
 @layer base {
   *,
@@ -16,50 +18,140 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #020617;
+    color-scheme: dark;
   }
 
   body {
-    @apply font-sans text-gray-900 bg-white;
+    @apply font-sans text-slate-100 bg-[#020617];
     line-height: 1.6;
+    overflow-x: hidden;
+    letter-spacing: -0.012em;
   }
 
-  /* Dark mode body */
-  .dark body {
-    @apply text-gray-100 bg-gray-900;
-  }
-
-  /* Improve focus visibility globally */
   :focus-visible {
-    outline: 2px solid theme("colors.brand.600");
+    outline: 2px solid rgba(148, 163, 184, 0.6);
     outline-offset: 2px;
   }
 
-  /* Anchor reset */
   a {
     text-decoration: none;
   }
 
-  /* Headings */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold leading-tight;
+    @apply font-semibold tracking-tight text-white;
   }
 
-  /* Smooth scroll offset for fixed header (~64px) */
   :target {
     scroll-margin-top: 80px;
+  }
+
+  /* Deep Space Celestial Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #020617;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #334155;
   }
 }
 
 /* ============================================================
-   Utilities
+   Spaceflight Navigation & Human Mentorship Surfaces
    ============================================================ */
 @layer utilities {
-  /* iOS safe area bottom for mobile CTA bar */
   .safe-bottom {
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
   .h-safe-bottom {
     height: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Deep Space Cockpit Glass Card — Natural Starlight, Zero Radium */
+  .apple-card,
+  .cosmic-card,
+  .starlight-card {
+    background: rgba(6, 12, 26, 0.78);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transition: border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .apple-card:hover,
+  .cosmic-card:hover,
+  .starlight-card:hover {
+    border-color: rgba(148, 163, 184, 0.26);
+    box-shadow: 0 24px 44px -14px rgba(0, 0, 0, 0.92), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  /* Solid Flight Deck Navigation Panel */
+  .telemetry-card {
+    background: #050b18;
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.85);
+  }
+
+  /* Warm Starlight Accent Card (Used for highlighting course value & mentor promises) */
+  .starlight-warm-card {
+    background: radial-gradient(circle at 10% 10%, rgba(245, 158, 11, 0.05), transparent 70%), rgba(8, 15, 30, 0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(254, 243, 199, 0.1);
+  }
+
+  /* Refined Luminous Starlight Primary Action Button — Elegant, Natural, Confident */
+  .apple-btn-primary,
+  .space-btn-primary {
+    @apply rounded-xl sm:rounded-full bg-gradient-to-b from-white via-slate-100 to-slate-200 text-slate-950 font-semibold transition-all duration-200 inline-flex items-center justify-center;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 2px 10px rgba(0, 0, 0, 0.6), 0 0 16px rgba(255, 255, 255, 0.12);
+  }
+  .apple-btn-primary:hover,
+  .space-btn-primary:hover {
+    @apply from-white via-sky-50 to-sky-100 text-slate-950 transform -translate-y-0.5;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 4px 18px rgba(0, 0, 0, 0.7), 0 0 24px rgba(255, 255, 255, 0.2);
+  }
+  .apple-btn-primary:active,
+  .space-btn-primary:active {
+    @apply scale-95;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Warm Stellar Amber Action Button (Used for Batch Enrolment CTAs) */
+  .space-btn-warm {
+    @apply rounded-xl sm:rounded-full bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 text-slate-950 font-semibold transition-all duration-200 inline-flex items-center justify-center;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 2px 10px rgba(0, 0, 0, 0.6), 0 0 16px rgba(245, 158, 11, 0.25);
+  }
+  .space-btn-warm:hover {
+    @apply from-white via-amber-200 to-amber-400 transform -translate-y-0.5;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 18px rgba(0, 0, 0, 0.7), 0 0 24px rgba(245, 158, 11, 0.35);
+  }
+  .space-btn-warm:active {
+    @apply scale-95;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Frosted Cosmic Midnight Secondary Action Button */
+  .apple-btn-secondary,
+  .space-btn-secondary {
+    @apply rounded-xl sm:rounded-full bg-slate-900/80 text-slate-200 font-medium border border-slate-700/60 backdrop-blur-xl transition-all duration-200 inline-flex items-center justify-center;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 2px 6px rgba(0, 0, 0, 0.4);
+  }
+  .apple-btn-secondary:hover,
+  .space-btn-secondary:hover {
+    @apply bg-slate-800/90 border-slate-500/60 text-white transform -translate-y-0.5;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 14px rgba(0, 0, 0, 0.6);
+  }
+  .apple-btn-secondary:active,
+  .space-btn-secondary:active {
+    @apply scale-95;
   }
 }

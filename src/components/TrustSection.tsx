@@ -1,4 +1,5 @@
 import { useExam } from "../context/ExamContext";
+import Tilt3DCard from "./3d/Tilt3DCard";
 
 const commonHonestPoints = [
   {
@@ -85,60 +86,63 @@ export default function TrustSection() {
   return (
     <section
       id="our-approach"
-      className="py-20 md:py-28 bg-white dark:bg-gray-900"
+      className="py-20 md:py-28 bg-[#020617] text-slate-100 relative overflow-hidden border-t border-slate-800/80"
       aria-label="Our honest approach"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Header */}
-        <div className="max-w-3xl mx-auto text-center mb-14">
-          <span className="inline-block text-brand-600 dark:text-brand-400 font-semibold text-sm uppercase tracking-widest mb-3">
-            Our Approach
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-5">
-            No False Promises. Only Practical Guidance.
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
-            {meta.introPara}
-          </p>
-        </div>
-
-        {/* Main honest statement */}
-        <div className="bg-brand-50 dark:bg-brand-950/60 border-l-4 border-brand-600 rounded-r-2xl px-8 py-6 max-w-3xl mx-auto mb-14">
-          <p className="text-brand-800 dark:text-brand-200 text-base md:text-lg leading-relaxed font-medium">
-            {meta.mainStatement}
-          </p>
-          <p className="text-brand-600 dark:text-brand-400 text-sm mt-3">
-            {meta.mainNote}
-          </p>
-        </div>
-
-        {/* Points */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {commonHonestPoints.map((point) => (
-            <div
-              key={point.heading}
-              className="flex gap-4 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6"
-            >
-              <span className="flex-shrink-0 w-10 h-10 rounded-full bg-brand-100 dark:bg-brand-900/50 text-brand-700 dark:text-brand-400 flex items-center justify-center mt-0.5">
-                {point.icon}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          {/* Left Column: Approach Overview */}
+          <div className="lg:col-span-5 flex flex-col">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-slate-700/60 backdrop-blur-md mb-3 self-start">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+              <span className="text-[11px] font-mono tracking-wider text-amber-200/90 font-medium uppercase">
+                Our Approach
               </span>
-              <div>
-                <h3 className="text-gray-900 dark:text-white font-semibold text-sm mb-1.5">
-                  {point.heading}
-                </h3>
-                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                  {exam === "COMEDK" ? point.comdekBody : point.kcetBody}
-                </p>
-              </div>
             </div>
-          ))}
-        </div>
 
-        {/* Bottom disclaimer */}
-        <div className="mt-12 text-center">
-          <p className="text-xs text-gray-400 dark:text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            {meta.disclaimer}
-          </p>
+            <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight leading-[1.18] mb-5">
+              No False Promises. Only Practical Guidance.
+            </h2>
+
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 font-normal">
+              {meta.introPara}
+            </p>
+
+            {/* Main honest statement card */}
+            <div className="p-6 rounded-2xl bg-[#050b18]/90 border-l-4 border-amber-400 border-r border-t border-b border-slate-800 mb-6 shadow-lg shadow-black/40">
+              <p className="text-amber-100 text-sm sm:text-base leading-relaxed font-medium mb-3">
+                {meta.mainStatement}
+              </p>
+              <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                {meta.mainNote}
+              </p>
+            </div>
+
+            <div className="text-xs text-slate-500 font-normal leading-relaxed border-t border-slate-800/80 pt-4">
+              {meta.disclaimer}
+            </div>
+          </div>
+
+          {/* Right Column: 4 Points */}
+          <div className="lg:col-span-7 flex flex-col gap-4">
+            {commonHonestPoints.map((point) => (
+              <Tilt3DCard key={point.heading} maxTilt={3}>
+                <div className="apple-card p-5 sm:p-6 border-slate-800 bg-[#050b18]/85 flex items-start gap-4 group">
+                  <span className="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-900 border border-slate-700/80 text-amber-300 flex items-center justify-center mt-0.5 group-hover:scale-105 group-hover:border-amber-400/50 transition-all">
+                    {point.icon}
+                  </span>
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2 tracking-tight group-hover:text-amber-200 transition-colors">
+                      {point.heading}
+                    </h3>
+                    <p className="text-slate-400 text-xs sm:text-sm leading-relaxed font-normal">
+                      {exam === "COMEDK" ? point.comdekBody : point.kcetBody}
+                    </p>
+                  </div>
+                </div>
+              </Tilt3DCard>
+            ))}
+          </div>
         </div>
       </div>
     </section>

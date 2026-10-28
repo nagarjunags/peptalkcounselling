@@ -10,51 +10,53 @@ import { siteConfig } from "../config/siteConfig";
  */
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 text-center">
+    <div className="min-h-screen bg-[#020617] text-slate-100 flex flex-col items-center justify-center px-6 text-center relative overflow-hidden">
+      {/* Background starlight aura */}
+      <div className="absolute w-96 h-96 bg-amber-500/[0.03] rounded-full blur-[140px] pointer-events-none" />
+
       {/* Brand wordmark */}
       <a
         href={siteConfig.kcetUrl}
-        className="mb-10 text-xl font-bold text-brand-600 hover:text-brand-700 transition-colors"
+        className="mb-8 text-lg font-semibold text-white tracking-tight"
         aria-label="Go to Physics Pep Talk home"
       >
         {siteConfig.brandName}
       </a>
 
       {/* Error code */}
-      <p className="text-8xl font-extrabold text-brand-600 leading-none select-none">
+      <p className="text-8xl sm:text-9xl font-semibold text-amber-400/40 leading-none select-none tracking-tighter">
         404
       </p>
 
       {/* Heading */}
-      <h1 className="mt-4 text-2xl font-semibold text-gray-900">
+      <h1 className="mt-6 text-3xl font-semibold text-white tracking-tight">
         Page not found
       </h1>
 
       {/* Sub-text */}
-      <p className="mt-3 max-w-sm text-gray-500 text-base">
+      <p className="mt-3 max-w-sm text-slate-400 text-base font-normal">
         The page you're looking for doesn't exist or may have been moved.
       </p>
 
       {/* CTA */}
       <a
         href={siteConfig.kcetUrl}
-        className="mt-8 inline-flex items-center gap-2 rounded-lg bg-brand-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-colors"
+        className="mt-8 apple-btn-primary min-h-[48px] inline-flex items-center gap-2 rounded-full px-7 py-3 text-sm font-semibold cursor-pointer"
       >
-        {/* Left arrow icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="h-5 w-5"
+          className="h-4 w-4"
           aria-hidden="true"
         >
           <path
             fillRule="evenodd"
-            d="M17 10a.75.75 0 0 1-.75.75H5.612l4.158 3.96a.75.75 0 1 1-1.04 1.08l-5.5-5.25a.75.75 0 0 1 0-1.08l5.5-5.25a.75.75 0 1 1 1.04 1.08L5.612 9.25H16.25A.75.75 0 0 1 17 10Z"
+            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
             clipRule="evenodd"
           />
         </svg>
-        Go to Home
+        <span>Go to Home</span>
       </a>
     </div>
   );
