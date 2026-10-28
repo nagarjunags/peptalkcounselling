@@ -8,8 +8,23 @@ export default function RoundSupport3DRadar() {
     const container = mountRef.current;
     if (!container) return;
 
+    // Graceful WebGL check
+    const hasWebGL = (() => {
+      try {
+        const canvas = document.createElement("canvas");
+        return !!(window.WebGLRenderingContext && (canvas.getContext("webgl") || canvas.getContext("experimental-webgl")));
+      } catch {
+        return false;
+      }
+    })();
+    if (!hasWebGL) return;
+
     let width = container.clientWidth || 360;
     let height = container.clientHeight || 360;
+
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
@@ -63,7 +78,6 @@ export default function RoundSupport3DRadar() {
     // 5 Checkpoint Nodes (Lifecycle Celestial Phases)
     const nodeCount = 5;
     const nodeMeshes: THREE.Mesh[] = [];
-    // Celestial spectrum: Titanium, Cyan, Pulsar Violet, Azure, Emerald
     const nodePalette = [0x94a3b8, 0x38bdf8, 0x818cf8, 0x60a5fa, 0x34d399];
 
     for (let i = 0; i < nodeCount; i++) {
@@ -150,31 +164,51 @@ export default function RoundSupport3DRadar() {
     });
     ro.observe(container);
 
+    // Intersection Observer to stop loop when scrolled out of view
+    let isVisible = true;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          isVisible = entry.isIntersecting;
+        }
+      },
+      { threshold: 0.05 }
+    );
+    io.observe(container);
+
+    const onVisibilityChange = () => {
+      isVisible = document.visibilityState === "visible";
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
     // Animation Loop
     let animId: number;
     const clock = new THREE.Clock();
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
+      if (!isVisible) return;
+
       const elapsed = clock.getElapsedTime();
+      const motionScale = prefersReducedMotion ? 0.15 : 1.0;
 
       // Smooth sweep rotation
-      sweep.rotation.z = -elapsed * 0.9;
+      sweep.rotation.z = -elapsed * 0.85 * motionScale;
 
       // Gyro Core gentle rotation
-      gyroRing1.rotation.x = elapsed * 0.8;
-      gyroRing1.rotation.y = elapsed * 0.5;
-      gyroRing2.rotation.y = -elapsed * 0.7;
-      gyroRing2.rotation.z = elapsed * 0.4;
+      gyroRing1.rotation.x = elapsed * 0.7 * motionScale;
+      gyroRing1.rotation.y = elapsed * 0.4 * motionScale;
+      gyroRing2.rotation.y = -elapsed * 0.6 * motionScale;
+      gyroRing2.rotation.z = elapsed * 0.3 * motionScale;
 
       // Checkpoint nodes gentle harmonic oscillation
       nodeMeshes.forEach((mesh, idx) => {
-        mesh.position.y = Math.sin(elapsed * 1.5 + idx * 0.8) * 0.15;
+        mesh.position.y = Math.sin(elapsed * 1.4 + idx * 0.8) * 0.14 * motionScale;
       });
 
-      // Very subtle tilt of the whole orbital plane
-      group.rotation.y = Math.sin(elapsed * 0.3) * 0.15;
-      group.rotation.x = Math.sin(elapsed * 0.2) * 0.05;
+      // Subtle tilt of the whole orbital plane
+      group.rotation.y = Math.sin(elapsed * 0.25) * 0.12 * motionScale;
+      group.rotation.x = Math.sin(elapsed * 0.18) * 0.04 * motionScale;
 
       renderer.render(scene, camera);
     };
@@ -184,6 +218,8 @@ export default function RoundSupport3DRadar() {
     return () => {
       cancelAnimationFrame(animId);
       ro.disconnect();
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       renderer.dispose();
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
@@ -194,7 +230,7 @@ export default function RoundSupport3DRadar() {
   return (
     <div
       ref={mountRef}
-      className="w-full h-80 sm:h-96 relative flex items-center justify-center pointer-events-none"
+      className="w-full h-72 sm:h-88 relative flex items-center justify-center pointer-events-none"
       aria-hidden="true"
     />
   );

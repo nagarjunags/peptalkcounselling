@@ -1,82 +1,61 @@
 import { useExam } from "../context/ExamContext";
 import Tilt3DCard from "./3d/Tilt3DCard";
-import { CyberBadge } from "./3d/CyberHUDDecor";
 
 const commonHonestPoints = [
   {
-    icon: (
-      <svg className="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-      </svg>
-    ),
-    heading: "We don't promise a specific college.",
+    index: "01",
+    heading: "We do not promise or guarantee specific colleges.",
     kcetBody:
-      "Seat allotment is solely done by KEA based on rank, category, seat availability, and cutoffs. No counsellor can honestly guarantee a particular college or branch — and we won't pretend otherwise.",
+      "Official seat allotment is determined solely by KEA based on rank, category, seat availability, and cutoffs. No counsellor can legitimately guarantee a particular college or branch — and we refuse to make false claims.",
     comdekBody:
-      "Seat allotment is determined by COMEDK authority based on rank, seat availability, and cutoffs. No counsellor can honestly guarantee a specific college or branch — and we won't pretend otherwise.",
+      "Official seat allotment is determined solely by COMEDK authority based on rank, seat matrix, and cutoffs. No counsellor can legitimately guarantee a particular college or branch — and we refuse to make false claims.",
   },
   {
-    icon: (
-      <svg className="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-      </svg>
-    ),
-    heading: "We use data, not guesswork.",
+    index: "02",
+    heading: "Every recommendation is backed by real cutoff data.",
     kcetBody:
-      "Our option entry strategy is built on previous-year seat matrix data — so your list is optimised for the best realistic outcome for your rank, not based on generic advice.",
+      "Our option entry strategy is built on verified previous-year seat matrix cutoffs — ordering your preferences for the best realistic outcome for your rank, rather than relying on internet rumors.",
     comdekBody:
-      "Our choice filling strategy is built on previous-year COMEDK seat data — so your list is optimised for the best realistic outcome for your rank, not based on generic advice.",
+      "Our choice filling strategy is built on verified previous-year COMEDK seat data — ordering your preferences for the best realistic outcome for your rank, rather than relying on internet rumors.",
   },
   {
-    icon: (
-      <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-          d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    ),
-    heading: "Parents are welcome.",
+    index: "03",
+    heading: "Parents are actively encouraged to join all sessions.",
     kcetBody:
-      "KCET counselling is a family decision. Parents are welcome — and encouraged — to participate in every session. The more involved, the better the outcome.",
+      "KCET counselling is a major family milestone with serious financial and academic consequences. Parents are encouraged to participate directly in every strategy call and review session.",
     comdekBody:
-      "COMEDK counselling is a family decision. Parents are welcome — and encouraged — to participate in every session. The more involved, the better the outcome.",
+      "COMEDK counselling is a major family milestone with significant tuition and career implications. Parents are encouraged to participate directly in every strategy call and review session.",
   },
   {
-    icon: (
-      <svg className="w-5 h-5 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    heading: "No refunds — so enrol only when you're ready.",
+    index: "04",
+    heading: "No refunds once enrolled — committed students only.",
     kcetBody:
-      "This is a limited-seat, high-effort, one-on-one service. Once enrolled, no refunds are provided. We want committed students who are serious about making the most of their KCET rank.",
+      "This is an intensive, limited-seat, 1-on-1 advisory service requiring significant mentor time and preparation. We take on only students and families who are serious about maximizing their rank.",
     comdekBody:
-      "This is a limited-seat, high-effort, one-on-one service. Once enrolled, no refunds are provided. We want committed students who are serious about making the most of their COMEDK rank.",
+      "This is an intensive, limited-seat, 1-on-1 advisory service requiring significant mentor time and preparation. We take on only students and families who are serious about maximizing their rank.",
   },
 ];
 
 const examMeta = {
   KCET: {
     introPara:
-      "KCET cutoffs, seat availability and counselling outcomes can change every year. No counsellor can honestly guarantee a particular college or branch before counselling is completed.",
+      "KCET cutoffs, category reservations, and seat vacancies fluctuate annually. No ethical counsellor can guarantee an outcome before the official rounds conclude.",
     mainStatement:
-      "Our job is to help you identify the best realistic college and course for your rank — through one-on-one sessions, real seat matrix data, and follow-up through every round until you're seated.",
+      "Our job is to help you secure the highest realistic institution for your exact rank — through direct 1-on-1 screen sharing, verified historical data, and relentless multi-round follow-up.",
     mainNote:
-      "We guide students to make the smartest possible choice within what KEA's process allows. No shortcuts, no false claims — just honest, data-backed support.",
+      "We guide students to make the smartest decisions possible within KEA's official rules. Zero shortcuts, zero false claims — just transparent, data-backed execution.",
     disclaimer:
-      "Final allotments are determined by the Karnataka Examinations Authority (KEA) based on rank, category, seat availability, cutoffs and other factors. This counselling service does not control or influence KEA allotments.",
+      "Final seat allotments are determined solely by the Karnataka Examinations Authority (KEA). Physics Pep Talk is an independent educational mentorship platform and does not influence or control KEA allocations.",
   },
   COMEDK: {
     introPara:
-      "COMEDK cutoffs, seat availability and counselling outcomes can change every year. No counsellor can honestly guarantee a particular college or branch before counselling is completed.",
+      "COMEDK cutoffs, campus seats, and round dynamics vary each year. No ethical counsellor can guarantee an outcome before the official rounds conclude.",
     mainStatement:
-      "Our job is to help you identify the best realistic college and course for your COMEDK rank — through one-on-one sessions, real seat data, and follow-up through every counselling round until you're seated.",
+      "Our job is to help you secure the highest realistic institution for your exact rank — through direct 1-on-1 screen sharing, verified historical data, and relentless multi-round follow-up.",
     mainNote:
-      "We guide students to make the smartest possible choice within what COMEDK's process allows. No shortcuts, no false claims — just honest, data-backed support.",
+      "We guide students to make the smartest decisions possible within COMEDK's official framework. Zero shortcuts, zero false claims — just transparent, data-backed execution.",
     disclaimer:
-      "Final allotments are determined by COMEDK authority based on rank, seat availability, cutoffs and other factors. This counselling service does not control or influence COMEDK allotments.",
+      "Final seat allotments are determined solely by the COMEDK authority. Physics Pep Talk is an independent educational mentorship platform and does not influence or control COMEDK allocations.",
   },
 } as const;
 
@@ -88,64 +67,61 @@ export default function TrustSection() {
     <section
       id="our-approach"
       className="py-20 md:py-28 bg-[#030712] text-slate-100 relative overflow-hidden border-t border-sky-500/15"
-      aria-label="Our honest approach"
+      aria-label="Our honest and transparent approach"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        {/* Header */}
-        <div className="max-w-3xl mx-auto text-center mb-14">
-          <div className="mb-4">
-            <CyberBadge color="cyan">Principles</CyberBadge>
-          </div>
-          <h2 className="text-3xl md:text-5xl font-semibold text-white mb-5 tracking-tight">
-            No False Promises. Only Practical Guidance.
-          </h2>
-          <p className="text-slate-400 text-base md:text-lg leading-relaxed font-normal">
-            {meta.introPara}
-          </p>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          {/* Left Column: Institutional Philosophy (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-sky-500/20 backdrop-blur-md mb-3 self-start">
+              <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+              <span className="text-[11px] font-mono tracking-wider text-sky-200/90 font-medium uppercase">
+                Ethical Advisory Charter
+              </span>
+            </div>
 
-        {/* Main honest statement in Cosmic Card */}
-        <Tilt3DCard maxTilt={4} className="max-w-3xl mx-auto mb-14">
-          <div className="apple-card p-7 sm:p-8">
-            <p className="text-white text-base md:text-lg leading-relaxed font-medium">
-              "{meta.mainStatement}"
+            <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight leading-[1.15] mb-5">
+              No False Promises. Just Data, Truth &amp; Follow-through.
+            </h2>
+
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 font-normal">
+              {meta.introPara}
             </p>
-            <p className="text-slate-400 text-sm mt-3 font-normal">
-              {meta.mainNote}
-            </p>
-          </div>
-        </Tilt3DCard>
 
-        {/* 4 Points in Cosmic Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {commonHonestPoints.map((point) => (
-            <Tilt3DCard key={point.heading} maxTilt={6}>
-              <div className="apple-card p-6 h-full flex items-start gap-4 group">
-                <span className="flex-shrink-0 w-11 h-11 rounded-full bg-sky-500/10 border border-sky-500/20 flex items-center justify-center mt-0.5 group-hover:scale-105 transition-transform">
-                  {point.icon}
-                </span>
-                <div>
-                  <h3 className="text-white font-semibold text-base mb-2 group-hover:text-sky-300 transition-colors tracking-tight">
-                    {point.heading}
-                  </h3>
-                  <p className="text-slate-400 text-sm leading-relaxed font-normal">
-                    {exam === "COMEDK" ? point.comdekBody : point.kcetBody}
-                  </p>
-                </div>
-              </div>
-            </Tilt3DCard>
-          ))}
-        </div>
+            {/* Pull Quote Card */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#060c1d]/90 border border-sky-500/20 mb-6">
+              <p className="text-white text-sm sm:text-base leading-relaxed font-medium mb-3">
+                "{meta.mainStatement}"
+              </p>
+              <p className="text-slate-400 text-xs leading-relaxed font-mono">
+                {meta.mainNote}
+              </p>
+            </div>
 
-        {/* Bottom disclaimer */}
-        <div className="mt-14 text-center">
-          <div className="max-w-2xl mx-auto flex items-start gap-2.5 bg-sky-950/20 border border-sky-500/15 p-4 rounded-2xl text-left">
-            <svg className="w-4 h-4 text-sky-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-            </svg>
-            <p className="text-xs text-slate-400 leading-relaxed font-normal">
+            <div className="text-xs text-slate-500 font-mono leading-relaxed border-t border-sky-500/10 pt-4">
               {meta.disclaimer}
-            </p>
+            </div>
+          </div>
+
+          {/* Right Column: 4 Foundation Pillars (7 cols) */}
+          <div className="lg:col-span-7 flex flex-col gap-4">
+            {commonHonestPoints.map((point) => (
+              <Tilt3DCard key={point.heading} maxTilt={3}>
+                <div className="apple-card p-5 sm:p-6 border-sky-500/15 bg-[#060c1c]/75 flex items-start gap-4 group">
+                  <span className="text-xs font-mono font-bold text-sky-400 px-2.5 py-1 rounded bg-sky-950/60 border border-sky-500/20 flex-shrink-0 mt-0.5">
+                    {point.index}
+                  </span>
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2 tracking-tight group-hover:text-sky-300 transition-colors">
+                      {point.heading}
+                    </h3>
+                    <p className="text-slate-400 text-xs sm:text-sm leading-relaxed font-normal">
+                      {exam === "COMEDK" ? point.comdekBody : point.kcetBody}
+                    </p>
+                  </div>
+                </div>
+              </Tilt3DCard>
+            ))}
           </div>
         </div>
       </div>

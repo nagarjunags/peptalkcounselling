@@ -9,12 +9,39 @@ export default function Hero3DGateway({ exam }: { exam: ExamType }) {
     const container = mountRef.current;
     if (!container) return;
 
+    // Check WebGL availability gracefully
+    const hasWebGL = (() => {
+      try {
+        const canvas = document.createElement("canvas");
+        return !!(window.WebGLRenderingContext && (canvas.getContext("webgl") || canvas.getContext("experimental-webgl")));
+      } catch {
+        return false;
+      }
+    })();
+
+    if (!hasWebGL) {
+      container.innerHTML = `
+        <div class="w-full h-full flex flex-col items-center justify-center text-center p-6 text-slate-400">
+          <div class="w-24 h-24 rounded-full border border-sky-500/30 bg-sky-950/20 flex items-center justify-center mb-3">
+            <span class="w-12 h-12 rounded-full bg-gradient-to-tr from-sky-500 to-indigo-600 blur-sm"></span>
+          </div>
+          <span class="text-xs font-mono text-sky-300 uppercase tracking-widest">Celestial Orbit System</span>
+        </div>
+      `;
+      return;
+    }
+
     let width = container.clientWidth || 360;
     let height = container.clientHeight || 360;
 
+    // Check reduced motion preference
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    camera.position.set(0, 2.5, 9.5);
+    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 100);
+    camera.position.set(0, 1.8, 10.2);
     camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({
@@ -25,39 +52,43 @@ export default function Hero3DGateway({ exam }: { exam: ExamType }) {
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.2;
     renderer.domElement.style.touchAction = "pan-y";
     container.appendChild(renderer.domElement);
 
-    // Main Scientific Observatory Assembly Group
-    const mainGroup = new THREE.Group();
-    scene.add(mainGroup);
+    // Main Celestial Assembly Root Group
+    const rootAssembly = new THREE.Group();
+    scene.add(rootAssembly);
 
-    // Scientific Aerospace & Space Lighting
-    const amb = new THREE.AmbientLight(0xffffff, 0.9);
-    scene.add(amb);
+    // Scientific Lighting Configuration
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.95);
+    scene.add(ambientLight);
 
-    // Stellar Key Light (pure starlight)
-    const keyLight = new THREE.DirectionalLight(0xf0f9ff, 3.2);
-    keyLight.position.set(6, 9, 8);
-    scene.add(keyLight);
+    // Stellar Key Light (pure white starlight)
+    const stellarKeyLight = new THREE.DirectionalLight(0xf8fafc, 3.4);
+    stellarKeyLight.position.set(7, 10, 8);
+    scene.add(stellarKeyLight);
 
-    // Deep Cosmic Rim Light (cyan nebula)
-    const rimLight = new THREE.DirectionalLight(0x38bdf8, 2.4);
-    rimLight.position.set(-8, -4, -6);
-    scene.add(rimLight);
+    // Atmospheric Celestial Cyan Rim Light
+    const cyanRimLight = new THREE.DirectionalLight(0x38bdf8, 2.6);
+    cyanRimLight.position.set(-8, -4, -6);
+    scene.add(cyanRimLight);
 
     // Pulsar Violet Fill Light
-    const fillLight = new THREE.DirectionalLight(0x818cf8, 1.6);
-    fillLight.position.set(0, -6, 5);
-    scene.add(fillLight);
+    const pulsarFillLight = new THREE.DirectionalLight(0x818cf8, 1.8);
+    pulsarFillLight.position.set(0, -7, 6);
+    scene.add(pulsarFillLight);
 
-    // Materials: Aerospace Titanium, Anodized Cosmic Blue, Refractive Celestial Glass
+    // Precision Aerospace & Celestial Materials
+    const materialsToDispose: THREE.Material[] = [];
+    const geometriesToDispose: THREE.BufferGeometry[] = [];
+
     const aerospaceTitanium = new THREE.MeshStandardMaterial({
       color: 0x94a3b8,
       metalness: 0.92,
       roughness: 0.18,
     });
+    materialsToDispose.push(aerospaceTitanium);
 
     const cosmicBlueAlloy = new THREE.MeshStandardMaterial({
       color: 0x0284c7,
@@ -66,135 +97,259 @@ export default function Hero3DGateway({ exam }: { exam: ExamType }) {
       metalness: 0.9,
       roughness: 0.15,
     });
+    materialsToDispose.push(cosmicBlueAlloy);
 
     const stellarCyanGlow = new THREE.MeshStandardMaterial({
       color: 0x38bdf8,
       emissive: 0x38bdf8,
-      emissiveIntensity: 0.8,
-      metalness: 0.5,
+      emissiveIntensity: 0.9,
+      metalness: 0.3,
       roughness: 0.2,
     });
+    materialsToDispose.push(stellarCyanGlow);
 
-    // 1. Central Celestial Core Sphere (Quantum Core)
-    const coreGroup = new THREE.Group();
-    mainGroup.add(coreGroup);
+    // ─── 1. Volumetric Central Celestial Body ─────────────────────────────────────
+    const centralBodyGroup = new THREE.Group();
+    rootAssembly.add(centralBodyGroup);
 
-    const coreGeo = new THREE.SphereGeometry(1.2, 48, 48);
+    // Inner Metallic Obsidian Planetary Core
+    const coreGeo = new THREE.SphereGeometry(1.22, 64, 64);
+    geometriesToDispose.push(coreGeo);
     const coreMat = new THREE.MeshStandardMaterial({
-      color: 0x0f172a,
-      emissive: 0x0369a1,
-      emissiveIntensity: 0.45,
-      metalness: 0.95,
-      roughness: 0.1,
+      color: 0x050c1e,
+      emissive: 0x0284c7,
+      emissiveIntensity: 0.38,
+      metalness: 0.92,
+      roughness: 0.12,
     });
+    materialsToDispose.push(coreMat);
     const coreMesh = new THREE.Mesh(coreGeo, coreMat);
-    coreGroup.add(coreMesh);
+    centralBodyGroup.add(coreMesh);
 
-    // Geodesic Quantum Grid around Core
-    const wireCoreGeo = new THREE.IcosahedronGeometry(1.4, 2);
-    const wireCoreMat = new THREE.MeshBasicMaterial({
+    // Atmospheric Rayleigh Scattering Glow Halo
+    const atmosphereGeo = new THREE.SphereGeometry(1.36, 48, 48);
+    geometriesToDispose.push(atmosphereGeo);
+    const atmosphereMat = new THREE.MeshBasicMaterial({
+      color: 0x38bdf8,
+      transparent: true,
+      opacity: 0.15,
+      blending: THREE.AdditiveBlending,
+      side: THREE.BackSide,
+    });
+    materialsToDispose.push(atmosphereMat);
+    const atmosphereMesh = new THREE.Mesh(atmosphereGeo, atmosphereMat);
+    centralBodyGroup.add(atmosphereMesh);
+
+    // Fine Geodesic Astrometry Meridian Wireframe
+    const meridianGeo = new THREE.IcosahedronGeometry(1.42, 2);
+    geometriesToDispose.push(meridianGeo);
+    const meridianMat = new THREE.MeshBasicMaterial({
       color: 0x38bdf8,
       wireframe: true,
       transparent: true,
-      opacity: 0.3,
+      opacity: 0.22,
     });
-    const wireCoreMesh = new THREE.Mesh(wireCoreGeo, wireCoreMat);
-    coreGroup.add(wireCoreMesh);
+    materialsToDispose.push(meridianMat);
+    const meridianMesh = new THREE.Mesh(meridianGeo, meridianMat);
+    centralBodyGroup.add(meridianMesh);
 
-    // 2. Three Precision Astrolabe Orbital Gimbal Rings
-    // Ring 1: Equatorial Orbital Ring
-    const ring1Geo = new THREE.TorusGeometry(2.2, 0.04, 16, 96);
-    const ring1 = new THREE.Mesh(ring1Geo, cosmicBlueAlloy);
-    mainGroup.add(ring1);
+    // ─── 2. Multiple Elliptical Keplerian Orbital Paths ───────────────────────────
+    const orbitsGroup = new THREE.Group();
+    rootAssembly.add(orbitsGroup);
 
-    // Ring 2: Polar Orbital Ring
-    const ring2Geo = new THREE.TorusGeometry(2.7, 0.045, 16, 96);
-    const ring2 = new THREE.Mesh(ring2Geo, aerospaceTitanium);
-    mainGroup.add(ring2);
+    // Helper: Build an elliptical curve orbit path
+    const createEllipticalOrbit = (
+      xRadius: number,
+      yRadius: number,
+      inclinationX: number,
+      inclinationZ: number,
+      color: number,
+      opacity: number
+    ) => {
+      const curve = new THREE.EllipseCurve(0, 0, xRadius, yRadius, 0, 2 * Math.PI, false, 0);
+      const points = curve.getPoints(128);
+      const orbitGeo = new THREE.BufferGeometry().setFromPoints(
+        points.map((p) => new THREE.Vector3(p.x, p.y, 0))
+      );
+      geometriesToDispose.push(orbitGeo);
+      const orbitMat = new THREE.LineBasicMaterial({
+        color,
+        transparent: true,
+        opacity,
+      });
+      materialsToDispose.push(orbitMat);
+      const orbitLine = new THREE.Line(orbitGeo, orbitMat);
+      orbitLine.rotation.x = inclinationX;
+      orbitLine.rotation.z = inclinationZ;
+      return { line: orbitLine, curve, inclinationX, inclinationZ };
+    };
 
-    // Ring 3: Oblique Celestial Meridian Ring
-    const ring3Geo = new THREE.TorusGeometry(3.2, 0.05, 16, 120);
-    const ring3 = new THREE.Mesh(ring3Geo, cosmicBlueAlloy);
-    mainGroup.add(ring3);
+    // Orbit Path 1: Primary Equatorial Trajectory (cyan)
+    const orbit1 = createEllipticalOrbit(2.8, 2.5, Math.PI / 3.2, 0.2, 0x38bdf8, 0.35);
+    orbitsGroup.add(orbit1.line);
 
-    // 3. Orbiting Satellite Explorer (Keplerian Orbit)
-    const satGroup = new THREE.Group();
-    mainGroup.add(satGroup);
+    // Orbit Path 2: Polar Orbital Meridian (titanium)
+    const orbit2 = createEllipticalOrbit(3.3, 3.0, -Math.PI / 2.6, 0.5, 0x94a3b8, 0.28);
+    orbitsGroup.add(orbit2.line);
 
-    const satProbeGeo = new THREE.SphereGeometry(0.18, 24, 24);
-    const satProbe = new THREE.Mesh(satProbeGeo, stellarCyanGlow);
-    satProbe.position.set(2.8, 0, 0);
-    satGroup.add(satProbe);
+    // Orbit Path 3: Distant Resonance Horizon (pulsar violet)
+    const orbit3 = createEllipticalOrbit(3.9, 3.6, Math.PI / 4.5, -0.6, 0x818cf8, 0.22);
+    orbitsGroup.add(orbit3.line);
 
-    // Micro Solar Panels on Satellite
-    const panelGeo = new THREE.BoxGeometry(0.35, 0.02, 0.12);
-    const panelMat = new THREE.MeshStandardMaterial({
-      color: 0x1e293b,
-      metalness: 0.8,
-      roughness: 0.3,
-    });
-    const panel = new THREE.Mesh(panelGeo, panelMat);
-    panel.position.set(2.8, 0, 0);
-    satGroup.add(panel);
+    // ─── 3. Precision Astrolabe Gimbal Rings (Physical Instrument) ────────────────
+    const gimbalRing1Geo = new THREE.TorusGeometry(2.35, 0.032, 16, 96);
+    geometriesToDispose.push(gimbalRing1Geo);
+    const gimbalRing1 = new THREE.Mesh(gimbalRing1Geo, cosmicBlueAlloy);
+    rootAssembly.add(gimbalRing1);
 
-    // 4. Hairline Orbital Trajectory Ring
-    const orbitPathGeo = new THREE.TorusGeometry(2.8, 0.012, 8, 128);
-    const orbitPathMat = new THREE.MeshBasicMaterial({
-      color: 0x38bdf8,
-      transparent: true,
-      opacity: 0.25,
-    });
-    const orbitPath = new THREE.Mesh(orbitPathGeo, orbitPathMat);
-    satGroup.add(orbitPath);
+    const gimbalRing2Geo = new THREE.TorusGeometry(3.1, 0.038, 16, 120);
+    geometriesToDispose.push(gimbalRing2Geo);
+    const gimbalRing2 = new THREE.Mesh(gimbalRing2Geo, aerospaceTitanium);
+    rootAssembly.add(gimbalRing2);
 
-    // 5. Scientific Telemetry Coordinate Beacons (6 Nodes)
+    // Coordinate telemetry beacons along outer gimbal
+    const beaconGeo = new THREE.SphereGeometry(0.065, 16, 16);
+    geometriesToDispose.push(beaconGeo);
     const beaconCount = 6;
     for (let i = 0; i < beaconCount; i++) {
       const angle = (i * Math.PI * 2) / beaconCount;
-      const bGeo = new THREE.SphereGeometry(0.06, 16, 16);
-      const bMesh = new THREE.Mesh(bGeo, stellarCyanGlow);
-      bMesh.position.set(Math.cos(angle) * 3.2, Math.sin(angle) * 3.2, 0);
-      ring3.add(bMesh);
+      const beacon = new THREE.Mesh(beaconGeo, stellarCyanGlow);
+      beacon.position.set(Math.cos(angle) * 3.1, Math.sin(angle) * 3.1, 0);
+      gimbalRing2.add(beacon);
     }
 
-    // Interactive Drag Physics
+    // ─── 4. Orbiting Spacecraft Probes (True 3D Keplerian Occlusion) ──────────────
+    // Satellite Probe 1: Follows Orbit 1 with solar wings
+    const satGroup1 = new THREE.Group();
+    rootAssembly.add(satGroup1);
+
+    const satProbeGeo = new THREE.SphereGeometry(0.16, 24, 24);
+    geometriesToDispose.push(satProbeGeo);
+    const satProbeMesh = new THREE.Mesh(satProbeGeo, stellarCyanGlow);
+    satGroup1.add(satProbeMesh);
+
+    // Micro Solar Array Panels
+    const wingGeo = new THREE.BoxGeometry(0.42, 0.02, 0.12);
+    geometriesToDispose.push(wingGeo);
+    const wingMat = new THREE.MeshStandardMaterial({
+      color: 0x0f172a,
+      metalness: 0.9,
+      roughness: 0.2,
+      emissive: 0x0369a1,
+      emissiveIntensity: 0.2,
+    });
+    materialsToDispose.push(wingMat);
+    const wingMesh = new THREE.Mesh(wingGeo, wingMat);
+    satGroup1.add(wingMesh);
+
+    // Satellite Probe 2: Pulsar Node orbiting on Orbit 3
+    const satGroup2 = new THREE.Group();
+    rootAssembly.add(satGroup2);
+
+    const pulsarNodeGeo = new THREE.SphereGeometry(0.12, 20, 20);
+    geometriesToDispose.push(pulsarNodeGeo);
+    const pulsarMat = new THREE.MeshStandardMaterial({
+      color: 0x818cf8,
+      emissive: 0x6366f1,
+      emissiveIntensity: 0.9,
+      metalness: 0.4,
+      roughness: 0.2,
+    });
+    materialsToDispose.push(pulsarMat);
+    const pulsarNodeMesh = new THREE.Mesh(pulsarNodeGeo, pulsarMat);
+    satGroup2.add(pulsarNodeMesh);
+
+    // ─── 5. Fine Orbital Celestial Particle Field ─────────────────────────────────
+    const particleCount = 140;
+    const particleGeo = new THREE.BufferGeometry();
+    geometriesToDispose.push(particleGeo);
+    const particlePos = new Float32Array(particleCount * 3);
+    const particleColors = new Float32Array(particleCount * 3);
+
+    for (let i = 0; i < particleCount; i++) {
+      const theta = Math.random() * Math.PI * 2;
+      const radius = 2.0 + Math.random() * 2.2;
+      const yOffset = (Math.random() - 0.5) * 0.45;
+
+      particlePos[i * 3] = Math.cos(theta) * radius;
+      particlePos[i * 3 + 1] = yOffset;
+      particlePos[i * 3 + 2] = Math.sin(theta) * radius;
+
+      // Color variation between pure white, cyan, and indigo
+      const isCyan = Math.random() > 0.4;
+      particleColors[i * 3] = isCyan ? 0.22 : 0.95;
+      particleColors[i * 3 + 1] = isCyan ? 0.74 : 0.95;
+      particleColors[i * 3 + 2] = 0.98;
+    }
+
+    particleGeo.setAttribute("position", new THREE.BufferAttribute(particlePos, 3));
+    particleGeo.setAttribute("color", new THREE.BufferAttribute(particleColors, 3));
+
+    const particleMat = new THREE.PointsMaterial({
+      size: 0.05,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.65,
+    });
+    materialsToDispose.push(particleMat);
+    const particlePoints = new THREE.Points(particleGeo, particleMat);
+    rootAssembly.add(particlePoints);
+
+    // ─── 6. Pointer Parallax & Interactive Drag Physics ───────────────────────────
     let isDragging = false;
-    let prevMouseX = 0;
-    let prevMouseY = 0;
-    let targetRotationX = 0.15;
-    let targetRotationY = 0;
+    let prevPointerX = 0;
+    let prevPointerY = 0;
+    let targetRotX = 0.18;
+    let targetRotY = 0;
+    let mouseParallaxX = 0;
+    let mouseParallaxY = 0;
     let autoRotate = true;
+    let autoRotateResumeTimer: ReturnType<typeof setTimeout> | null = null;
 
     const onPointerDown = (e: PointerEvent) => {
       isDragging = true;
       autoRotate = false;
-      prevMouseX = e.clientX;
-      prevMouseY = e.clientY;
+      if (autoRotateResumeTimer) clearTimeout(autoRotateResumeTimer);
+      prevPointerX = e.clientX;
+      prevPointerY = e.clientY;
     };
 
     const onPointerMove = (e: PointerEvent) => {
       if (!isDragging) return;
-      const deltaX = e.clientX - prevMouseX;
-      const deltaY = e.clientY - prevMouseY;
-      targetRotationY += deltaX * 0.007;
-      targetRotationX += deltaY * 0.007;
-      prevMouseX = e.clientX;
-      prevMouseY = e.clientY;
+      const deltaX = e.clientX - prevPointerX;
+      const deltaY = e.clientY - prevPointerY;
+      targetRotY += deltaX * 0.0065;
+      targetRotX += deltaY * 0.0065;
+      prevPointerX = e.clientX;
+      prevPointerY = e.clientY;
     };
 
     const onPointerUp = () => {
       isDragging = false;
-      setTimeout(() => {
+      autoRotateResumeTimer = setTimeout(() => {
         autoRotate = true;
-      }, 2500);
+      }, 2000);
+    };
+
+    // Desktop pointer parallax over the whole container
+    const onWindowPointerMove = (e: MouseEvent) => {
+      if (isDragging) return;
+      const rect = container.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const normX = (e.clientX - centerX) / (window.innerWidth / 2);
+      const normY = (e.clientY - centerY) / (window.innerHeight / 2);
+      mouseParallaxX = normX * 0.22;
+      mouseParallaxY = normY * 0.16;
     };
 
     const dom = renderer.domElement;
     dom.addEventListener("pointerdown", onPointerDown);
     window.addEventListener("pointermove", onPointerMove);
     window.addEventListener("pointerup", onPointerUp);
+    window.addEventListener("mousemove", onWindowPointerMove);
 
-    // Resize
+    // ─── 7. Resize Observer ───────────────────────────────────────────────────────
     const ro = new ResizeObserver((entries) => {
       for (const entry of entries) {
         width = entry.contentRect.width;
@@ -208,43 +363,83 @@ export default function Hero3DGateway({ exam }: { exam: ExamType }) {
     });
     ro.observe(container);
 
-    // Animation Loop
+    // ─── 8. Intersection Observer (Pause when off-screen) ─────────────────────────
+    let isVisible = true;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          isVisible = entry.isIntersecting;
+        }
+      },
+      { threshold: 0.05 }
+    );
+    io.observe(container);
+
+    const onVisibilityChange = () => {
+      isVisible = document.visibilityState === "visible";
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    // ─── 9. Fluid Animation Loop ──────────────────────────────────────────────────
     let animId: number;
     const clock = new THREE.Clock();
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
+      if (!isVisible) return;
+
       const elapsed = clock.getElapsedTime();
+      const motionScale = prefersReducedMotion ? 0.15 : 1.0;
 
-      // Gyroscopic differential rotations
-      ring1.rotation.x = elapsed * 0.45;
-      ring1.rotation.y = elapsed * 0.3;
+      // Continuous Gyroscopic differential rotations
+      gimbalRing1.rotation.x = elapsed * 0.35 * motionScale;
+      gimbalRing1.rotation.y = elapsed * 0.25 * motionScale;
 
-      ring2.rotation.y = -elapsed * 0.35;
-      ring2.rotation.z = elapsed * 0.25;
+      gimbalRing2.rotation.y = -elapsed * 0.28 * motionScale;
+      gimbalRing2.rotation.z = elapsed * 0.18 * motionScale;
 
-      ring3.rotation.z = elapsed * 0.2;
-      ring3.rotation.x = -elapsed * 0.15;
+      // Central core breathing rotation
+      centralBodyGroup.rotation.y = elapsed * 0.22 * motionScale;
+      meridianMesh.rotation.y = -elapsed * 0.15 * motionScale;
+      meridianMesh.rotation.x = elapsed * 0.12 * motionScale;
 
-      // Quantum Core oscillation
-      coreGroup.rotation.y = elapsed * 0.5;
-      wireCoreMesh.rotation.y = -elapsed * 0.3;
-      wireCoreMesh.rotation.x = elapsed * 0.2;
+      // Atmospheric soft pulsation
+      const atmosScale = 1.0 + Math.sin(elapsed * 2.0) * 0.018;
+      atmosphereMesh.scale.set(atmosScale, atmosScale, atmosScale);
 
-      // Orbiting satellite Explorer
-      satGroup.rotation.z = elapsed * 0.8;
-      satGroup.rotation.x = Math.sin(elapsed * 0.4) * 0.3;
+      // Orbit 1 Spacecraft (Probe 1) Keplerian Motion
+      const orbitProgress1 = (elapsed * 0.45 * motionScale) % (Math.PI * 2);
+      const satPoint1 = orbit1.curve.getPoint(orbitProgress1 / (Math.PI * 2));
+      const satPos1 = new THREE.Vector3(satPoint1.x, satPoint1.y, 0);
+      satPos1.applyAxisAngle(new THREE.Vector3(1, 0, 0), orbit1.inclinationX);
+      satPos1.applyAxisAngle(new THREE.Vector3(0, 0, 1), orbit1.inclinationZ);
+      satGroup1.position.copy(satPos1);
+      satGroup1.rotation.y = elapsed * 1.5;
 
-      // Automatic celestial breath
-      if (autoRotate) {
-        targetRotationY += 0.004;
+      // Orbit 3 Pulsar Node (accelerates slightly at periapsis)
+      const orbitProgress2 = (elapsed * 0.32 * motionScale) % (Math.PI * 2);
+      const satPoint2 = orbit3.curve.getPoint(orbitProgress2 / (Math.PI * 2));
+      const satPos2 = new THREE.Vector3(satPoint2.x, satPoint2.y, 0);
+      satPos2.applyAxisAngle(new THREE.Vector3(1, 0, 0), orbit3.inclinationX);
+      satPos2.applyAxisAngle(new THREE.Vector3(0, 0, 1), orbit3.inclinationZ);
+      satGroup2.position.copy(satPos2);
+
+      // Particle field subtle cosmic drift
+      particlePoints.rotation.y = elapsed * 0.08 * motionScale;
+
+      // User interaction + Parallax damping
+      if (autoRotate && !prefersReducedMotion) {
+        targetRotY += 0.0032;
       }
 
-      mainGroup.rotation.y += (targetRotationY - mainGroup.rotation.y) * 0.06;
-      mainGroup.rotation.x += (targetRotationX - mainGroup.rotation.x) * 0.06;
+      const desiredRotY = targetRotY + mouseParallaxX;
+      const desiredRotX = targetRotX - mouseParallaxY;
+
+      rootAssembly.rotation.y += (desiredRotY - rootAssembly.rotation.y) * 0.055;
+      rootAssembly.rotation.x += (desiredRotX - rootAssembly.rotation.x) * 0.055;
 
       // Subtle celestial levitation
-      mainGroup.position.y = Math.sin(elapsed * 1.5) * 0.12;
+      rootAssembly.position.y = Math.sin(elapsed * 1.4) * 0.09 * motionScale;
 
       renderer.render(scene, camera);
     };
@@ -254,9 +449,16 @@ export default function Hero3DGateway({ exam }: { exam: ExamType }) {
     return () => {
       cancelAnimationFrame(animId);
       ro.disconnect();
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       dom.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("mousemove", onWindowPointerMove);
+      if (autoRotateResumeTimer) clearTimeout(autoRotateResumeTimer);
+
+      geometriesToDispose.forEach((g) => g.dispose());
+      materialsToDispose.forEach((m) => m.dispose());
       renderer.dispose();
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
@@ -265,16 +467,21 @@ export default function Hero3DGateway({ exam }: { exam: ExamType }) {
   }, [exam]);
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center select-none">
+    <div className="relative w-full h-full flex items-center justify-center select-none group">
+      {/* Environmental subtle celestial vignette glow */}
+      <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.08)_0%,rgba(3,7,18,0)_72%)] pointer-events-none" />
+
+      {/* 3D Canvas Mount */}
       <div
         ref={mountRef}
         className="w-full h-full cursor-grab active:cursor-grabbing flex items-center justify-center"
-        aria-label="Interactive 3D Celestial Orbit Instrument"
+        aria-label="Interactive 3D Celestial Armillary Instrument"
       />
-      {/* Telemetry Indicator */}
-      <div className="hidden sm:flex absolute bottom-0.5 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-sky-950/70 border border-sky-500/20 text-[10px] lg:text-[11px] font-medium text-sky-300 backdrop-blur-md pointer-events-none items-center gap-1.5 shadow-sm whitespace-nowrap">
+
+      {/* Understated Scientific Telemetry Badge */}
+      <div className="hidden sm:inline-flex absolute bottom-1 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-slate-900/80 border border-sky-500/20 text-[10px] font-mono tracking-wider text-sky-300/90 backdrop-blur-md pointer-events-none items-center gap-2 shadow-sm whitespace-nowrap transition-opacity group-hover:border-sky-400/40">
         <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
-        <span>Celestial Orbit Engine • Drag to Rotate</span>
+        <span>CELESTIAL ORBIT ENGINE • DRAG TO ROTATE</span>
       </div>
     </div>
   );

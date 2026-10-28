@@ -1,139 +1,223 @@
 import { useExam } from "../context/ExamContext";
 import Service3DObject from "./3d/Service3DObject";
 import Tilt3DCard from "./3d/Tilt3DCard";
-import { CyberBadge } from "./3d/CyberHUDDecor";
 
 const kcetServices = [
   {
-    type: "rank" as const,
-    title: "Rank-Based College Guidance",
+    type: "option" as const,
+    index: "01",
+    tag: "Core Strategic Pillar",
+    title: "Option Entry Guidance & Architecture",
     description:
-      "We analyse your KCET rank, category, and preferences against previous-year seat matrix data to identify the best realistic colleges and branches for your specific situation — not generic advice.",
+      "Option entry is the single most important action in KCET counselling. We build your entire option list together in a 1-on-1 session using verified previous-year seat matrix cutoff data — ordering every choice to maximize your admission probability and eliminate premature lock-in traps.",
+    highlights: ["Seat matrix cutoff modeling", "Multi-round upgrade elasticity", "1-on-1 list review before submission"],
+  },
+  {
+    type: "rank" as const,
+    index: "02",
+    tag: "Analysis",
+    title: "Rank-Based College Feasibility",
+    description:
+      "We analyse your KCET rank, category, and reservation matrix against historical seat distributions to establish realistic dream, target, and safety benchmarks — grounded in data, not guesswork.",
+    highlights: ["Category quota calculation", "Realistic cutoff bands"],
   },
   {
     type: "branch" as const,
-    title: "College & Branch Selection",
+    index: "03",
+    tag: "Alignment",
+    title: "College vs. Branch Decision Matrix",
     description:
-      "One-on-one sessions to help you pick the right college and the right course. We weigh your interests, career goals, location, and rank together — because the right fit is different for every student.",
-  },
-  {
-    type: "option" as const,
-    title: "Option Entry Guidance",
-    description:
-      "Our option entry strategy is built on actual previous-year seat matrix data — giving you a much higher chance of securing a better college. We set your priorities, build the list, and submit it with you.",
+      "Personalised sessions to evaluate trade-offs between top-tier institutions and preferred branches. We align your long-term career goals, campus placement track records, and rank.",
+    highlights: ["Curriculum & placement review", "Brand vs. Branch trade-offs"],
   },
   {
     type: "rounds" as const,
-    title: "Counselling-Round Support",
+    index: "04",
+    tag: "Lifecycle",
+    title: "Continuous Multi-Round Support",
     description:
-      "We don't disappear after option entry. We follow up and guide you through every counselling round until you get a good seat — helping you evaluate allotments and decide your next step each time.",
+      "We stay with you through Round 1, Round 2, and Extended rounds — evaluating every allotment, advising on upgrade choices, and guiding reporting until your final seat is confirmed.",
+    highlights: ["Allotment outcome evaluation", "Upgrade vs. freeze decision"],
   },
 ];
 
 const comdekServices = [
   {
-    type: "rank" as const,
-    title: "Rank-Based College Guidance",
+    type: "option" as const,
+    index: "01",
+    tag: "Core Strategic Pillar",
+    title: "Choice Filling Guidance & Architecture",
     description:
-      "We analyse your COMEDK rank, category, and preferences against previous-year seat data to identify the best realistic colleges and branches for your specific situation — not generic advice.",
+      "Choice filling determines your entire COMEDK allotment. We formulate your choice matrix together in a 1-on-1 session using previous-year COMEDK closing ranks — sequencing every college and engineering branch to protect your rank and secure the best institution possible.",
+    highlights: ["Historical closing rank data", "Strategic preference laddering", "1-on-1 review before lock-in"],
+  },
+  {
+    type: "rank" as const,
+    index: "02",
+    tag: "Analysis",
+    title: "Rank-Based College Feasibility",
+    description:
+      "We evaluate your COMEDK rank against seat availability trends to pinpoint achievable colleges, ambitious reaches, and guaranteed backup institutions with high precision.",
+    highlights: ["Historical rank distribution", "Realistic college shortlist"],
   },
   {
     type: "branch" as const,
-    title: "College & Branch Selection",
+    index: "03",
+    tag: "Alignment",
+    title: "College & Engineering Branch Selection",
     description:
-      "One-on-one sessions to help you pick the right college and the right engineering branch for your COMEDK rank. We weigh your interests, career goals, location, and score together.",
-  },
-  {
-    type: "option" as const,
-    title: "Choice Filling Guidance",
-    description:
-      "Our choice filling strategy is built on actual previous-year COMEDK seat data — giving you a higher chance of securing a better college. We build and review your choice list together.",
+      "One-on-one sessions to help you navigate between premier Bangalore colleges and emerging specialized branches, weighing academic curriculum, placement averages, and personal strengths.",
+    highlights: ["Placement & industry relevance", "College tier vs. specialization"],
   },
   {
     type: "rounds" as const,
-    title: "Counselling-Round Support",
+    index: "04",
+    tag: "Lifecycle",
+    title: "Round-by-Round Counselling Support",
     description:
-      "We stay with you through every COMEDK counselling round — evaluating allotments, advising on upgrades, and guiding you until you confirm a seat you're satisfied with.",
+      "Comprehensive guidance through every COMEDK round — advising on Accept & Freeze, Accept & Upgrade, or Reject & Upgrade strategies until your optimal seat is secured.",
+    highlights: ["Round allotment assessment", "Upgrade strategy optimization"],
   },
 ];
 
 export default function Services() {
   const { exam } = useExam();
   const services = exam === "COMEDK" ? comdekServices : kcetServices;
+  const primaryService = services[0];
+  const supportingServices = services.slice(1);
 
   const sectionHeading =
     exam === "COMEDK"
-      ? "Guidance Across Every Stage of COMEDK Counselling"
-      : "Guidance Across Every Stage of KCET Counselling";
+      ? "Comprehensive Support Across Every Stage of COMEDK"
+      : "Comprehensive Support Across Every Stage of KCET";
 
   return (
     <section
       id="services"
       className="py-20 md:py-28 bg-[#030712] text-slate-100 relative overflow-hidden border-t border-sky-500/15"
-      aria-label="Our services"
+      aria-label="Our services and capabilities"
     >
-      {/* Background Cosmic Glow */}
-      <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-sky-500/[0.03] rounded-full blur-[140px] pointer-events-none" />
+      {/* Background Subtle Radial Lighting */}
+      <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-sky-500/[0.03] rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        {/* Section header */}
-        <div className="text-center mb-16">
-          <div className="mb-4">
-            <CyberBadge color="cyan">Capabilities</CyberBadge>
+        {/* Editorial Section Header */}
+        <div className="max-w-3xl mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-sky-500/20 backdrop-blur-md mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+            <span className="text-[11px] font-mono tracking-wider text-sky-200/90 font-medium uppercase">
+              Capabilities &amp; Advisory Scope
+            </span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-semibold text-white mb-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight leading-[1.15] mb-4">
             {sectionHeading}
           </h2>
-          <p className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
-            One-on-one support across every stage — from understanding your
-            realistic options to securing the right seat.
+          <p className="text-slate-300 text-base sm:text-lg leading-relaxed font-normal">
+            Personalised, data-driven counselling that replaces guesswork with verified seat matrix numbers — supporting you from initial rank analysis to final campus admission.
           </p>
         </div>
 
-        {/* 3D Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service, idx) => (
-            <Tilt3DCard key={service.title} maxTilt={6}>
-              <article className="apple-card p-6 h-full flex flex-col justify-between group">
+        {/* Asymmetrical Editorial Layout: 7-col Flagship Anchor + 5-col Supporting Stack */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          {/* Featured Primary Service: 7 Columns */}
+          <div className="lg:col-span-7 flex flex-col">
+            <Tilt3DCard className="h-full" maxTilt={4}>
+              <article className="apple-card p-6 sm:p-8 h-full flex flex-col justify-between border-sky-500/25 bg-[#060c1d]/80 relative overflow-hidden group">
+                {/* Subtle top specular hairline */}
+                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-sky-400/30 to-transparent" />
+
                 <div>
-                  {/* Top: 3D Animated Scientific Instrument */}
-                  <div className="flex items-center justify-between mb-4">
-                    <Service3DObject type={service.type} />
-                    <span className="text-xs font-mono font-medium text-sky-300/80 px-2.5 py-0.5 rounded-full bg-sky-950/40 border border-sky-500/20">
-                      0{idx + 1}
-                    </span>
+                  <div className="flex items-center justify-between mb-6 pb-4 border-b border-sky-500/15">
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs font-mono font-bold text-slate-950 px-2.5 py-1 rounded bg-gradient-to-r from-sky-400 to-sky-300">
+                        {primaryService.index}
+                      </span>
+                      <span className="text-xs font-mono uppercase tracking-wider text-sky-300/90">
+                        {primaryService.tag}
+                      </span>
+                    </div>
+                    <div className="w-12 h-12 flex items-center justify-center">
+                      <Service3DObject type={primaryService.type} />
+                    </div>
                   </div>
 
-                  <h3 className="text-white font-semibold text-lg leading-snug mb-3 group-hover:text-sky-300 transition-colors tracking-tight">
-                    {service.title}
+                  <h3 className="text-xl sm:text-2xl font-semibold text-white mb-3 tracking-tight group-hover:text-sky-200 transition-colors">
+                    {primaryService.title}
                   </h3>
 
-                  <p className="text-slate-400 text-sm leading-relaxed font-normal">
-                    {service.description}
+                  <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 font-normal">
+                    {primaryService.description}
                   </p>
+
+                  {/* Highlights Checklist */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-4 border-t border-sky-500/10">
+                    {primaryService.highlights.map((item) => (
+                      <div key={item} className="flex items-center gap-2 text-xs text-slate-300 font-medium">
+                        <svg className="w-3.5 h-3.5 text-sky-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="pt-4 mt-6 border-t border-sky-500/10 flex items-center justify-between text-xs text-slate-400">
-                  <span className="font-medium group-hover:text-sky-300 transition-colors">Personalised Session</span>
-                  <svg className="w-3.5 h-3.5 text-sky-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
+                <div className="mt-8 pt-4 border-t border-sky-500/15 flex items-center justify-between">
+                  <span className="text-xs font-mono text-slate-400">1-on-1 Screen Share &amp; Live Formulation</span>
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-300 hover:text-white transition-colors group-hover:translate-x-0.5"
+                  >
+                    <span>Enrol in Guidance</span>
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
                 </div>
               </article>
             </Tilt3DCard>
-          ))}
-        </div>
+          </div>
 
-        {/* CTA nudge */}
-        <p className="text-center text-sm text-slate-400 mt-12 font-normal">
-          Contact us for current package details and pricing.{" "}
-          <a
-            href="#contact"
-            className="text-sky-400 font-medium hover:underline transition-colors"
-          >
-            Get in touch →
-          </a>
-        </p>
+          {/* Supporting Services Stack: 5 Columns */}
+          <div className="lg:col-span-5 flex flex-col gap-4 justify-between">
+            {supportingServices.map((service) => (
+              <Tilt3DCard key={service.title} maxTilt={4}>
+                <article className="apple-card p-5 sm:p-6 flex flex-col justify-between h-full border-sky-500/15 hover:border-sky-500/30 transition-all group">
+                  <div>
+                    <div className="flex items-center justify-between mb-3 pb-2.5 border-b border-sky-500/10">
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-[11px] font-mono text-sky-400 font-semibold px-2 py-0.5 rounded bg-sky-950/60 border border-sky-500/20">
+                          {service.index}
+                        </span>
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+                          {service.tag}
+                        </span>
+                      </div>
+                      <div className="w-9 h-9 flex items-center justify-center">
+                        <Service3DObject type={service.type} />
+                      </div>
+                    </div>
+
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2 tracking-tight group-hover:text-sky-300 transition-colors">
+                      {service.title}
+                    </h3>
+
+                    <p className="text-slate-400 text-xs sm:text-sm leading-relaxed font-normal">
+                      {service.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-3 pt-2.5 border-t border-sky-500/10 flex items-center justify-between text-xs text-slate-400">
+                    <span className="text-[11px] font-mono text-sky-400/80">Direct Mentor Session</span>
+                    <svg className="w-3.5 h-3.5 text-sky-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </article>
+              </Tilt3DCard>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
