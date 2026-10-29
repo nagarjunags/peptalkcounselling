@@ -312,10 +312,10 @@ export default function OptionEntry3DVisualizer() {
         <button
           type="button"
           onClick={setOptimized}
-          className={`w-full sm:w-auto px-5 py-2.5 rounded-xl sm:rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 ${
+          className={`w-full sm:w-auto px-5 py-2.5 min-h-[44px] sm:min-h-0 rounded-xl sm:rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 active:scale-[0.98] sm:active:scale-100 ${
             isOptimized
-              ? "bg-gradient-to-r from-sky-400 to-blue-500 text-slate-950 shadow-[0_0_20px_rgba(56,189,248,0.4)]"
-              : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
+              ? "bg-gradient-to-r from-sky-400 to-blue-500 text-slate-950 shadow-[0_0_20px_rgba(56,189,248,0.4)] border border-transparent"
+              : "bg-slate-800/90 sm:bg-transparent border border-slate-600/60 sm:border-transparent text-slate-200 sm:text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 shadow-sm sm:shadow-none"
           }`}
         >
           <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -327,10 +327,10 @@ export default function OptionEntry3DVisualizer() {
         <button
           type="button"
           onClick={setRandom}
-          className={`w-full sm:w-auto px-5 py-2.5 rounded-xl sm:rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 ${
+          className={`w-full sm:w-auto px-5 py-2.5 min-h-[44px] sm:min-h-0 rounded-xl sm:rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 active:scale-[0.98] sm:active:scale-100 ${
             !isOptimized
               ? "bg-rose-500/20 text-rose-200 border border-rose-400/50 shadow-[0_0_20px_rgba(244,63,94,0.35)]"
-              : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
+              : "bg-slate-800/90 sm:bg-transparent border border-slate-600/60 sm:border-transparent text-slate-200 sm:text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 shadow-sm sm:shadow-none"
           }`}
         >
           <svg className="w-3.5 h-3.5 flex-shrink-0 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
