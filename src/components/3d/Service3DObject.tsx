@@ -1,162 +1,223 @@
-import { useEffect, useRef } from "react";
-import * as THREE from "three";
-
 export type ServiceObjectType = "rank" | "branch" | "option" | "rounds";
 
+/**
+ * Service3DObject: High-performance vector 3D cybernetic visualization.
+ *
+ * Replaces heavy per-card WebGL renderers with crisp, GPU-accelerated SVG/CSS 3D
+ * constructs. This frees 4 concurrent WebGL contexts, preventing context starvation
+ * and driver crashes on mobile devices while rendering at an ultra-smooth 60fps.
+ */
 export default function Service3DObject({ type }: { type: ServiceObjectType }) {
-  const mountRef = useRef<HTMLDivElement>(null);
+  if (type === "rank") {
+    // 1. Quantum Data Monolith & Celestial Orbital Ring (Rank-based guidance)
+    return (
+      <div className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center select-none" aria-hidden="true">
+        <svg viewBox="0 0 48 48" className="w-full h-full overflow-visible" fill="none">
+          <defs>
+            <linearGradient id="rankPillarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#38bdf8" />
+              <stop offset="50%" stopColor="#0284c7" />
+              <stop offset="100%" stopColor="#0369a1" />
+            </linearGradient>
+            <linearGradient id="rankRingGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#fde68a" stopOpacity="0.9" />
+              <stop offset="50%" stopColor="#f59e0b" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.8" />
+            </linearGradient>
+            <filter id="rankGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="1.5" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
 
-  useEffect(() => {
-    const container = mountRef.current;
-    if (!container) return;
+          {/* Background Ambient Aura */}
+          <circle cx="24" cy="24" r="14" fill="#0284c7" fillOpacity="0.12" />
 
-    const width = 84;
-    const height = 84;
+          {/* Pulsing Elliptical Orbit Ring */}
+          <ellipse
+            cx="24"
+            cy="24"
+            rx="19"
+            ry="7"
+            stroke="url(#rankRingGrad)"
+            strokeWidth="1.5"
+            transform="rotate(-25 24 24)"
+            strokeDasharray="4 2"
+            className="animate-[spin_8s_linear_infinite]"
+            style={{ transformOrigin: "24px 24px" }}
+          />
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    camera.position.z = 5.2;
+          {/* Central Isometric Data Monolith */}
+          <g filter="url(#rankGlow)">
+            {/* Top Face */}
+            <polygon points="24,11 31,15 24,19 17,15" fill="#7dd3fc" fillOpacity="0.95" />
+            {/* Left Face */}
+            <polygon points="17,15 24,19 24,35 17,31" fill="#0284c7" fillOpacity="0.85" />
+            {/* Right Face */}
+            <polygon points="24,19 31,15 31,31 24,35" fill="#0369a1" fillOpacity="0.95" />
+          </g>
 
-    const renderer = new THREE.WebGLRenderer({
-      alpha: true,
-      antialias: true,
-      powerPreference: "high-performance",
-    });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.domElement.style.touchAction = "pan-y";
-    container.appendChild(renderer.domElement);
+          {/* Core Energy Line */}
+          <line x1="24" y1="13" x2="24" y2="33" stroke="#fde68a" strokeWidth="1" strokeDasharray="2 2" />
 
-    const group = new THREE.Group();
-    scene.add(group);
+          {/* Orbiting Satellite Node */}
+          <circle cx="39" cy="18" r="2" fill="#fde68a" className="animate-pulse" />
+        </svg>
+      </div>
+    );
+  }
 
-    // Scientific Lighting
-    const amb = new THREE.AmbientLight(0xffffff, 1.2);
-    scene.add(amb);
+  if (type === "branch") {
+    // 2. Dual Gravitational Gyroscope & Astrolabe Gimbal (Branch & College Selection)
+    return (
+      <div className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center select-none" aria-hidden="true">
+        <svg viewBox="0 0 48 48" className="w-full h-full overflow-visible" fill="none">
+          <defs>
+            <linearGradient id="branchGimbal1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#94a3b8" />
+              <stop offset="100%" stopColor="#38bdf8" />
+            </linearGradient>
+            <linearGradient id="branchGimbal2" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#f59e0b" />
+              <stop offset="100%" stopColor="#fde68a" />
+            </linearGradient>
+          </defs>
 
-    const key = new THREE.DirectionalLight(0xf0f9ff, 3.0);
-    key.position.set(4, 6, 5);
-    scene.add(key);
+          {/* Outer Gyro Ring */}
+          <circle
+            cx="24"
+            cy="24"
+            r="18"
+            stroke="url(#branchGimbal1)"
+            strokeWidth="1.4"
+            strokeDasharray="6 3"
+            className="animate-[spin_12s_linear_infinite]"
+            style={{ transformOrigin: "24px 24px" }}
+          />
 
-    const rim = new THREE.DirectionalLight(0x38bdf8, 2.0);
-    rim.position.set(-4, -4, -3);
-    scene.add(rim);
+          {/* Middle Inclined Ring */}
+          <ellipse
+            cx="24"
+            cy="24"
+            rx="14"
+            ry="6"
+            stroke="url(#branchGimbal2)"
+            strokeWidth="1.2"
+            transform="rotate(40 24 24)"
+            className="animate-[spin_7s_linear_infinite_reverse]"
+            style={{ transformOrigin: "24px 24px" }}
+          />
 
-    // Materials: Space Titanium, Anodized Azure Alloy, Cyan Emissive
-    const titaniumMat = new THREE.MeshStandardMaterial({
-      color: 0x94a3b8,
-      metalness: 0.9,
-      roughness: 0.2,
-    });
+          {/* Inner Counter Ring */}
+          <ellipse
+            cx="24"
+            cy="24"
+            rx="11"
+            ry="4"
+            stroke="#38bdf8"
+            strokeWidth="1"
+            strokeOpacity="0.8"
+            transform="rotate(-35 24 24)"
+          />
 
-    const celestialCyanMat = new THREE.MeshStandardMaterial({
-      color: 0x0284c7,
-      emissive: 0x38bdf8,
-      emissiveIntensity: 0.6,
-      metalness: 0.85,
-      roughness: 0.15,
-    });
+          {/* Central Pulsing Coordinate Core */}
+          <circle cx="24" cy="24" r="3.5" fill="#38bdf8" className="animate-ping" style={{ animationDuration: "2.4s" }} />
+          <circle cx="24" cy="24" r="3" fill="#fde68a" />
+        </svg>
+      </div>
+    );
+  }
 
-    let animCallback: (t: number) => void;
+  if (type === "option") {
+    // 3. Optical Spectrometer / Refractive Prism & Laser (Option Entry Guidance)
+    return (
+      <div className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center select-none" aria-hidden="true">
+        <svg viewBox="0 0 48 48" className="w-full h-full overflow-visible" fill="none">
+          <defs>
+            <linearGradient id="prismFace" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.9" />
+              <stop offset="50%" stopColor="#0284c7" stopOpacity="0.7" />
+              <stop offset="100%" stopColor="#0f172a" stopOpacity="0.9" />
+            </linearGradient>
+            <linearGradient id="spectralBeam" x1="0%" y1="50%" x2="100%" y2="50%">
+              <stop offset="0%" stopColor="#fde68a" />
+              <stop offset="50%" stopColor="#38bdf8" />
+              <stop offset="100%" stopColor="#a855f7" />
+            </linearGradient>
+          </defs>
 
-    if (type === "rank") {
-      // 1. Quantum Energy Matrix Monolith & Orbital Ring
-      const monolithGeo = new THREE.BoxGeometry(0.8, 1.6, 0.4);
-      const monolith = new THREE.Mesh(monolithGeo, titaniumMat);
-      group.add(monolith);
+          {/* Spectral Halo */}
+          <ellipse
+            cx="24"
+            cy="27"
+            rx="17"
+            ry="6"
+            stroke="#38bdf8"
+            strokeWidth="1"
+            strokeOpacity="0.4"
+            strokeDasharray="3 3"
+            className="animate-[spin_9s_linear_infinite]"
+            style={{ transformOrigin: "24px 27px" }}
+          />
 
-      const orbitGeo = new THREE.TorusGeometry(1.2, 0.035, 16, 64);
-      const orbit = new THREE.Mesh(orbitGeo, celestialCyanMat);
-      orbit.rotation.x = Math.PI / 3;
-      group.add(orbit);
+          {/* Refraction Beam Passing Through */}
+          <path d="M 6 22 L 24 24 L 42 16" stroke="url(#spectralBeam)" strokeWidth="1.8" strokeLinecap="round" />
+          <path d="M 24 24 L 42 26" stroke="#38bdf8" strokeWidth="1.2" strokeOpacity="0.7" strokeLinecap="round" />
+          <path d="M 24 24 L 41 33" stroke="#818cf8" strokeWidth="1.2" strokeOpacity="0.7" strokeLinecap="round" />
 
-      animCallback = (t) => {
-        monolith.rotation.y = t * 0.8;
-        orbit.rotation.z = t * 1.2;
-      };
-    } else if (type === "branch") {
-      // 2. Dual Gravitational Gyroscope / Astrolabe Gimbal
-      const ring1Geo = new THREE.TorusGeometry(1.15, 0.04, 16, 64);
-      const ring1 = new THREE.Mesh(ring1Geo, titaniumMat);
-      group.add(ring1);
+          {/* Isometric Prismatic Body */}
+          <polygon points="24,9 35,32 13,32" fill="url(#prismFace)" stroke="#7dd3fc" strokeWidth="1.2" />
+          <polygon points="24,9 24,32 13,32" fill="#0284c7" fillOpacity="0.35" />
 
-      const ring2Geo = new THREE.TorusGeometry(0.85, 0.035, 16, 64);
-      const ring2 = new THREE.Mesh(ring2Geo, celestialCyanMat);
-      group.add(ring2);
+          {/* Apex Starlight Sparkle */}
+          <circle cx="24" cy="9" r="1.8" fill="#fde68a" className="animate-pulse" />
+        </svg>
+      </div>
+    );
+  }
 
-      const coreGeo = new THREE.SphereGeometry(0.35, 24, 24);
-      const core = new THREE.Mesh(coreGeo, celestialCyanMat);
-      group.add(core);
-
-      animCallback = (t) => {
-        ring1.rotation.x = t * 0.9;
-        ring1.rotation.y = t * 0.5;
-        ring2.rotation.y = -t * 1.1;
-        ring2.rotation.z = t * 0.7;
-      };
-    } else if (type === "option") {
-      // 3. Optical Spectrometer / Refractive Dispersion Prism
-      const prismGeo = new THREE.ConeGeometry(1.0, 1.4, 3);
-      const prismMat = new THREE.MeshStandardMaterial({
-        color: 0x0f172a,
-        emissive: 0x0284c7,
-        emissiveIntensity: 0.35,
-        metalness: 0.9,
-        roughness: 0.1,
-      });
-      const prism = new THREE.Mesh(prismGeo, prismMat);
-      prism.rotation.x = 0.3;
-      group.add(prism);
-
-      // Celestial spectral ring around prism
-      const haloGeo = new THREE.TorusGeometry(1.2, 0.025, 16, 64);
-      const halo = new THREE.Mesh(haloGeo, celestialCyanMat);
-      halo.rotation.x = Math.PI / 2;
-      group.add(halo);
-
-      animCallback = (t) => {
-        prism.rotation.y = t * 0.7;
-        halo.rotation.z = -t * 0.9;
-        halo.position.y = Math.sin(t * 2) * 0.1;
-      };
-    } else {
-      // 4. Relativistic Spacetime Möbius / Quantum Orbital Loop
-      const knotGeo = new THREE.TorusKnotGeometry(0.8, 0.16, 80, 16, 2, 3);
-      const knot = new THREE.Mesh(knotGeo, titaniumMat);
-      group.add(knot);
-
-      animCallback = (t) => {
-        knot.rotation.x = t * 0.6;
-        knot.rotation.y = t * 0.8;
-      };
-    }
-
-    let animId: number;
-    const clock = new THREE.Clock();
-
-    const animate = () => {
-      animId = requestAnimationFrame(animate);
-      const elapsed = clock.getElapsedTime();
-      if (animCallback) animCallback(elapsed);
-      renderer.render(scene, camera);
-    };
-
-    animate();
-
-    return () => {
-      cancelAnimationFrame(animId);
-      renderer.dispose();
-      if (container.contains(renderer.domElement)) {
-        container.removeChild(renderer.domElement);
-      }
-    };
-  }, [type]);
-
+  // 4. Relativistic Spacetime Möbius / Multi-Round Orbital Knot (Round Support)
   return (
-    <div
-      ref={mountRef}
-      className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center flex-shrink-0"
-      aria-hidden="true"
-    />
+    <div className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center select-none" aria-hidden="true">
+      <svg viewBox="0 0 48 48" className="w-full h-full overflow-visible" fill="none">
+        <defs>
+          <linearGradient id="mobiusGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#fde68a" />
+            <stop offset="35%" stopColor="#38bdf8" />
+            <stop offset="70%" stopColor="#6366f1" />
+            <stop offset="100%" stopColor="#f59e0b" />
+          </linearGradient>
+        </defs>
+
+        {/* Outer Orbital Orbit Loop */}
+        <circle
+          cx="24"
+          cy="24"
+          r="17"
+          stroke="#38bdf8"
+          strokeWidth="1"
+          strokeOpacity="0.25"
+          strokeDasharray="4 4"
+        />
+
+        {/* Interlocking Infinity Loop (Continuous Round Upgrades) */}
+        <path
+          d="M 16 24 C 16 19, 21 19, 24 24 C 27 29, 32 29, 32 24 C 32 19, 27 19, 24 24 C 21 29, 16 29, 16 24 Z"
+          stroke="url(#mobiusGrad)"
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="animate-[pulse_3s_ease-in-out_infinite]"
+        />
+
+        {/* Active Stage Radar Sweep Dot */}
+        <circle cx="24" cy="24" r="2.5" fill="#fde68a" className="animate-ping" style={{ animationDuration: "1.8s" }} />
+        <circle cx="24" cy="24" r="2" fill="#ffffff" />
+
+        {/* Milestone Node Beads (Rounds 1, 2, 3) */}
+        <circle cx="16" cy="24" r="1.8" fill="#38bdf8" />
+        <circle cx="32" cy="24" r="1.8" fill="#f59e0b" />
+      </svg>
+    </div>
   );
 }

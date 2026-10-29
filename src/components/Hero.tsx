@@ -113,7 +113,7 @@ export default function Hero() {
 
             {/* Mobile 3D Centerpiece — visible between headline and copy on phone viewports */}
             {!isDesktop && (
-              <div className="w-full h-36 sm:h-44 my-1.5 flex items-center justify-center">
+              <div className="w-full h-36 sm:h-44 my-1.5 flex items-center justify-center relative overflow-hidden bg-transparent">
                 <Hero3DGateway exam={exam} />
               </div>
             )}
@@ -186,7 +186,7 @@ export default function Hero() {
 
           {/* Desktop Right Column: Celestial Astrolabe 3D Centerpiece */}
           {isDesktop && (
-            <div className="hidden lg:flex lg:col-span-5 justify-center items-center h-[300px] lg:h-[340px] xl:h-[380px]">
+            <div className="hidden lg:flex lg:col-span-5 justify-center items-center h-[300px] lg:h-[340px] xl:h-[380px] relative overflow-hidden bg-transparent">
               <Hero3DGateway exam={exam} />
             </div>
           )}

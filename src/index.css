@@ -29,6 +29,11 @@
     letter-spacing: -0.012em;
   }
 
+  /* Prevent browser default white background on canvas elements or during context loss */
+  canvas {
+    background-color: transparent !important;
+  }
+
   :focus-visible {
     outline: 2px solid rgba(148, 163, 184, 0.6);
     outline-offset: 2px;

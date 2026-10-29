@@ -2,10 +2,33 @@ import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { useExam } from "../../context/ExamContext";
 
+function checkWebGLSupport(): boolean {
+  if (typeof window === "undefined" || !window.WebGLRenderingContext) {
+    return false;
+  }
+  try {
+    const canvas = document.createElement("canvas");
+    const gl =
+      canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    if (!gl) return false;
+
+    const loseContextExt = (gl as WebGLRenderingContext).getExtension(
+      "WEBGL_lose_context"
+    );
+    if (loseContextExt) {
+      loseContextExt.loseContext();
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export default function OptionEntry3DVisualizer() {
   const mountRef = useRef<HTMLDivElement>(null);
   const { exam } = useExam();
   const [strategyMode, setStrategyMode] = useState<"random" | "optimized">("optimized");
+  const [webglFailed, setWebglFailed] = useState<boolean>(() => !checkWebGLSupport());
 
   const targetPositions = useRef<number[]>([2.2, 0.7, -0.7, -2.2]);
   const currentPositions = useRef<number[]>([2.2, 0.7, -0.7, -2.2]);
@@ -23,25 +46,60 @@ export default function OptionEntry3DVisualizer() {
 
   useEffect(() => {
     const container = mountRef.current;
-    if (!container) return;
+    if (!container || !checkWebGLSupport()) return;
 
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
     let width = container.clientWidth || 400;
     let height = container.clientHeight || 300;
+
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: !isMobile,
+        powerPreference: "default",
+        failIfMajorPerformanceCaveat: false,
+      });
+
+      if (!renderer.getContext()) {
+        throw new Error("Unable to acquire WebGL context");
+      }
+    } catch (err) {
+      console.warn("OptionEntry3DVisualizer: WebGL unavailable, switching to fallback", err);
+      setWebglFailed(true);
+      return;
+    }
+
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(isMobile ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.5));
+    const dom = renderer.domElement;
+    dom.style.display = "block";
+    dom.style.width = "100%";
+    dom.style.height = "100%";
+    dom.style.background = "transparent";
+    dom.style.touchAction = "pan-y";
+
+    let animId: number | null = null;
+    const onContextLost = (e: Event) => {
+      e.preventDefault();
+      console.warn("OptionEntry3DVisualizer: WebGL context lost");
+      if (animId !== null) {
+        cancelAnimationFrame(animId);
+        animId = null;
+      }
+      setWebglFailed(true);
+    };
+    dom.addEventListener("webglcontextlost", onContextLost, false);
+
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
+    container.appendChild(dom);
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
     camera.position.set(7, 5.5, 11);
     camera.lookAt(0, 0, 0);
-
-    const renderer = new THREE.WebGLRenderer({
-      alpha: true,
-      antialias: true,
-      powerPreference: "high-performance",
-    });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-    renderer.domElement.style.touchAction = "pan-y";
-    container.appendChild(renderer.domElement);
 
     // Celestial Space Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 1.1);
@@ -119,14 +177,14 @@ export default function OptionEntry3DVisualizer() {
     // Celestial Coordinate Floor Grid
     const gridHelper = new THREE.GridHelper(10, 10, 0x0284c7, 0x0f172a);
     gridHelper.position.y = -3.2;
-    sceneGroup.add(gridHelper);
+    scene.add(gridHelper);
 
     // Resize Observer
     const ro = new ResizeObserver((entries) => {
       for (const entry of entries) {
         width = entry.contentRect.width;
         height = entry.contentRect.height;
-        if (width && height) {
+        if (width > 0 && height > 0) {
           camera.aspect = width / height;
           camera.updateProjectionMatrix();
           renderer.setSize(width, height);
@@ -135,17 +193,35 @@ export default function OptionEntry3DVisualizer() {
     });
     ro.observe(container);
 
+    // Pause loop when off screen
+    let isVisible = true;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          isVisible = entry.isIntersecting;
+        }
+      },
+      { threshold: 0.05 }
+    );
+    io.observe(container);
+
+    const onVisibilityChange = () => {
+      isVisible = document.visibilityState === "visible";
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
     // Animation Loop
-    let animId: number;
     const clock = new THREE.Clock();
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
+      if (!isVisible) return;
+
       const elapsed = clock.getElapsedTime();
       const isRandom = strategyModeRef.current === "random";
 
-      // Scene rotation
-      sceneGroup.rotation.y = Math.sin(elapsed * 0.25) * 0.18;
+      // Subtle celestial orbital rotation
+      sceneGroup.rotation.y = elapsed * 0.18;
 
       // Update trajectory beam
       if (beamMatRef.current) {
@@ -183,15 +259,18 @@ export default function OptionEntry3DVisualizer() {
     animate();
 
     return () => {
-      cancelAnimationFrame(animId);
+      if (animId !== null) cancelAnimationFrame(animId);
       ro.disconnect();
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      dom.removeEventListener("webglcontextlost", onContextLost);
       renderer.dispose();
       geo.dispose();
       beamGeo.dispose();
       beamMat.dispose();
       blockMaterials.forEach((m) => m.dispose());
-      if (container.contains(renderer.domElement)) {
-        container.removeChild(renderer.domElement);
+      if (container.contains(dom)) {
+        container.removeChild(dom);
       }
     };
   }, []);
@@ -203,22 +282,18 @@ export default function OptionEntry3DVisualizer() {
 
     // Restore laser-calibrated colors
     if (blockMaterialsRef.current.length === 4) {
-      // Slot 1: Dream Reach (Stellar Cyan)
       blockMaterialsRef.current[0].color.setHex(0x38bdf8);
       blockMaterialsRef.current[0].emissive.setHex(0x0284c7);
       blockMaterialsRef.current[0].emissiveIntensity = 0.45;
 
-      // Slot 2: Realistic Target (Pulsar Indigo)
       blockMaterialsRef.current[1].color.setHex(0x818cf8);
       blockMaterialsRef.current[1].emissive.setHex(0x4f46e5);
       blockMaterialsRef.current[1].emissiveIntensity = 0.35;
 
-      // Slot 3: Safe Mid-Band (Aerospace Titanium)
       blockMaterialsRef.current[2].color.setHex(0x94a3b8);
       blockMaterialsRef.current[2].emissive.setHex(0x0369a1);
       blockMaterialsRef.current[2].emissiveIntensity = 0.15;
 
-      // Slot 4: Guaranteed Anchor (Deep Cosmos)
       blockMaterialsRef.current[3].color.setHex(0x1e293b);
       blockMaterialsRef.current[3].emissive.setHex(0x0f172a);
       blockMaterialsRef.current[3].emissiveIntensity = 0.1;
@@ -227,23 +302,18 @@ export default function OptionEntry3DVisualizer() {
 
   const setRandom = () => {
     setStrategyMode("random");
-    // Inverted chaos: Worst choice placed high, dream choice trapped at bottom
     targetPositions.current = [-2.1, 1.8, 0.5, -0.8];
     targetRotations.current = [0.14, -0.16, 0.09, -0.12];
 
-    // Hazard alarm materials
     if (blockMaterialsRef.current.length === 4) {
-      // Misplaced Slot 1 (Worst choice falsely on top): Warning Crimson Lock-in
       blockMaterialsRef.current[1].color.setHex(0xf43f5e);
       blockMaterialsRef.current[1].emissive.setHex(0x991b1b);
       blockMaterialsRef.current[1].emissiveIntensity = 0.75;
 
-      // Slot 0 (Dream choice trapped at bottom): Deactivated & Forfeited
       blockMaterialsRef.current[0].color.setHex(0x334155);
       blockMaterialsRef.current[0].emissive.setHex(0x000000);
       blockMaterialsRef.current[0].emissiveIntensity = 0;
 
-      // Middle slots: Mismatched hazard amber
       blockMaterialsRef.current[2].color.setHex(0xf59e0b);
       blockMaterialsRef.current[2].emissive.setHex(0xb45309);
       blockMaterialsRef.current[2].emissiveIntensity = 0.35;
@@ -261,7 +331,55 @@ export default function OptionEntry3DVisualizer() {
     <div className="w-full flex flex-col items-center">
       {/* 3D Visualizer Canvas Container with HUD telemetry overlays */}
       <div className="relative w-full h-64 sm:h-76 rounded-2xl overflow-hidden border border-sky-500/15 bg-[#050b18]/60 backdrop-blur-md shadow-inner flex items-center justify-center">
-        <div ref={mountRef} className="w-full h-full" />
+        {/* Canvas Mount */}
+        <div ref={mountRef} className={`w-full h-full ${webglFailed ? "hidden" : "block"}`} />
+
+        {/* 2D Graceful Fallback if WebGL is unavailable */}
+        {webglFailed && (
+          <div className="w-full h-full p-4 flex flex-col justify-center items-center gap-2 select-none">
+            <div className="w-full max-w-sm flex flex-col gap-2">
+              {isOptimized ? (
+                <>
+                  <div className="p-2.5 rounded-lg bg-sky-500/20 border border-sky-500/40 text-sky-200 text-xs font-semibold flex items-center justify-between shadow-sm">
+                    <span>1. Top Dream College (Reach)</span>
+                    <span className="text-[10px] font-mono text-sky-300">CALIBRATED</span>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-indigo-500/20 border border-indigo-500/40 text-indigo-200 text-xs font-semibold flex items-center justify-between shadow-sm">
+                    <span>2. Strong Realistic Choices (Target)</span>
+                    <span className="text-[10px] font-mono text-indigo-300">TARGET</span>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-slate-700/40 border border-slate-600/40 text-slate-300 text-xs font-medium flex items-center justify-between">
+                    <span>3. High Probability Colleges (Safe)</span>
+                    <span className="text-[10px] font-mono text-slate-400">SAFE</span>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800 text-slate-400 text-xs flex items-center justify-between">
+                    <span>4. Guaranteed Backup Anchors</span>
+                    <span className="text-[10px] font-mono text-emerald-400">SECURED</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="p-2.5 rounded-lg bg-rose-500/30 border border-rose-500/60 text-rose-200 text-xs font-bold flex items-center justify-between animate-pulse">
+                    <span>⚠️ Low-Tier Backup Placed at #1</span>
+                    <span className="text-[10px] font-mono text-rose-300">LOCK-IN TRAP</span>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-200 text-xs font-medium flex items-center justify-between">
+                    <span>Random Safe Choice #2</span>
+                    <span className="text-[10px] font-mono text-amber-400">SUBOPTIMAL</span>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-slate-800/60 border border-slate-700 text-slate-400 text-xs flex items-center justify-between">
+                    <span>Mismatched Backup #3</span>
+                    <span className="text-[10px] font-mono text-slate-400">RISK</span>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-slate-900/80 border border-rose-900/40 text-slate-500 text-xs flex items-center justify-between line-through opacity-60">
+                    <span>Top Dream Choice Trapped at #4</span>
+                    <span className="text-[10px] font-mono text-rose-400">FORFEITED</span>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Top Left Live Telemetry HUD Badge */}
         <div className="absolute top-3 left-3 pointer-events-none">
@@ -318,10 +436,8 @@ export default function OptionEntry3DVisualizer() {
               : "bg-slate-800/90 sm:bg-transparent border border-slate-600/60 sm:border-transparent text-slate-200 sm:text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 shadow-sm sm:shadow-none"
           }`}
         >
-          <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-          </svg>
-          <span>Dhrona Batch Trajectory (Optimised)</span>
+          <span className="w-2 h-2 rounded-full bg-emerald-300" />
+          <span>Dhrona Batch Sequence (Data-Optimised)</span>
         </button>
 
         <button
@@ -329,25 +445,22 @@ export default function OptionEntry3DVisualizer() {
           onClick={setRandom}
           className={`w-full sm:w-auto px-5 py-2.5 min-h-[44px] sm:min-h-0 rounded-xl sm:rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 active:scale-[0.98] sm:active:scale-100 ${
             !isOptimized
-              ? "bg-rose-500/20 text-rose-200 border border-rose-400/50 shadow-[0_0_20px_rgba(244,63,94,0.35)]"
+              ? "bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-[0_0_20px_rgba(244,63,94,0.4)] border border-transparent"
               : "bg-slate-800/90 sm:bg-transparent border border-slate-600/60 sm:border-transparent text-slate-200 sm:text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 shadow-sm sm:shadow-none"
           }`}
         >
-          <svg className="w-3.5 h-3.5 flex-shrink-0 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-          </svg>
-          <span>Unoptimised Order (Common Mistake)</span>
+          <span className="w-2 h-2 rounded-full bg-rose-400" />
+          <span>Common Mistake: Guesswork / Inverted Sequence</span>
         </button>
       </div>
 
-      {/* Dynamic Feedback Panel: Emphasizes Dhrona Batch vs Warning for Unoptimised */}
-      <div className="w-full mt-4 transition-all duration-300">
+      {/* Dynamic Narrative Feedback Cards */}
+      <div className="w-full mt-4">
         {!isOptimized ? (
-          /* CRITICAL WARNING / ERROR PANEL (Shown when Unoptimised is clicked) */
-          <div className="apple-card p-4 sm:p-5 border-rose-500/40 bg-rose-950/15 shadow-[0_0_30px_rgba(244,63,94,0.12)] animate-in fade-in slide-in-from-top-2 duration-300">
+          <div className="apple-card p-4 sm:p-5 border-rose-500/40 bg-rose-950/20 shadow-[0_0_30px_rgba(244,63,94,0.15)] animate-in fade-in slide-in-from-top-2 duration-300">
             <div className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded-full bg-rose-500/15 border border-rose-500/30 flex items-center justify-center flex-shrink-0 text-rose-400 mt-0.5">
-                <svg className="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <div className="w-9 h-9 rounded-full bg-rose-500/20 border border-rose-500/40 flex items-center justify-center flex-shrink-0 text-rose-400 mt-0.5">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
@@ -355,7 +468,7 @@ export default function OptionEntry3DVisualizer() {
               <div className="flex flex-col flex-1">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
                   <h4 className="text-rose-200 font-semibold text-sm sm:text-base tracking-tight flex items-center gap-2">
-                    <span>Critical Allotment Hazard Detected: Unoptimised Order</span>
+                    <span>Critical Flaw: Inverted Safety Sequencing</span>
                   </h4>
                   <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-rose-500/20 text-rose-300 border border-rose-500/30">
                     High Risk
@@ -385,7 +498,6 @@ export default function OptionEntry3DVisualizer() {
             </div>
           </div>
         ) : (
-          /* OPTIMISED DHRONA BATCH ARCHITECTURE PANEL (Shown when Optimised is active) */
           <div className="apple-card p-4 sm:p-5 border-sky-500/30 bg-sky-950/15 shadow-[0_0_30px_rgba(56,189,248,0.1)] animate-in fade-in slide-in-from-top-2 duration-300">
             <div className="flex items-start gap-3">
               <div className="w-9 h-9 rounded-full bg-sky-500/15 border border-sky-500/30 flex items-center justify-center flex-shrink-0 text-sky-400 mt-0.5">
